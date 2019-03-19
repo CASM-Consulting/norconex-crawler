@@ -106,7 +106,6 @@ public class BasicCollector extends HttpCollector {
 		// Need to produce a set of stages, potentially for a custom committer pipeline - see class HttpCommitterPipeline
 		// Deals with checksum, postprocessing etc...
 		
-		
 		// when a page is recrawled need to index postgres table with a retrievabke id to overwrite old content that has been updated.
 		// HttpDocument.reference - need to be able to index into postgres table for indiviual posts etc...
 		

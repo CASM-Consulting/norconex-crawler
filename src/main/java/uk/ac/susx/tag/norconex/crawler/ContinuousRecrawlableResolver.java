@@ -1,5 +1,6 @@
 package uk.ac.susx.tag.norconex.crawler;
 
+import com.norconex.collector.http.recrawl.PreviousCrawlData;
 import com.norconex.collector.http.recrawl.impl.GenericRecrawlableResolver;
 
 import uk.ac.susx.tag.norconex.document.ContinuousHttpDocument.ContinuousPreviousCrawlData;
@@ -29,8 +30,8 @@ public class ContinuousRecrawlableResolver extends GenericRecrawlableResolver {
 	 * @param doc
 	 * @return
 	 */
-	public  long calculateDelay(ContinuousPreviousCrawlData doc) {
-		new MinFrequency();
+	public  long calculateDelay(PreviousCrawlData doc) {
+		
 		return 0l;
 	}
 	

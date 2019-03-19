@@ -22,6 +22,7 @@ public class ContinuousHttpDocument extends HttpDocument {
 	public ContinuousHttpDocument(String reference, CachedInputStream content) {
 		super(reference, content);
 //		recrawl = true;
+		
 	}
 	
 
