@@ -13,7 +13,6 @@ public class ContinuousCollector extends AbstractCollector {
 
 	@Override
 	protected ICrawler createCrawler(ICrawlerConfig config) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

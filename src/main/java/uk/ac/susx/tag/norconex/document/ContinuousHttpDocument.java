@@ -13,30 +13,18 @@ import com.norconex.commons.lang.io.CachedInputStream;
  */
 public class ContinuousHttpDocument extends HttpDocument {
 	
-	private static final String PRIORITY = "cont_priority";
 //	private static final String CHECKSUM = "cont_checksum";
 	
 	// only keep this if we change checksum in some way
 //	private static MD5DocumentChecksummer checker = new MD5DocumentChecksummer();
 
-	private boolean recrawl;			// does this page fall within the specified recrawl scope
 	
 	public ContinuousHttpDocument(String reference, CachedInputStream content) {
 		super(reference, content);
-		recrawl = true;
+//		recrawl = true;
 	}
 	
-	/**
-	 * A priority used to rank it within the crawl queue (intentionally based on likelihood of page change etc...)
-	 * @param weight
-	 */
-	public void setPriority(double weight) {
-		super.getMetadata().setDouble(PRIORITY, weight);
-	}
-	
-	public double getPriority() {
-		return super.getMetadata().getDouble(PRIORITY);
-	}
+
 	
 //	/**
 //	 * Set and get checksum so a page can be analysed for change
@@ -49,17 +37,9 @@ public class ContinuousHttpDocument extends HttpDocument {
 //		return super.getMetadata().getString(CHECKSUM);
 //	}
 	
-	/**
-	 * Once a page recrawl is set to false it cannot be changed. 
-	 * @param recrawl
-	 */
-	public void setRecrawl(boolean recrawl) {
-		this.recrawl = (this.recrawl == false) ? false : recrawl; 
-	}
+
 	
-	public boolean getRecrawl() {
-		return this.recrawl;
-	}
+
 	
 	/**
 	 * Check if this is used specifically to persist data across crawl runs.
@@ -68,24 +48,51 @@ public class ContinuousHttpDocument extends HttpDocument {
 	 */
 	public class ContinuousPreviousCrawlData extends PreviousCrawlData {
 		
-	}
-	
-	
-	/**
-	 * Comparator used within a priority to rank documents and impose the crawl order
-	 * @author jp242
-	 */
-	public class ContinuousDocumentComparator implements Comparator<ContinuousHttpDocument> {
+		private boolean recrawl;			// does this page fall within the specified recrawl scope
+		private double  priority;
 
-		@Override
-		public int compare(ContinuousHttpDocument docOne, ContinuousHttpDocument docTwo) {
-			if(docOne.getPriority() == docTwo.getPriority()) {
-				return 0;
-			}
-			return (docOne.getPriority() < docTwo.getPriority()) ? -1 : 1;
+		/**
+		 * Once a page recrawl is set to false it cannot be changed. 
+		 * @param recrawl
+		 */
+		public void setRecrawl(boolean recrawl) {
+			this.recrawl = (this.recrawl == false) ? false : recrawl; 
+		}
+		
+		public boolean getRecrawl() {
+			return recrawl;
+		}
+		
+		/**
+		 * A priority used to rank it within the crawl queue (intentionally based on likelihood of page change etc...)
+		 * @param weight
+		 */
+		public void setPriority(double weight) {
+			priority = weight;
+		}
+		
+		public double getPriority() {
+			return priority;
 		}
 		
 	}
+	
+	
+//	/**
+//	 * Comparator used within a priority to rank documents and impose the crawl order
+//	 * @author jp242
+//	 */
+//	public class ContinuousDocumentComparator implements Comparator<ContinuousHttpDocument> {
+//
+//		@Override
+//		public int compare(ContinuousHttpDocument docOne, ContinuousHttpDocument docTwo) {
+//			if(docOne.getPriority() == docTwo.getPriority()) {
+//				return 0;
+//			}
+//			return (docOne.getPriority() < docTwo.getPriority()) ? -1 : 1;
+//		}
+//		
+//	}
 	
 	
 

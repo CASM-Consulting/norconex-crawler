@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 
 import com.norconex.collector.core.crawler.ICrawler;
 import com.norconex.collector.http.HttpCollector;
-import com.norconex.collector.http.HttpCollectorConfig;
 import com.norconex.collector.http.crawler.HttpCrawlerConfig;
 
 public class BasicCollector extends HttpCollector {

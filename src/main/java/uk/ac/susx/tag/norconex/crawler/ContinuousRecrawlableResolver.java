@@ -11,19 +11,34 @@ import uk.ac.susx.tag.norconex.document.ContinuousHttpDocument.ContinuousPreviou
  */
 public class ContinuousRecrawlableResolver extends GenericRecrawlableResolver {
 	
+	
+	// set minimum to 24hrs to begin
+	// crawl the site completely once to begin the process 
+	// 				have a check that deals with the first crawl special case
+	// only adapt delay after 3rd crawl of site
+	// implement no parents, no loops, no out of domain/url regex
+	// checksum that checks if page has changed. 
+	// 			if forum scrape then check the posts
+	//			if page check the overall content of the page
+	//					- what about boilerplate?
+	// 
+	
+	
 	/**
-	 * Tough part of implementation!! - not to be confused with crawl priority
+	 * Tough part of implementation!!
 	 * @param doc
 	 * @return
 	 */
-	public long calculateDelay(ContinuousPreviousCrawlData doc) {
+	public  long calculateDelay(ContinuousPreviousCrawlData doc) {
+		new MinFrequency();
 		return 0l;
 	}
 	
 	
+	
 	public void setUseSiteMap(boolean site) {
 		if(site) {
-			this.setSitemapSupport(SitemapSupport.LAST);
+			this.setSitemapSupport(SitemapSupport.FIRST);
 		}
 		else{
 			this.setSitemapSupport(SitemapSupport.NEVER);

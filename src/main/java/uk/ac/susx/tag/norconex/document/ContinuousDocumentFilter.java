@@ -9,6 +9,9 @@ import com.norconex.importer.doc.ImporterDocument;
  */
 public class ContinuousDocumentFilter implements IDocumentFilter {
 	
+	// Need a regex reference filter at the beginning of the pipeline
+	// This deals with 
+	
 	
 	public ContinuousDocumentFilter() {
 		
