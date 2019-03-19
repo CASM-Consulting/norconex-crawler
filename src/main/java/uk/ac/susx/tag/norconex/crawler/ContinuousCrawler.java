@@ -18,14 +18,14 @@ import uk.ac.susx.tag.norconex.document.Method52PostProcessor;
 
 public class ContinuousCrawler {
 	
-	public static HttpCrawlerConfig crawlerConfiguration(String userAgent, int crawlers, File crawlStore, 
+	public static HttpCrawlerConfig crawlerConfiguration(String userAgent, int depth, int crawlers, File crawlStore, 
 			boolean respectRobots, boolean ignoreSiteMap, String id, List<String> regxFiltPatterns,
 			boolean forum, BlockingQueue<HttpDocument> outputQueue) {
 		
-		HttpCrawlerConfig cConfig = BasicCrawler.basicConfiguration(userAgent, crawlStore, 0, -1, true, respectRobots, ignoreSiteMap);
+		HttpCrawlerConfig cConfig = BasicCrawler.basicConfiguration(userAgent, crawlStore, 0, depth, true, respectRobots, ignoreSiteMap);
 		
 		cConfig.setUserAgent(userAgent);
-		cConfig.setMaxDepth(-1);
+		cConfig.setMaxDepth(depth);
 		cConfig.setIgnoreRobotsMeta(respectRobots);
 		cConfig.setIgnoreRobotsTxt(respectRobots);
 		cConfig.setIgnoreCanonicalLinks(false);
@@ -47,6 +47,7 @@ public class ContinuousCrawler {
 			
 		// custom delay resolver (could this be used to implement order?)
 //		ReferenceDelayResolver rdr = new ReferenceDelayResolver();
+		// Add default delay for files types too - e.g. pdfs
 		ContinuousDelayResolver delayResolve = new ContinuousDelayResolver();
 		delayResolve.setDefaultDelay(86000000); // 1 day as starting default
 		cConfig.setDelayResolver(delayResolve);
@@ -65,6 +66,9 @@ public class ContinuousCrawler {
 			.map(regex -> new RegexReferenceFilter(regex))
 			.collect(Collectors.toList()).toArray(new RegexReferenceFilter[regxFiltPatterns.size()]);
 		cConfig.setReferenceFilters(referenceFilters);
+		
+		// Look into creating a custom sitemap impl for each continuous crawler
+		// set proirity there
 				
 		// need this or urlfilter to check the section of the web site.
 //		GenericURLNormalizer gun = new GenericURLNormalizer();
@@ -81,11 +85,12 @@ public class ContinuousCrawler {
 		// create custom checksummer for forum?
 //		cConfig.setDocumentChecksummer(documentChecksummer);
 
-		// set our recrawlable resolver 
+		// set our recrawlable resolver MAYBE needed instead of delay - look into 
 //		GenericRecrawlableResolver recrawlableResolver = new GenericRecrawlableResolver();
 //		cConfig.setRecrawlableResolver(recrawlableResolver);
 		
 		// set our custom crawl data store
+		//priority queue possible
 //		cConfig.setCrawlDataStoreFactory();
 //		 create custom MVStoreCrawlDataStore override method: nextQueued
 		
