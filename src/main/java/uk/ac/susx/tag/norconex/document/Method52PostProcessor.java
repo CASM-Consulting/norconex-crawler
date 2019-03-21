@@ -24,9 +24,16 @@ public class Method52PostProcessor implements IHttpDocumentProcessor {
 	@Override
 	public void processDocument(HttpClient httpClient, HttpDocument doc) {
 		queue.add(doc);
+				
 		if(forum) {
 			processForum(doc);
 		}
+		
+		// get this to set num times crawled metadata
+		// num times changed 
+		// how often it changes
+		doc.getMetadata();
+		
 	}
 	
 	private void processForum(HttpDocument doc ) {}

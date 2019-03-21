@@ -1,16 +1,50 @@
 package uk.ac.susx.tag.norconex.crawler;
 
+import java.util.List;
+
 import com.norconex.collector.http.recrawl.PreviousCrawlData;
 import com.norconex.collector.http.recrawl.impl.GenericRecrawlableResolver;
 
-import uk.ac.susx.tag.norconex.document.ContinuousHttpDocument.ContinuousPreviousCrawlData;
-
 /**
- * Used to calculate how long to delay (in milliseconds) this sites recrawl.
+ * Used to control whether this site should be recrawled based on url match
+ * Acts as a safety net in case new urls not in domain etc... slip the net.
  * Not to be confused with crawl priority
  * @author jp242
  */
 public class ContinuousRecrawlableResolver extends GenericRecrawlableResolver {
+	
+	// THIS OR DELAY RESOLVER?
+	private List<String> subUrls;
+	private double rate;
+	
+	
+	public ContinuousRecrawlableResolver(List<String> regxFiltPatterns, double rate) {
+		this.subUrls = regxFiltPatterns;
+		this.rate = rate;
+		// Set a min frequency so the crawler doesn't run away and over crawl a site
+//		this.setMinFrequencies(new MinFrequency);
+	}
+	
+
+	// implementation of continuous delay
+	public long calculateFreshnessDelay(PreviousCrawlData prevCrawl, long delay) {
+		
+		long numChanges = Long.valueOf(prevCrawl.getSitemapChangeFreq());
+		
+		long priority = 0l;
+		
+		long newDelay = 0l;
+		
+		
+		
+		return newDelay;
+	}
+	
+	public long estimateFreshness(PreviousCrawlData prevCrawl) {
+		return 0l;
+	}
+	
+	public ContinuousRecrawlableResolver() {}
 	
 	
 	// set minimum to 24hrs to begin
@@ -25,26 +59,18 @@ public class ContinuousRecrawlableResolver extends GenericRecrawlableResolver {
 	// 
 	
 	
-	/**
-	 * Tough part of implementation!!
-	 * @param doc
-	 * @return
-	 */
-	public  long calculateDelay(PreviousCrawlData doc) {
-		
-		return 0l;
+	@Override
+    public boolean isRecrawlable(PreviousCrawlData prevData) {
+        
+		if(subUrls != null) {
+        	for(String patt : subUrls) {
+        		if(prevData.getReference().matches(patt)) {
+        			return true;
+        		}
+        	}
+        }
+        
+		return super.isRecrawlable(prevData);
 	}
-	
-	
-	
-	public void setUseSiteMap(boolean site) {
-		if(site) {
-			this.setSitemapSupport(SitemapSupport.FIRST);
-		}
-		else{
-			this.setSitemapSupport(SitemapSupport.NEVER);
-		}
-	}
-	
 
 }

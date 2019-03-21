@@ -48,9 +48,6 @@ public class BasicCrawler extends HttpCrawler {
 		// set our recrawlable resolver 
 //		cConfig.setRecrawlableResolver(recrawlableResolver);
 		
-		// set our custom crawl data store
-//		cConfig.setCrawlDataStoreFactory();
-//		 create custom MVStoreCrawlDataStore override method: nextQueued
 		
 		GenericDelayResolver delayResolve = new GenericDelayResolver();
 		delayResolve.setDefaultDelay(delay);

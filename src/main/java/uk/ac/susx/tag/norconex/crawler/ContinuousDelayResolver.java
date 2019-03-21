@@ -12,8 +12,11 @@ import com.norconex.collector.http.recrawl.PreviousCrawlData;
  */
 public class ContinuousDelayResolver extends AbstractDelayResolver {
 	
-	private static final long defaultDelay = 86000000;
 	private Map<String,DelayReferencePattern> shedules; 
+	
+	public ContinuousDelayResolver() {
+		this.setScope(AbstractDelayResolver.SCOPE_SITE);
+	}
 
 	@Override
 	protected long resolveExplicitDelay(String url) {
@@ -27,8 +30,4 @@ public class ContinuousDelayResolver extends AbstractDelayResolver {
 		shedules.put(url, new DelayReferencePattern(url,delay));
 	}
 
-	
-	public long calculateSchedule(PreviousCrawlData prevCrawl) {
-		return 0l;
-	}
 }
