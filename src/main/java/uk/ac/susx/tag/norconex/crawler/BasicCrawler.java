@@ -24,7 +24,7 @@ public class BasicCrawler extends HttpCrawler {
 		super(crawlerConfig);
 	}
 	
-	public static HttpCrawlerConfig basicConfiguration(String userAgent, File crawlStore, long delay, int depth, boolean strict, boolean respectRobots, boolean ignoreSiteMap) {
+	public static HttpCrawlerConfig basicConfiguration(String userAgent, File crawlStore, long delay, int depth, int crawlers, boolean strict, boolean respectRobots, boolean ignoreSiteMap) {
 		// int crawlers, 
 		
 		HttpCrawlerConfig cConfig = new HttpCrawlerConfig();
@@ -35,7 +35,7 @@ public class BasicCrawler extends HttpCrawler {
 		cConfig.setIgnoreCanonicalLinks(false);
 		cConfig.setCrawlDataStoreFactory(new JDBCCrawlDataStoreFactory());
 		cConfig.setIgnoreSitemap(ignoreSiteMap);			
-		cConfig.setNumThreads(1);					// Control the number of threads by the number of crawlers
+		cConfig.setNumThreads(crawlers);					// Control the number of threads by the number of crawlers
 		cConfig.setWorkDir(crawlStore);
 		cConfig.setKeepDownloads(false);
 		cConfig.setKeepOutOfScopeLinks(strict);

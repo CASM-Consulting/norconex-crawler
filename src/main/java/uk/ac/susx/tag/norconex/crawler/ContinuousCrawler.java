@@ -7,6 +7,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.stream.Collectors;
 
 import com.norconex.collector.core.crawler.ICrawlerConfig.OrphansStrategy;
+import com.norconex.collector.core.data.store.impl.mvstore.MVStoreCrawlDataStore;
 import com.norconex.collector.core.filter.impl.RegexReferenceFilter;
 import com.norconex.collector.http.crawler.HttpCrawlerConfig;
 import com.norconex.collector.http.crawler.URLCrawlScopeStrategy;
@@ -37,7 +38,7 @@ public class ContinuousCrawler {
 			boolean forum, BlockingQueue<HttpDocument> outputQueue, String seed,
 			double rate, double recrawlFrequency) {
 		
-		HttpCrawlerConfig cConfig = BasicCrawler.basicConfiguration(userAgent, crawlStore, 0, depth, true, respectRobots, ignoreSiteMap);
+		HttpCrawlerConfig cConfig = BasicCrawler.basicConfiguration(userAgent, crawlStore, 0, depth, crawlers,true, respectRobots, ignoreSiteMap);
 		
 		cConfig.setUserAgent(userAgent);
 		cConfig.setMaxDepth(depth); // -1 for inf
@@ -70,6 +71,13 @@ public class ContinuousCrawler {
 		if(!ignoreSiteMap) {
 			cConfig.setStartSitemapURLs(seed);
 		}
+		
+		
+		// override mv store to enable queuer order.
+		// store queue order as initial metadata
+//		MVStoreCrawlDataStore store = new MVStoreCrawlDataStore("",false);
+//		store.
+//		cConfig.setCrawlDataStoreFactory(store);
 		
 		// set this to correctly manage different document types. 
 //		cConfig.setImporterConfig(importerConfig);
@@ -109,6 +117,11 @@ public class ContinuousCrawler {
 		// Implement a shutdown listener that runs the crawler continually until shutdown sent by M52
 		// Implement crawler listener - restart crawler every time it ends
 		// Implement burn-in period
+		// Add support for header metadata 
+		
+		
+		// Index on forum-post-id so that there are no duplicates
+		// i.e. when creating a forum, webpage splitter create an id based on url and position on page
 		
 		
 		// Need a custom committer for continuous crawler! 
