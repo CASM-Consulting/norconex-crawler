@@ -54,7 +54,6 @@ public class ContinuousCrawler {
 		// only store a crawl cache M52 deals with content
 		cConfig.setKeepDownloads(false);
 		cConfig.setId(id);
-		cConfig.setIgnoreSitemap(ignoreSiteMap);
 		
 		cConfig.setOrphansStrategy(OrphansStrategy.PROCESS);
 		

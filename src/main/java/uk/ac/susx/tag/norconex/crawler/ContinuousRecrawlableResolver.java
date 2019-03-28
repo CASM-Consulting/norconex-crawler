@@ -15,7 +15,7 @@ public class ContinuousRecrawlableResolver extends GenericRecrawlableResolver {
 	
 	// THIS OR DELAY RESOLVER?
 	private List<String> subUrls;
-	private double rate;
+	private double rate;          // parameter to control the 
 	
 	
 	public ContinuousRecrawlableResolver(List<String> regxFiltPatterns, double rate) {
