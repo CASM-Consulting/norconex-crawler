@@ -2,6 +2,9 @@ package uk.ac.susx.tag.norconex.crawler;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.norconex.collector.http.recrawl.PreviousCrawlData;
 import com.norconex.collector.http.recrawl.impl.GenericRecrawlableResolver;
 
@@ -13,7 +16,8 @@ import com.norconex.collector.http.recrawl.impl.GenericRecrawlableResolver;
  */
 public class ContinuousRecrawlableResolver extends GenericRecrawlableResolver {
 	
-	// THIS OR DELAY RESOLVER?
+	protected static final Logger logger = LoggerFactory.getLogger(ContinuousRecrawlableResolver.class);
+
 	private List<String> subUrls;
 	private double rate;          // parameter to control the 
 	
@@ -69,7 +73,7 @@ public class ContinuousRecrawlableResolver extends GenericRecrawlableResolver {
         		}
         	}
         }
-        
+	        
 		return super.isRecrawlable(prevData);
 	}
 

@@ -1,30 +1,22 @@
 package uk.ac.susx.tag.norconex.crawler;
 
 import java.io.File;
-import java.util.concurrent.BlockingQueue;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.norconex.collector.http.crawler.HttpCrawler;
 import com.norconex.collector.http.crawler.HttpCrawlerConfig;
 import com.norconex.collector.http.crawler.URLCrawlScopeStrategy;
 import com.norconex.collector.http.data.store.impl.jdbc.JDBCCrawlDataStoreFactory;
 import com.norconex.collector.http.delay.impl.GenericDelayResolver;
-import com.norconex.collector.http.pipeline.committer.HttpCommitterPipeline;
-import com.norconex.committer.core.ICommitter;
 
-public class BasicCrawler extends HttpCrawler {
+public class BasicCrawlerConfig extends HttpCrawlerConfig {
 	
-	protected static final Logger logger = LoggerFactory.getLogger(BasicCrawler.class);
+	protected static final Logger logger = LoggerFactory.getLogger(BasicCrawlerConfig.class);
 	
 //	private List<String> domains;		// domain restrictions (null or empty means there are none).
 	
-	public BasicCrawler(BlockingQueue<?> queue, HttpCrawlerConfig crawlerConfig) {
-		super(crawlerConfig);
-	}
-	
-	public static HttpCrawlerConfig basicConfiguration(String userAgent, File crawlStore, long delay, int depth, int crawlers, boolean strict, boolean respectRobots, boolean ignoreSiteMap) {
+	public BasicCrawlerConfig(String userAgent, File crawlStore, long delay, int depth, int crawlers, boolean strict, boolean respectRobots, boolean ignoreSiteMap) {
 		// int crawlers, 
 		
 		HttpCrawlerConfig cConfig = new HttpCrawlerConfig();
@@ -63,8 +55,6 @@ public class BasicCrawler extends HttpCrawler {
 		
 		// Need a custom committer for continuous crawler! 
 //		cConfig.setCommitter((ICommitter) new HttpCommitterPipeline());
-		
-		return cConfig;
 				
 	}
 

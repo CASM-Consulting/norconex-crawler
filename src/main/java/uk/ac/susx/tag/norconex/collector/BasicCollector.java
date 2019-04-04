@@ -12,6 +12,12 @@ import com.norconex.collector.core.crawler.ICrawler;
 import com.norconex.collector.http.HttpCollector;
 import com.norconex.collector.http.crawler.HttpCrawlerConfig;
 
+/**
+ * A simple crawler that spiders from a seed set of URLs and collects the content of discovered webpages.
+ * This crawler runs until the specified depth or stopping condition and ends. 
+ * @author jp242
+ *
+ */
 public class BasicCollector extends HttpCollector {
 	
 	protected static final Logger logger = LoggerFactory.getLogger(BasicCollector.class);

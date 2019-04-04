@@ -2,15 +2,21 @@ package uk.ac.susx.tag.norconex.crawler;
 
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.norconex.collector.http.delay.impl.AbstractDelayResolver;
 import com.norconex.collector.http.delay.impl.ReferenceDelayResolver.DelayReferencePattern;
-import com.norconex.collector.http.recrawl.PreviousCrawlData;
 
 /**
  * Creates a delay specific to a url that specifies how often that page should be crawled for new info.
+ * 
+ * DELAY FOR POLLIONG THE SITE - SIMPLE POLITENESS DELAY
  * @author jp242
  */
 public class ContinuousDelayResolver extends AbstractDelayResolver {
+	
+	protected static final Logger logger = LoggerFactory.getLogger(ContinuousDelayResolver.class);
 	
 	private Map<String,DelayReferencePattern> shedules; 
 	
