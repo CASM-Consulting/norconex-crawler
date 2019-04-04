@@ -42,6 +42,8 @@ public class ContinuousController {
 		debugMode = false;
 	}
 	
+	
+	
 	public void crawl() {
 		logger.info("INFO: Starting continuous crawl");
 	}

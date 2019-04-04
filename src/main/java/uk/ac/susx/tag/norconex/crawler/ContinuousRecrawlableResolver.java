@@ -1,11 +1,8 @@
 package uk.ac.susx.tag.norconex.crawler;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.norconex.collector.http.recrawl.IRecrawlableResolver;
 import com.norconex.collector.http.recrawl.PreviousCrawlData;
 import com.norconex.collector.http.recrawl.impl.GenericRecrawlableResolver;
 
@@ -19,14 +16,22 @@ public class ContinuousRecrawlableResolver extends GenericRecrawlableResolver {
 	
 	protected static final Logger logger = LoggerFactory.getLogger(ContinuousRecrawlableResolver.class);
 
-	private List<String> subUrls;
 	private double rate;          // parameter to control the 
+	boolean siteMap;
 	
 	public ContinuousRecrawlableResolver() {}
 	
-	public ContinuousRecrawlableResolver(List<String> regxFiltPatterns, double rate) {
-		this.subUrls = regxFiltPatterns;
+	public ContinuousRecrawlableResolver(double rate, boolean siteMap) {
 		this.rate = rate;
+		
+		if(siteMap) {
+			this.setSitemapSupport(SitemapSupport.LAST);
+		}
+		else {
+			this.setSitemapSupport(SitemapSupport.NEVER);
+		}
+		this.siteMap = siteMap;
+
 		// Set a min frequency so the crawler doesn't run away and over crawl a site
 //		this.setMinFrequencies(new MinFrequency);
 	}
@@ -43,6 +48,7 @@ public class ContinuousRecrawlableResolver extends GenericRecrawlableResolver {
 		
 		
 		return newDelay;
+		
 	}
 	
 	public long estimateFreshness(PreviousCrawlData prevCrawl) {
@@ -67,15 +73,13 @@ public class ContinuousRecrawlableResolver extends GenericRecrawlableResolver {
 	
 	@Override
     public boolean isRecrawlable(PreviousCrawlData prevData) {
-        
-		if(subUrls != null) {
-        	for(String patt : subUrls) {
-        		if(prevData.getReference().matches(patt)) {
-        			return true;
-        		}
-        	}
-        }
-	        
+		
+		if(siteMap) {
+			super.isRecrawlable(prevData);
+		}
+		
+		
+
 		return super.isRecrawlable(prevData);
 	}
 

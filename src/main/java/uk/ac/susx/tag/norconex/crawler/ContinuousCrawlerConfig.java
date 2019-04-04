@@ -51,8 +51,8 @@ public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 		setIgnoreRobotsMeta(respectRobots);
 		setIgnoreRobotsTxt(respectRobots);
 		setIgnoreCanonicalLinks(false);
-		setCrawlDataStoreFactory(new JDBCCrawlDataStoreFactory());
 		setIgnoreSitemap(ignoreSiteMap);
+		
 		
 		// Control the number of crawlers by the number of threads
 		setNumThreads(crawlers);
@@ -119,13 +119,13 @@ public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 		setReferenceFilters(referenceFilters);
 		
 		// set our recrawlable resolver MAYBE needed instead of delay - look into 
-		ContinuousRecrawlableResolver recrawlableResolver = new ContinuousRecrawlableResolver(regxFiltPatterns,rate);
+		ContinuousRecrawlableResolver recrawlableResolver = new ContinuousRecrawlableResolver(rate,ignoreSiteMap);
 		setRecrawlableResolver(recrawlableResolver);
 		
 		// forum to be done outside of m52
 		// TODO: Potential issues on sites with heavy amounts of dynamic boilerplate?
 		setDocumentChecksummer(new MD5DocumentChecksummer());
-		
+		HttpCrawler
 		
 		// Implement a shutdown listener that runs the crawler continually until shutdown sent by M52
 		// Implement crawler listener - restart crawler every time it ends

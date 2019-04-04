@@ -27,7 +27,6 @@ public class Method52PostProcessor implements IHttpDocumentProcessor {
 		
 		// Add to queue for M52 to collect
 		queue.add(doc);
-		
 		// set the crawl count statistic for that page for calculating delay 
 		int crawlCount = doc.getMetadata().getInt(ContinuousController.CRAWL_COUNT,0);
 		doc.getMetadata().setInt(ContinuousController.CRAWL_COUNT, crawlCount++);
