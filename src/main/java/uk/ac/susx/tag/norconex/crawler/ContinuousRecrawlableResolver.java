@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.norconex.collector.http.recrawl.IRecrawlableResolver;
 import com.norconex.collector.http.recrawl.PreviousCrawlData;
 import com.norconex.collector.http.recrawl.impl.GenericRecrawlableResolver;
 
@@ -21,6 +22,7 @@ public class ContinuousRecrawlableResolver extends GenericRecrawlableResolver {
 	private List<String> subUrls;
 	private double rate;          // parameter to control the 
 	
+	public ContinuousRecrawlableResolver() {}
 	
 	public ContinuousRecrawlableResolver(List<String> regxFiltPatterns, double rate) {
 		this.subUrls = regxFiltPatterns;
@@ -40,7 +42,6 @@ public class ContinuousRecrawlableResolver extends GenericRecrawlableResolver {
 		long newDelay = 0l;
 		
 		
-		
 		return newDelay;
 	}
 	
@@ -48,7 +49,8 @@ public class ContinuousRecrawlableResolver extends GenericRecrawlableResolver {
 		return 0l;
 	}
 	
-	public ContinuousRecrawlableResolver() {}
+
+
 	
 	
 	// set minimum to 24hrs to begin

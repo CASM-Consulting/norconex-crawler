@@ -35,5 +35,7 @@ public class ContinuousDelayResolver extends AbstractDelayResolver {
 	public void addSchedule(String url, long delay) {
 		shedules.put(url, new DelayReferencePattern(url,delay));
 	}
+	
+	
 
 }

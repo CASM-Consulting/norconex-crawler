@@ -21,7 +21,7 @@ public class ContinuousController {
 	
 	protected static final Logger logger = LoggerFactory.getLogger(ContinuousController.class);
 	
-	public static final int BURNIN_CRAWLS = 30; 					// Number of crawls to perform before calculating custom page delays
+	public static final int BURNIN_CRAWLS = 10; 					// Number of crawls to perform before calculating custom page delays
 	public static final long DEFAULT_RECRAWL_CONSTANT = 43200000;  	// The default delay (12hrs) between re-crawling a specific web page.
 	public static final int DEFAULT_THREADS = 5;					// Default number of threads to use if none given
 	

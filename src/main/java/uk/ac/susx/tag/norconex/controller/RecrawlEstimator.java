@@ -23,6 +23,8 @@ public class RecrawlEstimator {
 	public static final double minC1	 = 12;			// Min cost for calculating interval (12 hours)
 	public static final double maxC2     = 336;			// Max cost for calculating interval (2 weeks)
 	
+	public static final double cost = 1.0;
+	
 	private double c1 = minC1;			// Lower bound cost of page refresh frequency
 	private double c2 = maxC2;			// Upper bound cost of page refresh frequency
 	
@@ -52,8 +54,8 @@ public class RecrawlEstimator {
 	 * @param delta page specific delta based on estimated likelihood of change
 	 * @return
 	 */
-	public double calculateInterval(double delta) {
-		return (c1/delta) * rate;
+	public double estimateInterval(double r, double delta) {
+		return (1 + r) * 1/((1.0 - cost) / (cost*delta));
 	}
 	
 	/**
