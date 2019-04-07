@@ -4,9 +4,9 @@ package uk.ac.susx.tag.norconex.crawler;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.concurrent.BlockingQueue;
 import java.util.stream.Collectors;
 
+// logging imports
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,14 +15,9 @@ import com.norconex.collector.core.checksum.impl.MD5DocumentChecksummer;
 import com.norconex.collector.core.filter.impl.RegexReferenceFilter;
 import com.norconex.collector.http.crawler.HttpCrawlerConfig;
 import com.norconex.collector.http.crawler.URLCrawlScopeStrategy;
-import com.norconex.collector.http.data.store.impl.jdbc.JDBCCrawlDataStoreFactory;
 import com.norconex.collector.http.delay.impl.GenericDelayResolver;
-import com.norconex.collector.http.doc.HttpDocument;
 import com.norconex.collector.http.url.impl.GenericLinkExtractor;
 import com.norconex.importer.ImporterConfig;
-
-import uk.ac.susx.tag.norconex.document.Method52PostProcessor;
-
 
 /**
  * Implemented to simulate a scoped, continuous crawl
@@ -42,7 +37,7 @@ public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 	
 	public ContinuousCrawlerConfig(String userAgent, int depth, int crawlers, File crawlStore, 
 			boolean respectRobots, boolean ignoreSiteMap, String id, List<String> regxFiltPatterns,
-			BlockingQueue<HttpDocument> outputQueue, String seed,
+			String seed,
 			double rate) {
 		
 		// Basic crawler config
@@ -51,8 +46,7 @@ public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 		setIgnoreRobotsMeta(respectRobots);
 		setIgnoreRobotsTxt(respectRobots);
 		setIgnoreCanonicalLinks(false);
-		setIgnoreSitemap(ignoreSiteMap);
-		
+		setIgnoreSitemap(ignoreSiteMap);	
 		
 		// Control the number of crawlers by the number of threads
 		setNumThreads(crawlers);
@@ -105,10 +99,7 @@ public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 		GenericLinkExtractor gle = new GenericLinkExtractor();
 		gle.setIgnoreNofollow(respectRobots);
 		gle.setCharset(StandardCharsets.UTF_8.toString());
-		setLinkExtractors(gle);
-		
-		// custom fetcher or postimporter to send to M52 queue
-		setPostImportProcessors(new Method52PostProcessor(outputQueue));		
+		setLinkExtractors(gle);	
 		
 		// create the url filters - e.g. regex filters
 		// url regex match 
@@ -118,14 +109,13 @@ public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 			.collect(Collectors.toList()).toArray(new RegexReferenceFilter[regxFiltPatterns.size()]);
 		setReferenceFilters(referenceFilters);
 		
-		// set our recrawlable resolver MAYBE needed instead of delay - look into 
-		ContinuousRecrawlableResolver recrawlableResolver = new ContinuousRecrawlableResolver(rate,ignoreSiteMap);
-		setRecrawlableResolver(recrawlableResolver);
+
+//		ImporterConfig importer = new ImporterConfig();
+//		this.setImporterConfig(importer);
 		
 		// forum to be done outside of m52
 		// TODO: Potential issues on sites with heavy amounts of dynamic boilerplate?
 		setDocumentChecksummer(new MD5DocumentChecksummer());
-		HttpCrawler
 		
 		// Implement a shutdown listener that runs the crawler continually until shutdown sent by M52
 		// Implement crawler listener - restart crawler every time it ends
@@ -156,17 +146,6 @@ public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 		// implement a burn-in period
 		// i.e. until re-crawls > 10, re-crawl every 5 hours (e.g. burn-in over 1 week)
 		
-	}
-	
-	// TODO: Notes - after thoughts
-	
-	// override mv store to enable queuer order.
-	// store queue order as initial metadata
-	//	MVStoreCrawlDataStore store = new MVStoreCrawlDataStore("",false);
-	//	store.
-	//	cConfig.setCrawlDataStoreFactory(store);
-	
-	// generate a sitemap.xml?
-	// read urls from list each time and check last crawled, priority, delay etc... 	
+	}	
 
 }

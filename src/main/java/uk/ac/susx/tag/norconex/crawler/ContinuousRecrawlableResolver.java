@@ -1,10 +1,15 @@
 package uk.ac.susx.tag.norconex.crawler;
 
+// logging imports
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+// norconcex imports
 import com.norconex.collector.http.recrawl.PreviousCrawlData;
 import com.norconex.collector.http.recrawl.impl.GenericRecrawlableResolver;
+
+import uk.ac.susx.tag.norconex.controller.ContinuousController;
+import uk.ac.susx.tag.norconex.crawler.ContinuousStatsStore.ContinuousMetaData;
 
 /**
  * Used to control whether this site should be recrawled based on url match
@@ -16,13 +21,13 @@ public class ContinuousRecrawlableResolver extends GenericRecrawlableResolver {
 	
 	protected static final Logger logger = LoggerFactory.getLogger(ContinuousRecrawlableResolver.class);
 
-	private double rate;          // parameter to control the 
+//	private double rate;          // parameter to control the 
 	boolean siteMap;
-	
-	public ContinuousRecrawlableResolver() {}
-	
-	public ContinuousRecrawlableResolver(double rate, boolean siteMap) {
-		this.rate = rate;
+	private ContinuousStatsStore store;
+		
+	public ContinuousRecrawlableResolver(boolean siteMap, ContinuousStatsStore conStats) {
+		
+		store = conStats;
 		
 		if(siteMap) {
 			this.setSitemapSupport(SitemapSupport.LAST);
@@ -32,28 +37,60 @@ public class ContinuousRecrawlableResolver extends GenericRecrawlableResolver {
 		}
 		this.siteMap = siteMap;
 
-		// Set a min frequency so the crawler doesn't run away and over crawl a site
-//		this.setMinFrequencies(new MinFrequency);
+	}
+	
+	/**
+	 * Checks to see if the specified date has passed for the url to be recrawled
+	 */
+	@Override
+    public boolean isRecrawlable(PreviousCrawlData prevData) {
+		
+		// get the crawl stats for the url
+		ContinuousMetaData crawlStats = store.getURLMetadata(prevData.getReference());
+		
+		// If it's not been crawled before then crawl and add a new set of stats to the store
+		if(prevData.getCrawlDate() == null || crawlStats == null) {
+			crawlStats = store.addMetadata(prevData.getReference());
+			return true;
+		}
+		
+		crawlStats.incrementCheckedCount();
+		
+		// if sitemap enabled then backoff to generic implementation
+		if(siteMap) {
+			return super.isRecrawlable(prevData);
+		}
+		
+		// If enough stats have not yet been collected to estimate the delay then recrawl 
+		if(crawlStats.getcheckedCount() < ContinuousController.BURNIN_CRAWLS) {
+			return true;
+		}
+		
+		if(System.currentTimeMillis() >= crawlStats.getNextCrawl()) {
+			crawlStats.estimateInterval(false);
+			return true;
+		}
+		
+		return false;
 	}
 	
 
-	// implementation of continuous delay
-	public long calculateFreshnessDelay(PreviousCrawlData prevCrawl, long delay) {
-		
-		long numChanges = Long.valueOf(prevCrawl.getSitemapChangeFreq());
-		
-		long priority = 0l;
-		
-		long newDelay = 0l;
-		
-		
-		return newDelay;
-		
-	}
+//	// implementation of continuous delay
+//	public long calculateFreshnessDelay(PreviousCrawlData prevCrawl, long delay) {
+//		
+//		long numChanges = Long.valueOf(prevCrawl.getSitemapChangeFreq());
+//		
+//		long priority = 0l;
+//		
+//		long newDelay = 0l;
+//		
+//		return newDelay;
+//		
+//	}
 	
-	public long estimateFreshness(PreviousCrawlData prevCrawl) {
-		return 0l;
-	}
+//	public long estimateFreshness(PreviousCrawlData prevCrawl) {
+//		return 0l;
+//	}
 	
 
 
@@ -70,17 +107,5 @@ public class ContinuousRecrawlableResolver extends GenericRecrawlableResolver {
 	//					- what about boilerplate?
 	// 
 	
-	
-	@Override
-    public boolean isRecrawlable(PreviousCrawlData prevData) {
-		
-		if(siteMap) {
-			super.isRecrawlable(prevData);
-		}
-		
-		
-
-		return super.isRecrawlable(prevData);
-	}
 
 }

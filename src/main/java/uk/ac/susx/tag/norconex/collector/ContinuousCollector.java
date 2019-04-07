@@ -33,10 +33,10 @@ public class ContinuousCollector extends HttpCollector {
 	
 	
 	
-	public ICollectorConfig createCollectorConfig() {
+	public ICollectorConfig createCollectorConfig(String id) {
 		HttpCollectorConfig config = new HttpCollectorConfig();
 		config.setCollectorListeners(listener);
-		config.setId("0");
+		config.setId(id);
 		return config;
 	}
 	
