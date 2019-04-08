@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 // norconex imports
 import com.norconex.collector.core.ICollector;
 import com.norconex.collector.core.ICollectorLifeCycleListener;
+import com.norconex.collector.http.HttpCollectorConfig;
 import com.norconex.collector.http.doc.HttpDocument;
 
 import uk.ac.susx.tag.norconex.collector.ContinuousCollector;
@@ -21,6 +22,7 @@ import uk.ac.susx.tag.norconex.crawler.ContinuousCrawlerConfig;
 import uk.ac.susx.tag.norconex.crawler.ContinuousRecrawlableResolver;
 import uk.ac.susx.tag.norconex.crawler.ContinuousStatsStore;
 import uk.ac.susx.tag.norconex.document.ContinuousPostProcessor;
+import uk.ac.susx.tag.norconex.document.Method52PostProcessor;
 
 /**
  * The controlling class for the entire continuous crawl process
@@ -40,36 +42,51 @@ public class ContinuousController {
 	private ContinuousCollectorFactory factory; 	// Factory that produces consistently configured crawlers for continuous running
 	private ContinuousListener listener;		 	// Listens for the end of each crawl and restarts unless stop instruction given
 	private ContinuousCollector collector; 		 	// Current collector which controls the crawling behaviour at run-time.
+	private ContinuousCollectorListener collectorListener;
 	private ContinuousStatsStore cacheStore;		// The store that contains the needed meta-data for each urls recrawl strategy
 	private ContinuousCrawlerConfig config;			// the config that controls the crawl
 	
 	private BlockingQueue<HttpDocument> outputQueue;
-	private String currentId; 						// Used to store the id of the current collector;
+	private String currentCollectorId; 						// Used to store the id of the current collector;
+	private String currentCrawlerId;
 	private boolean ignoreSiteMap;
 	private final String storeLocation;
+
+	private boolean finished;						// Has the crawler been requested to shutdown the crawl permanently
 
 	
 	public enum Delay {DEFAULT,MINIMUM, MAXIMUM} 
 	
 	public ContinuousController(String userAgent, File crawlStore, int depth, 
 			List<String> urlRegex, int numCrawlers, boolean respectRobots, 
-			boolean ignoreSiteMap, String seed, double rate) {
+			boolean ignoreSiteMap, String seed, BlockingQueue<HttpDocument> queue) {
 		
 		listener = new ContinuousListener(this);
 		this.storeLocation = new File(crawlStore,"conCache").getAbsolutePath();
 		cacheStore = new ContinuousStatsStore(storeLocation);
 		this.ignoreSiteMap = ignoreSiteMap;
+		listener = new ContinuousListener(this);
+		outputQueue = queue;
+		finished = false;
 		
-		currentId = UUID.randomUUID().toString();
+		currentCollectorId = UUID.randomUUID().toString();
+		currentCrawlerId = UUID.randomUUID().toString();
+
 		config = new ContinuousCrawlerConfig(userAgent,depth,numCrawlers,crawlStore,respectRobots,
-				ignoreSiteMap,currentId,urlRegex,seed,rate);
+				ignoreSiteMap,currentCrawlerId,urlRegex,seed);
 		
 		// set our recrawlable resolver MAYBE needed instead of delay - look into 
 		ContinuousRecrawlableResolver recrawlableResolver = new ContinuousRecrawlableResolver(ignoreSiteMap,cacheStore);
 		config.setRecrawlableResolver(recrawlableResolver);
 		
 		// custom fetcher or postimporter to send to M52 queue
-		config.setPostImportProcessors(new ContinuousPostProcessor(outputQueue,cacheStore));	
+		config.setPostImportProcessors(new ContinuousPostProcessor(cacheStore), new Method52PostProcessor(outputQueue));
+		collectorListener = new ContinuousCollectorListener(this);
+		
+		// setup the collector config
+		HttpCollectorConfig collectorConfig = ContinuousCollector.createCollectorConfig(currentCollectorId, collectorListener);
+		collectorConfig.setCrawlerConfigs(config);
+		collector = new ContinuousCollector(collectorConfig);
 		
 	}
 	
@@ -94,6 +111,7 @@ public class ContinuousController {
 	 */
 	public void start() {
 		logger.info("INFO: Starting continuous crawl");
+		collector.start(false);
 	}
 	
 	/**
@@ -102,6 +120,7 @@ public class ContinuousController {
 	 */
 	public void shutdown() {
 		logger.info("Shutting down continuous crawl");
+		finished = true;
 		collector.shutdown();
 		cacheStore.close();
 	}
@@ -110,19 +129,21 @@ public class ContinuousController {
 	 * Resets the collector and starts the crawl again.
 	 */
 	private void resetCollector() {
+		logger.info("Restarting crawler");
 		collector.stop();
-		collector = null;
-		collector = factory.createCollector();
 		cacheStore.close();
 		cacheStore = null; 
+		collector = null;
 		cacheStore = new ContinuousStatsStore(storeLocation);
+		collector = factory.createCollector();
+
 	}
 
 	/**
 	 * Listener used to instruct the controller to restart the controller.
 	 * @author jp242
 	 */
-	public class ContinuousListener {
+	private class ContinuousListener {
 		
 		ContinuousController controller;
 		
@@ -149,12 +170,17 @@ public class ContinuousController {
 		
 		public ContinuousCollector createCollector() {
 			
-			final String collectorId = UUID.randomUUID().toString();
-			final String crawlerId = UUID.randomUUID().toString();
+			currentCollectorId = UUID.randomUUID().toString();
+			currentCrawlerId = UUID.randomUUID().toString();
 			
-			
-			
-			return null;
+			config.setRecrawlableResolver(new ContinuousRecrawlableResolver(ignoreSiteMap,cacheStore));
+			config.setPostImportProcessors(new ContinuousPostProcessor(cacheStore), new Method52PostProcessor(outputQueue));
+			config.setId(currentCrawlerId);
+			HttpCollectorConfig collectorConfig = ContinuousCollector.createCollectorConfig(currentCollectorId, collectorListener);
+			collectorConfig.setCrawlerConfigs(config);
+			collector = new ContinuousCollector(collectorConfig);
+
+			return collector;
 		}
 	}
 	
@@ -177,18 +203,11 @@ public class ContinuousController {
 
 		@Override
 		public void onCollectorFinish(ICollector collector) {
-			collector.stop();
-			controller.getListener().restartCollector();		
+			if(!finished) {
+				controller.getListener().restartCollector();		
+			}
 		}
 		
 	}
-	
-//	/**
-//	 * Setting whether to verbosely log the delay queue for functionality assessment
-//	 * @param debug
-//	 */
-//	public void setDebugMode(boolean debug) {
-//		debugMode = debug;
-//	}
 
 }

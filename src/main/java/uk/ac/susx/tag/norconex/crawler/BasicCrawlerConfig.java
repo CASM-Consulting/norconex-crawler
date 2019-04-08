@@ -1,6 +1,7 @@
 package uk.ac.susx.tag.norconex.crawler;
 
 import java.io.File;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +17,10 @@ public class BasicCrawlerConfig extends HttpCrawlerConfig {
 	
 //	private List<String> domains;		// domain restrictions (null or empty means there are none).
 	
-	public BasicCrawlerConfig(String userAgent, File crawlStore, long delay, int depth, int crawlers, boolean strict, boolean respectRobots, boolean ignoreSiteMap) {
+	public BasicCrawlerConfig(String userAgent, File crawlStore, long delay, 
+			int depth, int crawlers, boolean strict, boolean respectRobots, 
+			boolean ignoreSiteMap, List<String> regxFiltPatterns) {
+		
 		// int crawlers, 
 		
 		HttpCrawlerConfig cConfig = new HttpCrawlerConfig();

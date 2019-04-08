@@ -21,7 +21,6 @@ public class ContinuousStatsStore {
 
 	private MVStore cacheStore;
 	private MVMap<String,ContinuousMetaData> continuousCache;
-	private static final double offset = 0.5;
 	
 	public static final String CONMAP = "continuousCache";
 	
@@ -118,7 +117,6 @@ public class ContinuousStatsStore {
 		public void estimateInterval(boolean changed) {
 			
 			if(changed) {
-				changedCount++;
 				sumofTimesChanged -= (System.currentTimeMillis() - lastChecked); //Needed as this is done in post when this value would have already been accessed
 				sumofTimesChanged += (System.currentTimeMillis() - lastChanged);
 			}
@@ -144,12 +142,5 @@ public class ContinuousStatsStore {
 		}
 
 	}
-	
-	public static void main(String[] args) {
-		long totalChecked = 20;
-		long timesChanged = 2;
-		System.out.println(-Math.log((totalChecked-timesChanged)+offset/(totalChecked)+offset));
-	}
-	
 	
 }

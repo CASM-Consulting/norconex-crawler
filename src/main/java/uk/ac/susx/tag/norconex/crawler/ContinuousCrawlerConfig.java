@@ -37,8 +37,7 @@ public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 	
 	public ContinuousCrawlerConfig(String userAgent, int depth, int crawlers, File crawlStore, 
 			boolean respectRobots, boolean ignoreSiteMap, String id, List<String> regxFiltPatterns,
-			String seed,
-			double rate) {
+			String seed) {
 		
 		// Basic crawler config
 		setUserAgent(userAgent);
@@ -90,12 +89,6 @@ public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 		gdr.setScope(GenericDelayResolver.SCOPE_CRAWLER);
 		setDelayResolver(gdr);
 		
-		// Using generic as this is only used for politeness
-		// RecrawlablResolver deals with specific web page recrawl delay
-//		ContinuousDelayResolver delayResolve = new ContinuousDelayResolver();
-//		delayResolve.setDefaultDelay(ContinuousController.DEFAULT_DELAY); // 12hrs as starting default
-//		setDelayResolver(delayResolve);
-		
 		GenericLinkExtractor gle = new GenericLinkExtractor();
 		gle.setIgnoreNofollow(respectRobots);
 		gle.setCharset(StandardCharsets.UTF_8.toString());
@@ -109,42 +102,13 @@ public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 			.collect(Collectors.toList()).toArray(new RegexReferenceFilter[regxFiltPatterns.size()]);
 		setReferenceFilters(referenceFilters);
 		
-
-//		ImporterConfig importer = new ImporterConfig();
-//		this.setImporterConfig(importer);
-		
 		// forum to be done outside of m52
 		// TODO: Potential issues on sites with heavy amounts of dynamic boilerplate?
-		setDocumentChecksummer(new MD5DocumentChecksummer());
-		
-		// Implement a shutdown listener that runs the crawler continually until shutdown sent by M52
-		// Implement crawler listener - restart crawler every time it ends
-		// Implement burn-in period
-		// Add support for header metadata
-		
-		
-		// Index on forum-post-id so that there are no duplicates
-		// i.e. when creating a forum, webpage splitter create an id based on url and position on page
+//		setDocumentChecksummer(new MD5DocumentChecksummer());
 		
 		
 		// Need a custom committer for continuous crawler! 
 //		cConfig.setCommitter((ICommitter) new HttpCommitterPipeline());
-	
-		
-		// custom filter actually needed?
-		// save url of files and crawl outside of m52
-//		setDocumentFilters(documentfilters);
-
-
-		
-		// set our custom crawl data store
-		// using default is fine.
-		//priority queue possible
-//		cConfig.setCrawlDataStoreFactory();
-//		 create custom MVStoreCrawlDataStore override method: nextQueued
-		
-		// implement a burn-in period
-		// i.e. until re-crawls > 10, re-crawl every 5 hours (e.g. burn-in over 1 week)
 		
 	}	
 
