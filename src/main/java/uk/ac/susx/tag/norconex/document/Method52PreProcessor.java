@@ -9,14 +9,12 @@ import org.slf4j.LoggerFactory;
 import com.norconex.collector.http.doc.HttpDocument;
 import com.norconex.collector.http.processor.IHttpDocumentProcessor;
 
-public class Method52PostProcessor implements IHttpDocumentProcessor  {
-	
-protected static final Logger logger = LoggerFactory.getLogger(ContinuousPostProcessor.class);
-	
+public class Method52PreProcessor implements IHttpDocumentProcessor  {
+
 	// queue for M52 to take from
 	private final BlockingQueue<HttpDocument> queue;
 	
-	public Method52PostProcessor(BlockingQueue<HttpDocument> queue) {
+	public Method52PreProcessor(BlockingQueue<HttpDocument> queue) {
 		this.queue = queue;
 	}
 

@@ -9,7 +9,7 @@ import com.norconex.collector.http.recrawl.PreviousCrawlData;
 import com.norconex.collector.http.recrawl.impl.GenericRecrawlableResolver;
 
 import uk.ac.susx.tag.norconex.controller.ContinuousController;
-import uk.ac.susx.tag.norconex.crawler.ContinuousStatsStore.ContinuousMetaData;
+import uk.ac.susx.tag.norconex.crawler.ContinuousEstimatorStore.ContinuousMetadata;
 
 /**
  * Used to control whether this site should be recrawled based on url match
@@ -21,11 +21,11 @@ public class ContinuousRecrawlableResolver extends GenericRecrawlableResolver {
 	
 	protected static final Logger logger = LoggerFactory.getLogger(ContinuousRecrawlableResolver.class);
 
-//	private double rate;          // parameter to control the 
+//	private double rate;          // parameter to control the interval calculation
 	boolean siteMap;
-	private ContinuousStatsStore store;
+	private ContinuousEstimatorStore store;
 		
-	public ContinuousRecrawlableResolver(boolean siteMap, ContinuousStatsStore conStats) {
+	public ContinuousRecrawlableResolver(boolean siteMap, ContinuousEstimatorStore conStats) {
 		
 		store = conStats;
 		
@@ -46,31 +46,30 @@ public class ContinuousRecrawlableResolver extends GenericRecrawlableResolver {
     public boolean isRecrawlable(PreviousCrawlData prevData) {
 		
 		// get the crawl stats for the url
-		ContinuousMetaData crawlStats = store.getURLMetadata(prevData.getReference());
+		ContinuousMetadata crawlStats = store.getURLMetadata(prevData.getReference());
 		
 		// If it's not been crawled before then crawl and add a new set of stats to the store
 		if(prevData.getCrawlDate() == null || crawlStats == null) {
 			crawlStats = store.addMetadata(prevData.getReference());
 			return true;
 		}
-		
-		crawlStats.incrementCheckedCount();
-		
+
 		// if sitemap enabled then backoff to generic implementation
 		if(siteMap) {
 			return super.isRecrawlable(prevData);
 		}
 		
-		// If enough stats have not yet been collected to estimate the delay then recrawl 
-		if(crawlStats.getcheckedCount() < ContinuousController.BURNIN_CRAWLS) {
+		// If enough stats have not yet been collected to estimate the delay then recrawl
+		if(crawlStats.getCheckedCount() < ContinuousController.BURNIN_CRAWLS) {
 			return true;
 		}
-		
+
 		if(System.currentTimeMillis() >= crawlStats.getNextCrawl()) {
-			crawlStats.estimateInterval(false);
+			crawlStats.incrementCheckedCount();
+			crawlStats.setNextCrawl(store.estimateCrawlInterval(store.estimateChangeFrequency(crawlStats.getCheckedCount(),crawlStats.getChangeCount())));
 			return true;
 		}
-		
+
 		return false;
 	}
 	

@@ -32,9 +32,7 @@ import com.norconex.importer.ImporterConfig;
  *
  */
 public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
-	
-	protected static final Logger logger = LoggerFactory.getLogger(ContinuousCrawlerConfig.class);
-	
+
 	public ContinuousCrawlerConfig(String userAgent, int depth, int crawlers, File crawlStore, 
 			boolean respectRobots, boolean ignoreSiteMap, String id, List<String> regxFiltPatterns,
 			String seed) {
@@ -45,8 +43,7 @@ public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 		setIgnoreRobotsMeta(respectRobots);
 		setIgnoreRobotsTxt(respectRobots);
 		setIgnoreCanonicalLinks(false);
-		setIgnoreSitemap(ignoreSiteMap);	
-		
+		setIgnoreSitemap(ignoreSiteMap);
 		// Control the number of crawlers by the number of threads
 		setNumThreads(crawlers);
 		
@@ -69,12 +66,13 @@ public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 				
 		// set to false so crawl cache is only those of interest
 		setKeepOutOfScopeLinks(false);
-		
+
+		setStartURLs(seed);
 		// use this if you want to adhere to sitemap.
 		if(!ignoreSiteMap) {
 			setStartSitemapURLs(seed);
 		}
-		
+
 		// set this to correctly manage file sizes etc... 
 		ImporterConfig importCon = new ImporterConfig();
 		importCon.setMaxFileCacheSize(100);
@@ -101,15 +99,7 @@ public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 			.map(regex -> new RegexReferenceFilter(regex))
 			.collect(Collectors.toList()).toArray(new RegexReferenceFilter[regxFiltPatterns.size()]);
 		setReferenceFilters(referenceFilters);
-		
-		// forum to be done outside of m52
-		// TODO: Potential issues on sites with heavy amounts of dynamic boilerplate?
-//		setDocumentChecksummer(new MD5DocumentChecksummer());
-		
-		
-		// Need a custom committer for continuous crawler! 
-//		cConfig.setCommitter((ICommitter) new HttpCommitterPipeline());
-		
+
 	}	
 
 }

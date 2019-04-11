@@ -3,13 +3,14 @@ package uk.ac.susx.tag.norconex.collector;
 // java imports
 import java.io.File;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.stream.Collectors;
 
 // validator imports
-import org.apache.commons.validator.UrlValidator;
 
 // logging imports
 import org.slf4j.Logger;
@@ -27,7 +28,7 @@ import com.norconex.collector.http.doc.HttpDocument;
 import com.norconex.collector.http.url.impl.GenericLinkExtractor;
 import com.norconex.importer.ImporterConfig;
 
-import uk.ac.susx.tag.norconex.document.Method52PostProcessor;
+import uk.ac.susx.tag.norconex.document.Method52PreProcessor;
 
 /**
  * A simple crawler that spiders from a seed set of URLs and collects the content of discovered webpages.
@@ -38,57 +39,49 @@ import uk.ac.susx.tag.norconex.document.Method52PostProcessor;
 public class BasicCollector extends HttpCollector {
 	
 	protected static final Logger logger = LoggerFactory.getLogger(BasicCollector.class);
-	
-	private HttpCollectorConfig config;	
-	
+
 	public BasicCollector(HttpCollectorConfig config) {
-		
-		this.config = config;
-		
+		super(config);
 	}
 	
-	/**
-	 * Start a new crawl
-	 * @param queue
-	 * @param crawlerConfig
-	 * @param resume
-	 * @param seeds
-	 * @return
-	 */
-	public boolean start(BlockingQueue<HttpDocument> queue, HttpCrawlerConfig crawlerConfig, boolean resume, String[] seeds) {
-		
-		//, int crawlers, boolean strict, boolean respectRobots,int depth , 
-		
-		/*
-		 * For each crawl, you need to add some seed urls. These are the first
-		 * URLs that are fetched and then the crawler starts following links
-		 * which are found in these pages
-		 */
-		final UrlValidator validator = new UrlValidator();
-		String[] validSeeds = (String[]) Arrays.stream(seeds)
-        	.filter(seed -> seed != null)
-        	.filter(seed -> validator.isValid(seed))
-        	.collect(Collectors.toList()).toArray();
-		
-		if(validSeeds.length <= 0) {
-			return false;
-		}
-        
-		
-		crawlerConfig.setStartURLs(validSeeds);
-		
-		crawlerConfig.setPostImportProcessors(new Method52PostProcessor(queue));
-		config.setCrawlerConfigs(crawlerConfig);
-
-		start(resume);
-
-		return true;
-	}
+//	/**
+//	 * Start a new crawl
+//	 * @param queue
+//	 * @param crawlerConfig
+//	 * @param resume
+//	 * @param seeds
+//	 * @return
+//	 */
+//	public void start(boolean resume, String... seeds) {
+//		logger.info("INFO: Starting crawler");
+//		//, int crawlers, boolean strict, boolean respectRobots,int depth ,
+//
+//		/*
+//		 * For each crawl, you need to add some seed urls. These are the first
+//		 * URLs that are fetched and then the crawler starts following links
+//		 * which are found in these pages
+//		 */
+//		final UrlValidator validator = new UrlValidator();
+//		List<String> validSeeds = Arrays.stream(seeds)
+//        	.filter(seed -> seed != null)
+//        	.filter(seed -> validator.isValid(seed))
+//        	.collect(Collectors.toList());
+//
+//		if(validSeeds.size() <= 0) {
+//			return;
+//		}
+//
+//		start(resume);
+//
+//		logger.info("INFO: Crawler complete");
+//	}
 	
 	public static HttpCrawlerConfig crawlerConfig(String userAgent, int depth, int crawlers, File crawlStore, 
-			boolean respectRobots, boolean ignoreSiteMap, String id, List<String> regxFiltPatterns) {
+			boolean respectRobots, boolean ignoreSiteMap, String id, List<String> regxFiltPatterns,
+			BlockingQueue<HttpDocument> queue, String... seeds) {
 		
 			HttpCrawlerConfig config = new HttpCrawlerConfig();
+
 			// Basic crawler config
 			config.setUserAgent(userAgent);
 			config.setMaxDepth(depth); // -1 for inf
@@ -146,11 +139,30 @@ public class BasicCollector extends HttpCollector {
 				.map(regex -> new RegexReferenceFilter(regex))
 				.collect(Collectors.toList()).toArray(new RegexReferenceFilter[regxFiltPatterns.size()]);
 			config.setReferenceFilters(referenceFilters);
+
+			config.setPreImportProcessors(new Method52PreProcessor(queue));
 			
 			return config;
 					
 		}
+
+	public static void main(String[] args) {
+		BlockingQueue<HttpDocument> queue = new ArrayBlockingQueue<HttpDocument>(10000);
+		String seed = "https://www.gamespot.com/forums/system-wars-314159282/as-the-entire-population-gains-basic-gaming-skills-33456501/";
+		HttpCollectorConfig hcc = new HttpCollectorConfig();
+		hcc.setId(UUID.randomUUID().toString());
+		HttpCrawlerConfig config = BasicCollector.crawlerConfig("m52",1,5,
+				new File("/Users/jp242/Documents/Projects/Crawler-Upgrade/testdb"),false,
+				true,UUID.randomUUID().toString(),new ArrayList<>(), new ArrayBlockingQueue<HttpDocument>(10000),seed);
+		hcc.setProgressDir("/Users/jp242/Documents/Projects/Crawler-Upgrade/testdb/progress");
+		hcc.setLogsDir("/Users/jp242/Documents/Projects/Crawler-Upgrade/testdb/logs");
+		hcc.setCrawlerConfigs(config);
+
+		BasicCollector bc = new BasicCollector(hcc);
+		boolean resume = false;
+		bc.start(resume);
 	}
+}
 	
 	// Need to create a custom HttpImporterPipeline to explain the picking strategy and where to send content (i.e. M52)
 	// checkout HttpDocument (to retrieve html content), HttpMetadata (to add scores) classes 

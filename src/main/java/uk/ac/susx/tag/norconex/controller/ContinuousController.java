@@ -20,9 +20,9 @@ import com.norconex.collector.http.doc.HttpDocument;
 import uk.ac.susx.tag.norconex.collector.ContinuousCollector;
 import uk.ac.susx.tag.norconex.crawler.ContinuousCrawlerConfig;
 import uk.ac.susx.tag.norconex.crawler.ContinuousRecrawlableResolver;
-import uk.ac.susx.tag.norconex.crawler.ContinuousStatsStore;
+import uk.ac.susx.tag.norconex.crawler.ContinuousEstimatorStore;
 import uk.ac.susx.tag.norconex.document.ContinuousPostProcessor;
-import uk.ac.susx.tag.norconex.document.Method52PostProcessor;
+import uk.ac.susx.tag.norconex.document.Method52PreProcessor;
 
 /**
  * The controlling class for the entire continuous crawl process
@@ -38,12 +38,15 @@ public class ContinuousController {
 	public static final long DEFAULT_MIN_RECRAWL_DELAY  = 6;  		// The default recrawl delays in hours.
 	public static final long DEFAULT_MAX_RECRAWL_DELAY  = 730;
 	public static final long DEFAULT_DELAY 				= 12;
-	 
+
+	private static final String PROGRESS = "progress";
+	private final File crawlStore;
+
 	private ContinuousCollectorFactory factory; 	// Factory that produces consistently configured crawlers for continuous running
 	private ContinuousListener listener;		 	// Listens for the end of each crawl and restarts unless stop instruction given
 	private ContinuousCollector collector; 		 	// Current collector which controls the crawling behaviour at run-time.
 	private ContinuousCollectorListener collectorListener;
-	private ContinuousStatsStore cacheStore;		// The store that contains the needed meta-data for each urls recrawl strategy
+	private ContinuousEstimatorStore cacheStore;		// The store that contains the needed meta-data for each urls recrawl strategy
 	private ContinuousCrawlerConfig config;			// the config that controls the crawl
 	
 	private BlockingQueue<HttpDocument> outputQueue;
@@ -54,20 +57,24 @@ public class ContinuousController {
 
 	private boolean finished;						// Has the crawler been requested to shutdown the crawl permanently
 
-	
-	public enum Delay {DEFAULT,MINIMUM, MAXIMUM} 
+
+	// Used to create upper and lower bounds on crawl delays to prevent the statistics running out of control
+	// (e.g. if for a instance a page never seems to change we still want to check it once in a while or changes so frequently the crawler polls the server too often)
+	public enum Delay { DEFAULT, MINIMUM, MAXIMUM }
 	
 	public ContinuousController(String userAgent, File crawlStore, int depth, 
 			List<String> urlRegex, int numCrawlers, boolean respectRobots, 
 			boolean ignoreSiteMap, String seed, BlockingQueue<HttpDocument> queue) {
 		
 		listener = new ContinuousListener(this);
-		this.storeLocation = new File(crawlStore,"conCache").getAbsolutePath();
-		cacheStore = new ContinuousStatsStore(storeLocation);
+		storeLocation = new File(crawlStore,"conCache").getAbsolutePath();
+		cacheStore = new ContinuousEstimatorStore(storeLocation);
 		this.ignoreSiteMap = ignoreSiteMap;
+		this.crawlStore = crawlStore;
 		listener = new ContinuousListener(this);
 		outputQueue = queue;
 		finished = false;
+		factory = new ContinuousCollectorFactory();
 		
 		currentCollectorId = UUID.randomUUID().toString();
 		currentCrawlerId = UUID.randomUUID().toString();
@@ -75,17 +82,19 @@ public class ContinuousController {
 		config = new ContinuousCrawlerConfig(userAgent,depth,numCrawlers,crawlStore,respectRobots,
 				ignoreSiteMap,currentCrawlerId,urlRegex,seed);
 		
-		// set our recrawlable resolver MAYBE needed instead of delay - look into 
+		// set our recrawlable resolver to check whether it is time to recrawl page
 		ContinuousRecrawlableResolver recrawlableResolver = new ContinuousRecrawlableResolver(ignoreSiteMap,cacheStore);
 		config.setRecrawlableResolver(recrawlableResolver);
 		
 		// custom fetcher or postimporter to send to M52 queue
-		config.setPostImportProcessors(new ContinuousPostProcessor(cacheStore), new Method52PostProcessor(outputQueue));
+		config.setPreImportProcessors(new Method52PreProcessor(outputQueue));
+		config.setPostImportProcessors(new ContinuousPostProcessor(cacheStore));
 		collectorListener = new ContinuousCollectorListener(this);
 		
 		// setup the collector config
 		HttpCollectorConfig collectorConfig = ContinuousCollector.createCollectorConfig(currentCollectorId, collectorListener);
 		collectorConfig.setCrawlerConfigs(config);
+		collectorConfig.setProgressDir(new File(crawlStore,PROGRESS).getAbsolutePath());
 		collector = new ContinuousCollector(collectorConfig);
 		
 	}
@@ -111,7 +120,7 @@ public class ContinuousController {
 	 */
 	public void start() {
 		logger.info("INFO: Starting continuous crawl");
-		collector.start(false);
+		collector.start(true);
 	}
 	
 	/**
@@ -130,33 +139,15 @@ public class ContinuousController {
 	 */
 	private void resetCollector() {
 		logger.info("Restarting crawler");
-		collector.stop();
-		cacheStore.close();
-		cacheStore = null; 
 		collector = null;
-		cacheStore = new ContinuousStatsStore(storeLocation);
+		cacheStore.close();		// closed so previous crawl stats are committed to the store
+		cacheStore = null;
+		cacheStore = new ContinuousEstimatorStore(storeLocation);
 		collector = factory.createCollector();
 
 	}
 
-	/**
-	 * Listener used to instruct the controller to restart the controller.
-	 * @author jp242
-	 */
-	private class ContinuousListener {
-		
-		ContinuousController controller;
-		
-		public ContinuousListener(ContinuousController controller) {
-			this.controller = controller;
-		}
-		
-		public void restartCollector() {
-			controller.resetCollector();
-			controller.start();
-		}
-		
-	}
+
 	
 	public ContinuousListener getListener() {
 		return listener;
@@ -174,21 +165,43 @@ public class ContinuousController {
 			currentCrawlerId = UUID.randomUUID().toString();
 			
 			config.setRecrawlableResolver(new ContinuousRecrawlableResolver(ignoreSiteMap,cacheStore));
-			config.setPostImportProcessors(new ContinuousPostProcessor(cacheStore), new Method52PostProcessor(outputQueue));
+			config.setPreImportProcessors(new Method52PreProcessor(outputQueue));
+			config.setPostImportProcessors(new ContinuousPostProcessor(cacheStore));
 			config.setId(currentCrawlerId);
 			HttpCollectorConfig collectorConfig = ContinuousCollector.createCollectorConfig(currentCollectorId, collectorListener);
 			collectorConfig.setCrawlerConfigs(config);
+			collectorConfig.setProgressDir(new File(crawlStore,PROGRESS).getAbsolutePath());
 			collector = new ContinuousCollector(collectorConfig);
 
 			return collector;
 		}
+	}
+
+	/**
+	 * Listener used to instruct the controller to restart the controller.
+	 * @author jp242
+	 */
+	private class ContinuousListener {
+
+		ContinuousController controller;
+
+		public ContinuousListener(ContinuousController controller) {
+			this.controller = controller;
+		}
+
+		public void restartCollector() {
+			controller.resetCollector();
+			cacheStore.getGlobalMetadata().incrementCrawls();
+			cacheStore.getGlobalMetadata().updateCrawlTime();
+			controller.start();
+		}
+
 	}
 	
 	/**
 	 * Creates an infinite loop causing the crawler to continually start crawling again when finished.
 	 * This can only be interrupted by manually requesting the crawler to stop permanently.
 	 * @author jp242
-	 *
 	 */
 	public class ContinuousCollectorListener implements ICollectorLifeCycleListener {
 		
@@ -198,10 +211,8 @@ public class ContinuousController {
 			this.controller = controller;
 		}
 
-		@Override
 		public void onCollectorStart(ICollector collector) {}
 
-		@Override
 		public void onCollectorFinish(ICollector collector) {
 			if(!finished) {
 				controller.getListener().restartCollector();		
