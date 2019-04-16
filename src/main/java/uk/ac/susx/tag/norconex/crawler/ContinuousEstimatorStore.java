@@ -1,8 +1,8 @@
 package uk.ac.susx.tag.norconex.crawler;
 
 // mv store stats
-import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
-import org.apache.commons.math3.stat.descriptive.moment.StandardDeviation;
+//import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
+//import org.apache.commons.math3.stat.descriptive.moment.StandardDeviation;
 import org.h2.mvstore.*;
 
 // logging stats

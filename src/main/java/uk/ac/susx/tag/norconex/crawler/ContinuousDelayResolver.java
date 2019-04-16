@@ -11,7 +11,7 @@ import com.norconex.collector.http.delay.impl.ReferenceDelayResolver.DelayRefere
 /**
  * Creates a delay specific to a url that specifies how often that page should be crawled for new info.
  * 
- * DELAY FOR POLLIONG THE SITE - SIMPLE POLITENESS DELAY
+ * DELAY FOR POLLING THE SITE - SIMPLE POLITENESS DELAY
  * @author jp242
  */
 public class ContinuousDelayResolver extends AbstractDelayResolver {
