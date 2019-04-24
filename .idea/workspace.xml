@@ -5,21 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ef140237-a6ad-411d-8664-0303d7ae3763" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/crawler/ContinuousEstimatorStore.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/collector/BasicCollector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/collector/BasicCollector.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/controller/ContinuousController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/controller/ContinuousController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/crawler/BasicCrawlerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/crawler/BasicCrawlerConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/crawler/ContinuousCrawlerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/crawler/ContinuousCrawlerConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/crawler/ContinuousRecrawlableResolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/crawler/ContinuousRecrawlableResolver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/crawler/ContinuousStatsStore.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/document/ContinuousPostProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/document/ContinuousPostProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/document/Method52PostProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/document/Method52PreProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/document/Method52PreProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/document/Method52PostProcessor.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -31,56 +21,50 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/collector/BasicCollector.java">
+        <entry file="jar://$MAVEN_REPOSITORY$/com/norconex/commons/norconex-commons-lang/1.15.0/norconex-commons-lang-1.15.0-sources.jar!/com/norconex/commons/lang/file/ContentType.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1088">
-              <caret line="142" column="69" selection-start-line="142" selection-start-column="69" selection-end-line="142" selection-end-column="69" />
+            <state relative-caret-position="218">
+              <caret line="197" column="18" lean-forward="true" selection-start-line="197" selection-start-column="18" selection-end-line="197" selection-end-column="18" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1579#1580#0" expanded="true" />
-                <element signature="e#1599#1600#0" expanded="true" />
-                <element signature="e#5443#5457#0" expanded="true" />
+                <element signature="e#7605#7606#0" expanded="true" />
+                <element signature="e#7662#7663#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/crawler/ContinuousRecrawlableResolver.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="660">
-              <caret line="52" column="20" selection-start-line="52" selection-start-column="20" selection-end-line="52" selection-end-column="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/crawler/ContinuousCrawlerConfig.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="45" column="40" selection-start-line="45" selection-start-column="40" selection-end-line="45" selection-end-column="40" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/crawler/ContinuousEstimatorStore.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/crawler/ContinuousCrawlerConfig.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="105" column="60" selection-start-line="105" selection-start-column="60" selection-end-line="105" selection-end-column="60" />
-              <folding>
-                <element signature="e#3103#3104#0" expanded="true" />
-                <element signature="e#3142#3143#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="250">
+              <caret line="84" column="29" selection-start-line="84" selection-start-column="29" selection-end-line="84" selection-end-column="29" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
+        <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/crawler/ContinuousEstimatorStore.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="622">
-              <caret line="48" selection-start-line="48" selection-end-line="48" />
+            <state relative-caret-position="-800">
+              <caret line="105" column="60" selection-start-line="105" selection-start-column="60" selection-end-line="105" selection-end-column="60" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/crawler/BasicCrawlerConfig.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="100">
+              <caret line="34" column="39" selection-start-line="34" selection-start-column="39" selection-end-line="34" selection-end-column="39" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/com/norconex/commons/norconex-commons-lang/1.15.0/norconex-commons-lang-1.15.0-sources.jar!/com/norconex/commons/lang/file/ContentFamily.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-949">
+              <caret line="54" column="19" selection-start-line="54" selection-start-column="19" selection-end-line="54" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -88,17 +72,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/controller/ContinuousController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="32" column="42" selection-start-line="32" selection-end-line="33" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/document/Method52PreProcessor.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="25" selection-start-line="25" selection-end-line="25" selection-end-column="8" />
+            <state relative-caret-position="2741">
+              <caret line="248" column="49" selection-start-line="248" selection-start-column="49" selection-end-line="248" selection-end-column="49" />
             </state>
           </provider>
         </entry>
@@ -108,6 +83,37 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="210">
               <caret line="21" column="38" selection-start-line="21" selection-start-column="38" selection-end-line="21" selection-end-column="38" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/document/Method52PostProcessor.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/crawler/ContinuousDelayResolver.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/com/norconex/collectors/norconex-importer/2.9.0/norconex-importer-2.9.0-sources.jar!/com/norconex/importer/doc/ImporterDocument.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="31" column="18" selection-start-line="31" selection-start-column="18" selection-end-line="31" selection-end-column="18" />
+              <folding>
+                <element signature="e#1683#1684#0" expanded="true" />
+                <element signature="e#1717#1718#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -124,12 +130,12 @@
         <option value="$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/crawler/ContinuousRecrawlableResolver.java" />
         <option value="$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/document/ContinuousPostProcessor.java" />
         <option value="$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/crawler/ContinuousStatsStore.java" />
-        <option value="$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/document/Method52PostProcessor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/collector/BasicCollector.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/crawler/ContinuousCrawlerConfig.java" />
-        <option value="$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/controller/ContinuousController.java" />
         <option value="$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/crawler/ContinuousEstimatorStore.java" />
+        <option value="$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/collector/BasicCollector.java" />
+        <option value="$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/controller/ContinuousController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/document/Method52PostProcessor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/crawler/ContinuousCrawlerConfig.java" />
       </list>
     </option>
   </component>
@@ -168,11 +174,11 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="457" />
-    <option name="y" value="91" />
-    <option name="width" value="1802" />
-    <option name="height" value="1076" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="20" />
+    <option name="y" value="26" />
+    <option name="width" value="2527" />
+    <option name="height" value="1402" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -180,8 +186,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -260,6 +264,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -279,7 +285,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.BasicCollector">
+  <component name="RunManager" selected="Application.Method52PostProcessor">
     <configuration name="BasicCollector" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="uk.ac.susx.tag.norconex.collector.BasicCollector" />
       <module name="m52-norconex-crawler" />
@@ -306,8 +312,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Method52PostProcessor" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="uk.ac.susx.tag.norconex.document.Method52PostProcessor" />
+      <module name="m52-norconex-crawler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="uk.ac.susx.tag.norconex.document.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Method52PostProcessor" />
         <item itemvalue="Application.BasicCollector" />
         <item itemvalue="Application.ContinuousEstimatorStore" />
       </list>
@@ -327,15 +347,16 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="457" y="91" width="1802" height="1076" extended-state="0" />
+    <frame x="0" y="23" width="2560" height="1417" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23125" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26250994" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.47052845" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.47018868" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -399,24 +420,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/crawler/BasicCrawlerConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="34" column="39" selection-start-line="34" selection-start-column="39" selection-end-line="34" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/commons-validator/commons-validator/1.3.1/commons-validator-1.3.1-sources.jar!/org/apache/commons/validator/UrlValidator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
           <caret line="241" column="43" selection-start-line="241" selection-start-column="43" selection-end-line="241" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="622">
-          <caret line="48" selection-start-line="48" selection-end-line="48" />
         </state>
       </provider>
     </entry>
@@ -450,16 +457,120 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/crawler/ContinuousRecrawlableResolver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="660">
+          <caret line="52" column="20" selection-start-line="52" selection-start-column="20" selection-end-line="52" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="720">
+          <caret line="48" selection-start-line="48" selection-end-line="48" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/collector/BasicCollector.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1088">
-          <caret line="142" column="69" selection-start-line="142" selection-start-column="69" selection-end-line="142" selection-end-column="69" />
+        <state relative-caret-position="463">
+          <caret line="138" column="31" selection-start-line="138" selection-start-column="31" selection-end-line="138" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1579#1580#0" expanded="true" />
-            <element signature="e#1599#1600#0" expanded="true" />
-            <element signature="e#5443#5457#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/norconex/collectors/norconex-importer/2.9.0/norconex-importer-2.9.0-sources.jar!/com/norconex/importer/ImporterConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="259">
+          <caret line="67" column="35" selection-start-line="67" selection-start-column="35" selection-end-line="67" selection-end-column="35" />
+          <folding>
+            <element signature="e#3277#3278#0" expanded="true" />
+            <element signature="e#3335#3336#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/norconex/collectors/norconex-importer/2.9.0/norconex-importer-2.9.0-sources.jar!/com/norconex/importer/parser/GenericDocumentParserFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="238" column="39" lean-forward="true" selection-start-line="238" selection-start-column="39" selection-end-line="238" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/norconex/collectors/norconex-importer/2.9.0/norconex-importer-2.9.0-sources.jar!/com/norconex/importer/parser/impl/FallbackParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="29" column="11" selection-start-line="29" selection-start-column="11" selection-end-line="29" selection-end-column="11" />
+          <folding>
+            <element signature="e#993#994#0" expanded="true" />
+            <element signature="e#1038#1039#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_202.jdk/Contents/Home/src.zip!/java/util/ResourceBundle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-38330">
+          <caret line="286" column="22" selection-start-line="286" selection-start-column="22" selection-end-line="286" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/norconex/commons/norconex-commons-lang/1.15.0/norconex-commons-lang-1.15.0-sources.jar!/com/norconex/commons/lang/file/ContentType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="218">
+          <caret line="197" column="18" lean-forward="true" selection-start-line="197" selection-start-column="18" selection-end-line="197" selection-end-column="18" />
+          <folding>
+            <element signature="e#7605#7606#0" expanded="true" />
+            <element signature="e#7662#7663#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/norconex/commons/norconex-commons-lang/1.15.0/norconex-commons-lang-1.15.0-sources.jar!/com/norconex/commons/lang/file/ContentFamily.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-949">
+          <caret line="54" column="19" selection-start-line="54" selection-start-column="19" selection-end-line="54" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/norconex/collectors/norconex-importer/2.9.0/norconex-importer-2.9.0-sources.jar!/com/norconex/importer/doc/ImporterDocument.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="31" column="18" selection-start-line="31" selection-start-column="18" selection-end-line="31" selection-end-column="18" />
+          <folding>
+            <element signature="e#1683#1684#0" expanded="true" />
+            <element signature="e#1717#1718#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/document/Method52PostProcessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/crawler/BasicCrawlerConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="34" column="39" selection-start-line="34" selection-start-column="39" selection-end-line="34" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/crawler/ContinuousDelayResolver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/crawler/ContinuousEstimatorStore.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-800">
+          <caret line="105" column="60" selection-start-line="105" selection-start-column="60" selection-end-line="105" selection-end-column="60" />
         </state>
       </provider>
     </entry>
@@ -470,42 +581,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/document/Method52PreProcessor.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/controller/ContinuousController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="25" selection-start-line="25" selection-end-line="25" selection-end-column="8" />
+        <state relative-caret-position="2741">
+          <caret line="248" column="49" selection-start-line="248" selection-start-column="49" selection-end-line="248" selection-end-column="49" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/crawler/ContinuousCrawlerConfig.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="45" column="40" selection-start-line="45" selection-start-column="40" selection-end-line="45" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/crawler/ContinuousRecrawlableResolver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="52" column="20" selection-start-line="52" selection-start-column="20" selection-end-line="52" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/controller/ContinuousController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="32" column="42" selection-start-line="32" selection-end-line="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/uk/ac/susx/tag/norconex/crawler/ContinuousEstimatorStore.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="105" column="60" selection-start-line="105" selection-start-column="60" selection-end-line="105" selection-end-column="60" />
-          <folding>
-            <element signature="e#3103#3104#0" expanded="true" />
-            <element signature="e#3142#3143#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="250">
+          <caret line="84" column="29" selection-start-line="84" selection-start-column="29" selection-end-line="84" selection-end-column="29" />
         </state>
       </provider>
     </entry>

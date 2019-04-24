@@ -2,12 +2,21 @@ package uk.ac.susx.tag.norconex.controller;
 
 // java imports
 import java.io.File;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 // logging imports
+import com.norconex.commons.lang.file.ContentType;
+import com.norconex.importer.ImporterConfig;
+import com.norconex.importer.doc.ImporterDocument;
+import com.norconex.importer.parser.DocumentParserException;
+import com.norconex.importer.parser.IDocumentParser;
+import com.norconex.importer.parser.IDocumentParserFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,7 +31,7 @@ import uk.ac.susx.tag.norconex.crawler.ContinuousCrawlerConfig;
 import uk.ac.susx.tag.norconex.crawler.ContinuousRecrawlableResolver;
 import uk.ac.susx.tag.norconex.crawler.ContinuousEstimatorStore;
 import uk.ac.susx.tag.norconex.document.ContinuousPostProcessor;
-import uk.ac.susx.tag.norconex.document.Method52PreProcessor;
+import uk.ac.susx.tag.norconex.document.Method52PostProcessor;
 
 /**
  * The controlling class for the entire continuous crawl process
@@ -87,9 +96,13 @@ public class ContinuousController {
 		config.setRecrawlableResolver(recrawlableResolver);
 		
 		// custom fetcher or postimporter to send to M52 queue
-		config.setPreImportProcessors(new Method52PreProcessor(outputQueue));
-		config.setPostImportProcessors(new ContinuousPostProcessor(cacheStore));
+		config.setPostImportProcessors(new Method52PostProcessor(outputQueue),new ContinuousPostProcessor(cacheStore));
 		collectorListener = new ContinuousCollectorListener(this);
+
+		// Sets an empty doc parser so that the document remains in its raw content
+		ImporterConfig ic = new ImporterConfig();
+		ic.setParserFactory(new EmptyDocumentParserFactory());
+		config.setImporterConfig(ic);
 		
 		// setup the collector config
 		HttpCollectorConfig collectorConfig = ContinuousCollector.createCollectorConfig(currentCollectorId, collectorListener);
@@ -165,7 +178,7 @@ public class ContinuousController {
 			currentCrawlerId = UUID.randomUUID().toString();
 			
 			config.setRecrawlableResolver(new ContinuousRecrawlableResolver(ignoreSiteMap,cacheStore));
-			config.setPreImportProcessors(new Method52PreProcessor(outputQueue));
+			config.setPreImportProcessors(new Method52PostProcessor(outputQueue));
 			config.setPostImportProcessors(new ContinuousPostProcessor(cacheStore));
 			config.setId(currentCrawlerId);
 			HttpCollectorConfig collectorConfig = ContinuousCollector.createCollectorConfig(currentCollectorId, collectorListener);
@@ -219,6 +232,24 @@ public class ContinuousController {
 			}
 		}
 		
+	}
+
+	// Used to override default Norconex behaviour that
+	public class EmptyDocumentParserFactory implements IDocumentParserFactory {
+
+		@Override
+		public IDocumentParser getParser(String documentReference, ContentType contentType) {
+			return null;
+		}
+
+		public class EmptyDocumentParser implements IDocumentParser {
+
+			@Override
+			public List<ImporterDocument> parseDocument(ImporterDocument doc, Writer output) throws DocumentParserException {
+				doc.getContentType().getContentFamily();
+				return Arrays.asList(doc);
+			}
+		}
 	}
 
 }

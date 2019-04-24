@@ -82,7 +82,7 @@ public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 							
 		// Used to set the politeness delay for consecutive post calls to the site (helps prevent being blocked)
 		GenericDelayResolver gdr = new GenericDelayResolver();
-		gdr.setDefaultDelay(300);
+		gdr.setDefaultDelay(400);
 		gdr.setIgnoreRobotsCrawlDelay(respectRobots);
 		gdr.setScope(GenericDelayResolver.SCOPE_CRAWLER);
 		setDelayResolver(gdr);

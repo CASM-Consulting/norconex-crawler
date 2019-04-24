@@ -28,7 +28,7 @@ import com.norconex.collector.http.doc.HttpDocument;
 import com.norconex.collector.http.url.impl.GenericLinkExtractor;
 import com.norconex.importer.ImporterConfig;
 
-import uk.ac.susx.tag.norconex.document.Method52PreProcessor;
+import uk.ac.susx.tag.norconex.document.Method52PostProcessor;
 
 /**
  * A simple crawler that spiders from a seed set of URLs and collects the content of discovered webpages.
@@ -140,7 +140,7 @@ public class BasicCollector extends HttpCollector {
 				.collect(Collectors.toList()).toArray(new RegexReferenceFilter[regxFiltPatterns.size()]);
 			config.setReferenceFilters(referenceFilters);
 
-			config.setPreImportProcessors(new Method52PreProcessor(queue));
+			config.setPostImportProcessors(new Method52PostProcessor(queue));
 			
 			return config;
 					
