@@ -44,38 +44,6 @@ public class BasicCollector extends HttpCollector {
 		super(config);
 	}
 	
-//	/**
-//	 * Start a new crawl
-//	 * @param queue
-//	 * @param crawlerConfig
-//	 * @param resume
-//	 * @param seeds
-//	 * @return
-//	 */
-//	public void start(boolean resume, String... seeds) {
-//		logger.info("INFO: Starting crawler");
-//		//, int crawlers, boolean strict, boolean respectRobots,int depth ,
-//
-//		/*
-//		 * For each crawl, you need to add some seed urls. These are the first
-//		 * URLs that are fetched and then the crawler starts following links
-//		 * which are found in these pages
-//		 */
-//		final UrlValidator validator = new UrlValidator();
-//		List<String> validSeeds = Arrays.stream(seeds)
-//        	.filter(seed -> seed != null)
-//        	.filter(seed -> validator.isValid(seed))
-//        	.collect(Collectors.toList());
-//
-//		if(validSeeds.size() <= 0) {
-//			return;
-//		}
-//
-//		start(resume);
-//
-//		logger.info("INFO: Crawler complete");
-//	}
-	
 	public static HttpCrawlerConfig crawlerConfig(String userAgent, int depth, int crawlers, File crawlStore, 
 			boolean respectRobots, boolean ignoreSiteMap, String id, List<String> regxFiltPatterns,
 			BlockingQueue<HttpDocument> queue, String... seeds) {

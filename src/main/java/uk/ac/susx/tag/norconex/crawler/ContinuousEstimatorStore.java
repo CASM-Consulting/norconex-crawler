@@ -1,13 +1,12 @@
 package uk.ac.susx.tag.norconex.crawler;
 
-// mv store stats
-import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
-import org.apache.commons.math3.stat.descriptive.moment.StandardDeviation;
+
 import org.h2.mvstore.*;
 
 // logging stats
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import uk.ac.susx.tag.norconex.controller.ContinuousController;
 
 import java.io.File;
