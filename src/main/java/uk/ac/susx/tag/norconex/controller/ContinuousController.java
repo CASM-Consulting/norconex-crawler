@@ -2,21 +2,15 @@ package uk.ac.susx.tag.norconex.controller;
 
 // java imports
 import java.io.File;
-import java.io.Writer;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 // logging imports
-import com.norconex.commons.lang.file.ContentType;
-import com.norconex.importer.ImporterConfig;
-import com.norconex.importer.doc.ImporterDocument;
-import com.norconex.importer.parser.DocumentParserException;
-import com.norconex.importer.parser.IDocumentParser;
-import com.norconex.importer.parser.IDocumentParserFactory;
+import com.norconex.importer.parser.GenericDocumentParserFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,11 +19,12 @@ import com.norconex.collector.core.ICollector;
 import com.norconex.collector.core.ICollectorLifeCycleListener;
 import com.norconex.collector.http.HttpCollectorConfig;
 import com.norconex.collector.http.doc.HttpDocument;
+import com.norconex.importer.ImporterConfig;
 
 import uk.ac.susx.tag.norconex.collector.ContinuousCollector;
 import uk.ac.susx.tag.norconex.crawler.ContinuousCrawlerConfig;
 import uk.ac.susx.tag.norconex.crawler.ContinuousRecrawlableResolver;
-import uk.ac.susx.tag.norconex.crawler.ContinuousEstimatorStore;
+import uk.ac.susx.tag.norconex.crawlstore.ContinuousEstimatorStore;
 import uk.ac.susx.tag.norconex.document.ContinuousPostProcessor;
 import uk.ac.susx.tag.norconex.document.Method52PostProcessor;
 
@@ -42,13 +37,13 @@ public class ContinuousController {
 	protected static final Logger logger = LoggerFactory.getLogger(ContinuousController.class);
 	
 	public static final int BURNIN_CRAWLS = 20; 					// Number of crawls to perform before calculating custom page delays
-	public static final int DEFAULT_THREADS = 5;					// Number of threads to use in the crawl
-	
+
 	public static final long DEFAULT_MIN_RECRAWL_DELAY  = 6;  		// The default recrawl delays in hours.
 	public static final long DEFAULT_MAX_RECRAWL_DELAY  = 730;
 	public static final long DEFAULT_DELAY 				= 12;
 
 	private static final String PROGRESS = "progress";
+	private static final String LOGS = "logs";
 	private final File crawlStore;
 
 	private ContinuousCollectorFactory factory; 	// Factory that produces consistently configured crawlers for continuous running
@@ -59,8 +54,8 @@ public class ContinuousController {
 	private ContinuousCrawlerConfig config;			// the config that controls the crawl
 	
 	private BlockingQueue<HttpDocument> outputQueue;
-	private String currentCollectorId; 						// Used to store the id of the current collector;
-	private String currentCrawlerId;
+	private String collectorId; 						// Used to store the id of the current collector;
+	private String crawlerId;
 	private boolean ignoreSiteMap;
 	private final String storeLocation;
 
@@ -72,7 +67,7 @@ public class ContinuousController {
 	public enum Delay { DEFAULT, MINIMUM, MAXIMUM }
 	
 	public ContinuousController(String userAgent, File crawlStore, int depth, 
-			List<String> urlRegex, int numCrawlers, boolean respectRobots, 
+			List<String> urlRegex, int numCrawlers, boolean ignoreRobots,
 			boolean ignoreSiteMap, String seed, BlockingQueue<HttpDocument> queue) {
 		
 		listener = new ContinuousListener(this);
@@ -84,16 +79,21 @@ public class ContinuousController {
 		outputQueue = queue;
 		finished = false;
 		factory = new ContinuousCollectorFactory();
-		
-		currentCollectorId = UUID.randomUUID().toString();
-		currentCrawlerId = UUID.randomUUID().toString();
 
-		config = new ContinuousCrawlerConfig(userAgent,depth,numCrawlers,crawlStore,respectRobots,
-				ignoreSiteMap,currentCrawlerId,urlRegex,seed);
-		
-		// set our recrawlable resolver to check whether it is time to recrawl page
-		ContinuousRecrawlableResolver recrawlableResolver = new ContinuousRecrawlableResolver(ignoreSiteMap,cacheStore);
-		config.setRecrawlableResolver(recrawlableResolver);
+		collectorId = "continuousCollector";
+		crawlerId = "continuousCrawler";
+
+		config = new ContinuousCrawlerConfig(userAgent,depth,numCrawlers,crawlStore,ignoreRobots,
+				ignoreSiteMap,crawlerId,urlRegex,seed);
+
+		config.setIgnoreSitemap(true);
+
+		if (ignoreSiteMap) {
+			// set our recrawlable resolver to check whether it is time to recrawl page
+			ContinuousRecrawlableResolver recrawlableResolver = new ContinuousRecrawlableResolver(cacheStore);
+			config.setRecrawlableResolver(recrawlableResolver);
+		}
+
 		
 		// custom fetcher or postimporter to send to M52 queue
 		config.setPostImportProcessors(new Method52PostProcessor(outputQueue),new ContinuousPostProcessor(cacheStore));
@@ -101,13 +101,20 @@ public class ContinuousController {
 
 		// Sets an empty doc parser so that the document remains in its raw content
 		ImporterConfig ic = new ImporterConfig();
-		ic.setParserFactory(new EmptyDocumentParserFactory());
+		ic.setMaxFileCacheSize(100);
+		ic.setMaxFilePoolCacheSize(100);
+		ic.setTempDir(crawlStore);
+//		 For now - do not do any parsing on the discovered docs (i.e. all done by M52)
+		GenericDocumentParserFactory gdpf = new GenericDocumentParserFactory();
+		gdpf.setIgnoredContentTypesRegex(".*");
+		ic.setParserFactory(gdpf);
 		config.setImporterConfig(ic);
 		
 		// setup the collector config
-		HttpCollectorConfig collectorConfig = ContinuousCollector.createCollectorConfig(currentCollectorId, collectorListener);
+		HttpCollectorConfig collectorConfig = ContinuousCollector.createCollectorConfig(collectorId, collectorListener);
 		collectorConfig.setCrawlerConfigs(config);
 		collectorConfig.setProgressDir(new File(crawlStore,PROGRESS).getAbsolutePath());
+		collectorConfig.setLogsDir(new File(crawlStore,LOGS).getAbsolutePath());
 		collector = new ContinuousCollector(collectorConfig);
 		
 	}
@@ -153,11 +160,8 @@ public class ContinuousController {
 	private void resetCollector() {
 		logger.info("Restarting crawler");
 		collector = null;
-		cacheStore.close();		// closed so previous crawl stats are committed to the store
-		cacheStore = null;
-		cacheStore = new ContinuousEstimatorStore(storeLocation);
+		cacheStore.commit();
 		collector = factory.createCollector();
-
 	}
 
 
@@ -174,14 +178,10 @@ public class ContinuousController {
 		
 		public ContinuousCollector createCollector() {
 			
-			currentCollectorId = UUID.randomUUID().toString();
-			currentCrawlerId = UUID.randomUUID().toString();
-			
-			config.setRecrawlableResolver(new ContinuousRecrawlableResolver(ignoreSiteMap,cacheStore));
-			config.setPreImportProcessors(new Method52PostProcessor(outputQueue));
-			config.setPostImportProcessors(new ContinuousPostProcessor(cacheStore));
-			config.setId(currentCrawlerId);
-			HttpCollectorConfig collectorConfig = ContinuousCollector.createCollectorConfig(currentCollectorId, collectorListener);
+			config.setRecrawlableResolver(new ContinuousRecrawlableResolver(cacheStore));
+			config.setPostImportProcessors(new ContinuousPostProcessor(cacheStore),new Method52PostProcessor(outputQueue));
+			config.setId(crawlerId);
+			HttpCollectorConfig collectorConfig = ContinuousCollector.createCollectorConfig(collectorId, collectorListener);
 			collectorConfig.setCrawlerConfigs(config);
 			collectorConfig.setProgressDir(new File(crawlStore,PROGRESS).getAbsolutePath());
 			collector = new ContinuousCollector(collectorConfig);
@@ -203,9 +203,11 @@ public class ContinuousController {
 		}
 
 		public void restartCollector() {
+			logger.info("Restarting Collector.");
 			controller.resetCollector();
 			cacheStore.getGlobalMetadata().incrementCrawls();
 			cacheStore.getGlobalMetadata().updateCrawlTime();
+			logger.info("There have been a total of " + cacheStore.getGlobalMetadata().getTotalCrawls() + "crawls");
 			controller.start();
 		}
 
@@ -231,25 +233,26 @@ public class ContinuousController {
 				controller.getListener().restartCollector();		
 			}
 		}
-		
 	}
 
-	// Used to override default Norconex behaviour that
-	public class EmptyDocumentParserFactory implements IDocumentParserFactory {
+	public static void main(String[] args) {
+		BlockingQueue<HttpDocument> queue = new ArrayBlockingQueue<HttpDocument>(10000);
+//		String seed = "https://www.gamespot.com/forums/system-wars-314159282/as-the-entire-population-gains-basic-gaming-skills-33456501/";
+		String seed = "http://www.taglaboratory.org";
+//		String seed = "https://www.neogaf.com/threads/days-gone-ot-days-gone-b-gud.1478110/";
+//		HttpCollectorConfig hcc = new HttpCollectorConfig();
+//		hcc.setId(UUID.randomUUID().toString());
+//		HttpCrawlerConfig config = BasicCollector.crawlerConfig("m52",-1,5,
+//				new File("/Users/jp242/Documents/Projects/Crawler-Upgrade/testdb"),true,
+//				true,UUID.randomUUID().toString(),new ArrayList<>(), new ArrayBlockingQueue<>(10000));
+//		config.setStartURLs(seed);
+//		hcc.setProgressDir("/Users/jp242/Documents/Projects/Crawler-Upgrade/testdb/progress");
+//		hcc.setLogsDir("/Users/jp242/Documents/Projects/Crawler-Upgrade/testdb/logs");
+//		hcc.setCrawlerConfigs(config);
 
-		@Override
-		public IDocumentParser getParser(String documentReference, ContentType contentType) {
-			return null;
-		}
+		ContinuousController cc = new ContinuousController("M52",new File("/Users/jp242/Documents/Projects/Crawler-Upgrade/testdb"),-1,new ArrayList<>(),5,
+				true,true, seed ,new ArrayBlockingQueue<>(1000));
 
-		public class EmptyDocumentParser implements IDocumentParser {
-
-			@Override
-			public List<ImporterDocument> parseDocument(ImporterDocument doc, Writer output) throws DocumentParserException {
-				doc.getContentType().getContentFamily();
-				return Arrays.asList(doc);
-			}
-		}
+		cc.start();
 	}
-
 }

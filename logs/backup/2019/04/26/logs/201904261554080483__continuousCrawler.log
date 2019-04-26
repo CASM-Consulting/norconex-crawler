@@ -1,0 +1,202 @@
+continuousCrawler: 2019-04-26 15:53:59 INFO - Starting execution.
+continuousCrawler: 2019-04-26 15:53:59 INFO - Version: "Collector" version is undefined.
+continuousCrawler: 2019-04-26 15:53:59 INFO - Version: Norconex Collector Core 1.9.1 (Norconex Inc.)
+continuousCrawler: 2019-04-26 15:53:59 INFO - Version: Norconex Importer 2.9.0 (Norconex Inc.)
+continuousCrawler: 2019-04-26 15:53:59 INFO - Version: Norconex JEF 4.1.0 (Norconex Inc.)
+continuousCrawler: 2019-04-26 15:53:59 INFO - Version: Norconex Committer Core 2.1.2 (Norconex Inc.)
+continuousCrawler: 2019-04-26 15:53:59 INFO - Running continuousCrawler: BEGIN (Fri Apr 26 15:53:59 BST 2019)
+continuousCrawler: 2019-04-26 15:53:59 INFO - continuousCrawler: RobotsTxt support: false
+continuousCrawler: 2019-04-26 15:53:59 INFO - continuousCrawler: RobotsMeta support: false
+continuousCrawler: 2019-04-26 15:53:59 INFO - continuousCrawler: Sitemap support: false
+continuousCrawler: 2019-04-26 15:53:59 INFO - continuousCrawler: Canonical links support: false
+continuousCrawler: 2019-04-26 15:53:59 INFO - continuousCrawler: User-Agent: M52
+continuousCrawler: 2019-04-26 15:53:59 INFO - continuousCrawler: Initializing sitemap store...
+continuousCrawler: 2019-04-26 15:53:59 INFO - continuousCrawler: Done initializing sitemap store.
+continuousCrawler: 2019-04-26 15:53:59 INFO - 1 start URLs identified.
+continuousCrawler: 2019-04-26 15:53:59 INFO -           CRAWLER_STARTED
+continuousCrawler: 2019-04-26 15:53:59 INFO - continuousCrawler: Crawling references...
+continuousCrawler: 2019-04-26 15:53:59 INFO - checked count: 50
+continuousCrawler: 2019-04-26 15:53:59 INFO - Rate of change: 5.6002102744200934
+continuousCrawler: 2019-04-26 15:53:59 INFO - average crawl time: 8886
+continuousCrawler: 2019-04-26 15:53:59 INFO - time of next crawl: 20:31:23.647
+continuousCrawler: 2019-04-26 15:53:59 INFO - Page will be crawled again in 596 hours
+continuousCrawler: 2019-04-26 15:53:59 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org
+continuousCrawler: 2019-04-26 15:53:59 INFO - checked count: 50
+continuousCrawler: 2019-04-26 15:53:59 INFO - Rate of change: 5.6002102744200934
+continuousCrawler: 2019-04-26 15:53:59 INFO - average crawl time: 8886
+continuousCrawler: 2019-04-26 15:53:59 INFO - checked count: 51
+continuousCrawler: 2019-04-26 15:53:59 INFO - Rate of change: 5.600204443004874
+continuousCrawler: 2019-04-26 15:53:59 INFO - average crawl time: 8886
+continuousCrawler: 2019-04-26 15:53:59 INFO - time of next crawl: 20:31:23.647
+continuousCrawler: 2019-04-26 15:53:59 INFO - Page will be crawled again in 596 hours
+continuousCrawler: 2019-04-26 15:53:59 INFO - time of next crawl: 20:31:23.647
+continuousCrawler: 2019-04-26 15:53:59 INFO - checked count: 50
+continuousCrawler: 2019-04-26 15:53:59 INFO - Rate of change: 5.57015930163612
+continuousCrawler: 2019-04-26 15:53:59 INFO - average crawl time: 8886
+continuousCrawler: 2019-04-26 15:53:59 INFO - checked count: 50
+continuousCrawler: 2019-04-26 15:53:59 INFO - Page will be crawled again in 596 hours
+continuousCrawler: 2019-04-26 15:53:59 INFO - Rate of change: 5.6002102744200934
+continuousCrawler: 2019-04-26 15:53:59 INFO - average crawl time: 8886
+continuousCrawler: 2019-04-26 15:53:59 INFO - time of next crawl: 20:31:23.647
+continuousCrawler: 2019-04-26 15:53:59 INFO - time of next crawl: 20:31:23.647
+continuousCrawler: 2019-04-26 15:53:59 INFO - Page will be crawled again in 596 hours
+continuousCrawler: 2019-04-26 15:53:59 INFO - Page will be crawled again in 596 hours
+continuousCrawler: 2019-04-26 15:53:59 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org
+continuousCrawler: 2019-04-26 15:53:59 INFO -       REJECTED_UNMODIFIED: http://www.taglaboratory.org
+continuousCrawler: 2019-04-26 15:53:59 INFO - checked count: 50
+continuousCrawler: 2019-04-26 15:53:59 INFO - Rate of change: 5.57015930163612
+continuousCrawler: 2019-04-26 15:53:59 INFO - average crawl time: 8886
+continuousCrawler: 2019-04-26 15:53:59 INFO - time of next crawl: 20:31:23.647
+continuousCrawler: 2019-04-26 15:53:59 INFO - Page will be crawled again in 596 hours
+continuousCrawler: 2019-04-26 15:54:00 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/major_projects.html
+continuousCrawler: 2019-04-26 15:54:00 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/major_projects.html
+continuousCrawler: 2019-04-26 15:54:00 INFO -       REJECTED_UNMODIFIED: http://www.taglaboratory.org/major_projects.html
+continuousCrawler: 2019-04-26 15:54:00 INFO - checked count: 50
+continuousCrawler: 2019-04-26 15:54:00 INFO - Rate of change: 5.57015930163612
+continuousCrawler: 2019-04-26 15:54:00 INFO - average crawl time: 8886
+continuousCrawler: 2019-04-26 15:54:00 INFO - time of next crawl: 20:31:23.647
+continuousCrawler: 2019-04-26 15:54:00 INFO - Page will be crawled again in 596 hours
+continuousCrawler: 2019-04-26 15:54:00 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/taglab_partners.jpg
+continuousCrawler: 2019-04-26 15:54:00 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/taglab_partners.jpg
+continuousCrawler: 2019-04-26 15:54:00 INFO -       REJECTED_UNMODIFIED: http://www.taglaboratory.org/images/taglab_partners.jpg
+continuousCrawler: 2019-04-26 15:54:00 INFO - checked count: 50
+continuousCrawler: 2019-04-26 15:54:00 INFO - Rate of change: 5.57015930163612
+continuousCrawler: 2019-04-26 15:54:00 INFO - average crawl time: 8886
+continuousCrawler: 2019-04-26 15:54:00 INFO - time of next crawl: 20:31:23.647
+continuousCrawler: 2019-04-26 15:54:00 INFO - Page will be crawled again in 596 hours
+continuousCrawler: 2019-04-26 15:54:00 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/pic01.png
+continuousCrawler: 2019-04-26 15:54:00 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/pic01.png
+continuousCrawler: 2019-04-26 15:54:00 INFO -       REJECTED_UNMODIFIED: http://www.taglaboratory.org/images/pic01.png
+continuousCrawler: 2019-04-26 15:54:01 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/taglab.png
+continuousCrawler: 2019-04-26 15:54:01 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/taglab.png
+continuousCrawler: 2019-04-26 15:54:01 INFO -       REJECTED_UNMODIFIED: http://www.taglaboratory.org/images/taglab.png
+continuousCrawler: 2019-04-26 15:54:01 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/team.html
+continuousCrawler: 2019-04-26 15:54:01 INFO - checked count: 51
+continuousCrawler: 2019-04-26 15:54:01 INFO - Rate of change: 5.600204443004874
+continuousCrawler: 2019-04-26 15:54:01 INFO - average crawl time: 8886
+continuousCrawler: 2019-04-26 15:54:01 INFO - checked count: 51
+continuousCrawler: 2019-04-26 15:54:01 INFO - time of next crawl: 20:31:23.647
+continuousCrawler: 2019-04-26 15:54:01 INFO - Rate of change: 5.600204443004874
+continuousCrawler: 2019-04-26 15:54:01 INFO - average crawl time: 8886
+continuousCrawler: 2019-04-26 15:54:01 INFO - Page will be crawled again in 596 hours
+continuousCrawler: 2019-04-26 15:54:01 INFO - time of next crawl: 20:31:23.647
+continuousCrawler: 2019-04-26 15:54:01 INFO - Page will be crawled again in 596 hours
+continuousCrawler: 2019-04-26 15:54:01 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/team.html
+continuousCrawler: 2019-04-26 15:54:01 INFO -       REJECTED_UNMODIFIED: http://www.taglaboratory.org/team.html
+continuousCrawler: 2019-04-26 15:54:01 INFO - checked count: 50
+continuousCrawler: 2019-04-26 15:54:01 INFO - Rate of change: 5.57015930163612
+continuousCrawler: 2019-04-26 15:54:01 INFO - average crawl time: 8886
+continuousCrawler: 2019-04-26 15:54:01 INFO - time of next crawl: 20:31:23.647
+continuousCrawler: 2019-04-26 15:54:01 INFO - Page will be crawled again in 596 hours
+continuousCrawler: 2019-04-26 15:54:02 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/publications.html
+continuousCrawler: 2019-04-26 15:54:02 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/publications.html
+continuousCrawler: 2019-04-26 15:54:02 INFO -       REJECTED_UNMODIFIED: http://www.taglaboratory.org/publications.html
+continuousCrawler: 2019-04-26 15:54:02 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/index.html
+continuousCrawler: 2019-04-26 15:54:02 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/index.html
+continuousCrawler: 2019-04-26 15:54:02 INFO -       REJECTED_UNMODIFIED: http://www.taglaboratory.org/index.html
+continuousCrawler: 2019-04-26 15:54:02 INFO - checked count: 46
+continuousCrawler: 2019-04-26 15:54:02 INFO - Rate of change: 5.443303944330526
+continuousCrawler: 2019-04-26 15:54:02 INFO - average crawl time: 8886
+continuousCrawler: 2019-04-26 15:54:02 INFO - time of next crawl: 20:31:23.647
+continuousCrawler: 2019-04-26 15:54:02 INFO - Page will be crawled again in 596 hours
+continuousCrawler: 2019-04-26 15:54:02 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/team/andy-small.png
+continuousCrawler: 2019-04-26 15:54:02 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/team/andy-small.png
+continuousCrawler: 2019-04-26 15:54:02 INFO -       REJECTED_UNMODIFIED: http://www.taglaboratory.org/images/team/andy-small.png
+continuousCrawler: 2019-04-26 15:54:02 INFO - checked count: 47
+continuousCrawler: 2019-04-26 15:54:02 INFO - Rate of change: 5.476078284569304
+continuousCrawler: 2019-04-26 15:54:02 INFO - average crawl time: 8886
+continuousCrawler: 2019-04-26 15:54:02 INFO - time of next crawl: 20:31:23.647
+continuousCrawler: 2019-04-26 15:54:02 INFO - Page will be crawled again in 596 hours
+continuousCrawler: 2019-04-26 15:54:03 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/team/chris-small.jpg
+continuousCrawler: 2019-04-26 15:54:03 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/team/chris-small.jpg
+continuousCrawler: 2019-04-26 15:54:03 INFO -       REJECTED_UNMODIFIED: http://www.taglaboratory.org/images/team/chris-small.jpg
+continuousCrawler: 2019-04-26 15:54:03 INFO - checked count: 46
+continuousCrawler: 2019-04-26 15:54:03 INFO - Rate of change: 5.443303944330526
+continuousCrawler: 2019-04-26 15:54:03 INFO - average crawl time: 8886
+continuousCrawler: 2019-04-26 15:54:03 INFO - time of next crawl: 20:31:23.647
+continuousCrawler: 2019-04-26 15:54:03 INFO - Page will be crawled again in 596 hours
+continuousCrawler: 2019-04-26 15:54:03 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/team/davidsp-small.jpg
+continuousCrawler: 2019-04-26 15:54:03 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/team/davidsp-small.jpg
+continuousCrawler: 2019-04-26 15:54:03 INFO -       REJECTED_UNMODIFIED: http://www.taglaboratory.org/images/team/davidsp-small.jpg
+continuousCrawler: 2019-04-26 15:54:03 INFO - checked count: 46
+continuousCrawler: 2019-04-26 15:54:03 INFO - Rate of change: 5.443303944330526
+continuousCrawler: 2019-04-26 15:54:03 INFO - average crawl time: 8886
+continuousCrawler: 2019-04-26 15:54:03 INFO - time of next crawl: 20:31:23.647
+continuousCrawler: 2019-04-26 15:54:03 INFO - Page will be crawled again in 596 hours
+continuousCrawler: 2019-04-26 15:54:04 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/team/jack-small.jpg
+continuousCrawler: 2019-04-26 15:54:04 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/team/jack-small.jpg
+continuousCrawler: 2019-04-26 15:54:04 INFO -       REJECTED_UNMODIFIED: http://www.taglaboratory.org/images/team/jack-small.jpg
+continuousCrawler: 2019-04-26 15:54:04 INFO - checked count: 47
+continuousCrawler: 2019-04-26 15:54:04 INFO - Rate of change: 5.476078284569304
+continuousCrawler: 2019-04-26 15:54:04 INFO - average crawl time: 8886
+continuousCrawler: 2019-04-26 15:54:04 INFO - time of next crawl: 20:31:23.647
+continuousCrawler: 2019-04-26 15:54:04 INFO - Page will be crawled again in 596 hours
+continuousCrawler: 2019-04-26 15:54:04 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/team/davidw-small.jpg
+continuousCrawler: 2019-04-26 15:54:04 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/team/davidw-small.jpg
+continuousCrawler: 2019-04-26 15:54:04 INFO -       REJECTED_UNMODIFIED: http://www.taglaboratory.org/images/team/davidw-small.jpg
+continuousCrawler: 2019-04-26 15:54:04 INFO - continuousCrawler: 68% completed (13 processed/19 total)
+continuousCrawler: 2019-04-26 15:54:04 INFO - checked count: 47
+continuousCrawler: 2019-04-26 15:54:04 INFO - Rate of change: 5.476078284569304
+continuousCrawler: 2019-04-26 15:54:04 INFO - average crawl time: 8886
+continuousCrawler: 2019-04-26 15:54:04 INFO - time of next crawl: 20:31:23.647
+continuousCrawler: 2019-04-26 15:54:04 INFO - Page will be crawled again in 596 hours
+continuousCrawler: 2019-04-26 15:54:04 INFO -         REJECTED_NOTFOUND: http://www.taglaboratory.org/bib/terminology05.bib
+continuousCrawler: 2019-04-26 15:54:04 INFO - checked count: 45
+continuousCrawler: 2019-04-26 15:54:04 INFO - Rate of change: 5.375425643379987
+continuousCrawler: 2019-04-26 15:54:04 INFO - average crawl time: 8886
+continuousCrawler: 2019-04-26 15:54:04 INFO - time of next crawl: 20:31:23.647
+continuousCrawler: 2019-04-26 15:54:04 INFO - Page will be crawled again in 596 hours
+continuousCrawler: 2019-04-26 15:54:05 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/team/julie-small.jpg
+continuousCrawler: 2019-04-26 15:54:05 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/team/julie-small.jpg
+continuousCrawler: 2019-04-26 15:54:05 INFO -       REJECTED_UNMODIFIED: http://www.taglaboratory.org/images/team/julie-small.jpg
+continuousCrawler: 2019-04-26 15:54:05 INFO - checked count: 45
+continuousCrawler: 2019-04-26 15:54:05 INFO - Rate of change: 5.375425643379987
+continuousCrawler: 2019-04-26 15:54:05 INFO - average crawl time: 8886
+continuousCrawler: 2019-04-26 15:54:05 INFO - time of next crawl: 20:31:23.647
+continuousCrawler: 2019-04-26 15:54:05 INFO - Page will be crawled again in 596 hours
+continuousCrawler: 2019-04-26 15:54:05 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/team/joe-small.jpg
+continuousCrawler: 2019-04-26 15:54:05 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/team/joe-small.jpg
+continuousCrawler: 2019-04-26 15:54:05 INFO -       REJECTED_UNMODIFIED: http://www.taglaboratory.org/images/team/joe-small.jpg
+continuousCrawler: 2019-04-26 15:54:05 INFO - checked count: 46
+continuousCrawler: 2019-04-26 15:54:05 INFO - Rate of change: 5.443303944330526
+continuousCrawler: 2019-04-26 15:54:05 INFO - average crawl time: 8886
+continuousCrawler: 2019-04-26 15:54:05 INFO - time of next crawl: 20:31:23.647
+continuousCrawler: 2019-04-26 15:54:05 INFO - Page will be crawled again in 596 hours
+continuousCrawler: 2019-04-26 15:54:06 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/team/jeremy-small.jpeg
+continuousCrawler: 2019-04-26 15:54:06 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/team/jeremy-small.jpeg
+continuousCrawler: 2019-04-26 15:54:06 INFO -       REJECTED_UNMODIFIED: http://www.taglaboratory.org/images/team/jeremy-small.jpeg
+continuousCrawler: 2019-04-26 15:54:06 INFO - checked count: 44
+continuousCrawler: 2019-04-26 15:54:06 INFO - Rate of change: 5.340254742693953
+continuousCrawler: 2019-04-26 15:54:06 INFO - average crawl time: 8886
+continuousCrawler: 2019-04-26 15:54:06 INFO - time of next crawl: 20:31:23.647
+continuousCrawler: 2019-04-26 15:54:06 INFO - Page will be crawled again in 596 hours
+continuousCrawler: 2019-04-26 15:54:06 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/team/roland-small.jpg
+continuousCrawler: 2019-04-26 15:54:06 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/team/roland-small.jpg
+continuousCrawler: 2019-04-26 15:54:06 INFO -       REJECTED_UNMODIFIED: http://www.taglaboratory.org/images/team/roland-small.jpg
+continuousCrawler: 2019-04-26 15:54:06 INFO - checked count: 44
+continuousCrawler: 2019-04-26 15:54:06 INFO - Rate of change: 5.340254742693953
+continuousCrawler: 2019-04-26 15:54:06 INFO - average crawl time: 8886
+continuousCrawler: 2019-04-26 15:54:06 INFO - time of next crawl: 20:31:23.647
+continuousCrawler: 2019-04-26 15:54:06 INFO - Page will be crawled again in 596 hours
+continuousCrawler: 2019-04-26 15:54:06 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/team/matti-small.jpg
+continuousCrawler: 2019-04-26 15:54:06 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/team/matti-small.jpg
+continuousCrawler: 2019-04-26 15:54:06 INFO -       REJECTED_UNMODIFIED: http://www.taglaboratory.org/images/team/matti-small.jpg
+continuousCrawler: 2019-04-26 15:54:07 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/team/justin-small.jpg
+continuousCrawler: 2019-04-26 15:54:07 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/team/justin-small.jpg
+continuousCrawler: 2019-04-26 15:54:07 INFO -       REJECTED_UNMODIFIED: http://www.taglaboratory.org/images/team/justin-small.jpg
+continuousCrawler: 2019-04-26 15:54:07 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/team/tom-small.jpg
+continuousCrawler: 2019-04-26 15:54:07 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/team/tom-small.jpg
+continuousCrawler: 2019-04-26 15:54:07 INFO -       REJECTED_UNMODIFIED: http://www.taglaboratory.org/images/team/tom-small.jpg
+continuousCrawler: 2019-04-26 15:54:08 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/team/thomask-small.jpg
+continuousCrawler: 2019-04-26 15:54:08 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/team/thomask-small.jpg
+continuousCrawler: 2019-04-26 15:54:08 INFO -       REJECTED_UNMODIFIED: http://www.taglaboratory.org/images/team/thomask-small.jpg
+continuousCrawler: 2019-04-26 15:54:08 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/team/simon-small.png
+continuousCrawler: 2019-04-26 15:54:08 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/team/simon-small.png
+continuousCrawler: 2019-04-26 15:54:08 INFO -       REJECTED_UNMODIFIED: http://www.taglaboratory.org/images/team/simon-small.png
+continuousCrawler: 2019-04-26 15:54:08 INFO - continuousCrawler: Reprocessing any cached/orphan references...
+continuousCrawler: 2019-04-26 15:54:08 INFO - continuousCrawler: 23 reference(s) processed.
+continuousCrawler: 2019-04-26 15:54:08 INFO -          CRAWLER_FINISHED
+continuousCrawler: 2019-04-26 15:54:08 INFO - continuousCrawler: Crawler completed.
+continuousCrawler: 2019-04-26 15:54:08 INFO - continuousCrawler: Crawler executed in 9 seconds.
+continuousCrawler: 2019-04-26 15:54:08 INFO - continuousCrawler: Closing sitemap store...
+continuousCrawler: 2019-04-26 15:54:08 INFO - Running continuousCrawler: END (Fri Apr 26 15:53:59 BST 2019)

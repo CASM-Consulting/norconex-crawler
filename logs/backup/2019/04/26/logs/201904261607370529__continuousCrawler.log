@@ -1,0 +1,47 @@
+continuousCrawler: 2019-04-26 16:07:37 INFO - Starting execution.
+continuousCrawler: 2019-04-26 16:07:37 INFO - Version: "Collector" version is undefined.
+continuousCrawler: 2019-04-26 16:07:37 INFO - Version: Norconex Collector Core 1.9.1 (Norconex Inc.)
+continuousCrawler: 2019-04-26 16:07:37 INFO - Version: Norconex Importer 2.9.0 (Norconex Inc.)
+continuousCrawler: 2019-04-26 16:07:37 INFO - Version: Norconex JEF 4.1.0 (Norconex Inc.)
+continuousCrawler: 2019-04-26 16:07:37 INFO - Version: Norconex Committer Core 2.1.2 (Norconex Inc.)
+continuousCrawler: 2019-04-26 16:07:37 INFO - Running continuousCrawler: BEGIN (Fri Apr 26 16:07:37 BST 2019)
+continuousCrawler: 2019-04-26 16:07:37 INFO - continuousCrawler: RobotsTxt support: false
+continuousCrawler: 2019-04-26 16:07:37 INFO - continuousCrawler: RobotsMeta support: false
+continuousCrawler: 2019-04-26 16:07:37 INFO - continuousCrawler: Sitemap support: false
+continuousCrawler: 2019-04-26 16:07:37 INFO - continuousCrawler: Canonical links support: false
+continuousCrawler: 2019-04-26 16:07:37 INFO - continuousCrawler: User-Agent: M52
+continuousCrawler: 2019-04-26 16:07:37 INFO - continuousCrawler: Initializing sitemap store...
+continuousCrawler: 2019-04-26 16:07:37 INFO - continuousCrawler: Done initializing sitemap store.
+continuousCrawler: 2019-04-26 16:07:37 INFO - 1 start URLs identified.
+continuousCrawler: 2019-04-26 16:07:37 INFO -           CRAWLER_STARTED
+continuousCrawler: 2019-04-26 16:07:37 INFO - continuousCrawler: Crawling references...
+continuousCrawler: 2019-04-26 16:07:37 INFO -        REJECTED_PREMATURE: http://www.taglaboratory.org
+continuousCrawler: 2019-04-26 16:07:37 INFO -        REJECTED_PREMATURE: http://www.taglaboratory.org/images/pic01.png
+continuousCrawler: 2019-04-26 16:07:37 INFO -        REJECTED_PREMATURE: http://www.taglaboratory.org/images/taglab.png
+continuousCrawler: 2019-04-26 16:07:37 INFO -        REJECTED_PREMATURE: http://www.taglaboratory.org/images/taglab_partners.jpg
+continuousCrawler: 2019-04-26 16:07:37 INFO -        REJECTED_PREMATURE: http://www.taglaboratory.org/index.html
+continuousCrawler: 2019-04-26 16:07:37 INFO -        REJECTED_PREMATURE: http://www.taglaboratory.org/major_projects.html
+continuousCrawler: 2019-04-26 16:07:37 INFO -        REJECTED_PREMATURE: http://www.taglaboratory.org/publications.html
+continuousCrawler: 2019-04-26 16:07:37 INFO -        REJECTED_PREMATURE: http://www.taglaboratory.org/team.html
+continuousCrawler: 2019-04-26 16:07:37 INFO -        REJECTED_PREMATURE: http://www.taglaboratory.org/images/team/joe-small.jpg
+continuousCrawler: 2019-04-26 16:07:37 INFO -        REJECTED_PREMATURE: http://www.taglaboratory.org/images/team/chris-small.jpg
+continuousCrawler: 2019-04-26 16:07:37 INFO -        REJECTED_PREMATURE: http://www.taglaboratory.org/images/team/jack-small.jpg
+continuousCrawler: 2019-04-26 16:07:37 INFO -        REJECTED_PREMATURE: http://www.taglaboratory.org/images/team/andy-small.png
+continuousCrawler: 2019-04-26 16:07:37 INFO -        REJECTED_PREMATURE: http://www.taglaboratory.org/images/team/davidsp-small.jpg
+continuousCrawler: 2019-04-26 16:07:37 INFO -        REJECTED_PREMATURE: http://www.taglaboratory.org/images/team/davidw-small.jpg
+continuousCrawler: 2019-04-26 16:07:37 INFO -        REJECTED_PREMATURE: http://www.taglaboratory.org/images/team/jeremy-small.jpeg
+continuousCrawler: 2019-04-26 16:07:37 INFO -        REJECTED_PREMATURE: http://www.taglaboratory.org/images/team/julie-small.jpg
+continuousCrawler: 2019-04-26 16:07:37 INFO -        REJECTED_PREMATURE: http://www.taglaboratory.org/images/team/justin-small.jpg
+continuousCrawler: 2019-04-26 16:07:37 INFO -        REJECTED_PREMATURE: http://www.taglaboratory.org/images/team/matti-small.jpg
+continuousCrawler: 2019-04-26 16:07:37 INFO -        REJECTED_PREMATURE: http://www.taglaboratory.org/images/team/roland-small.jpg
+continuousCrawler: 2019-04-26 16:07:37 INFO -        REJECTED_PREMATURE: http://www.taglaboratory.org/images/team/simon-small.png
+continuousCrawler: 2019-04-26 16:07:37 INFO -        REJECTED_PREMATURE: http://www.taglaboratory.org/images/team/thomask-small.jpg
+continuousCrawler: 2019-04-26 16:07:37 INFO -        REJECTED_PREMATURE: http://www.taglaboratory.org/images/team/tom-small.jpg
+continuousCrawler: 2019-04-26 16:07:37 INFO -         REJECTED_NOTFOUND: http://www.taglaboratory.org/bib/terminology05.bib
+continuousCrawler: 2019-04-26 16:07:37 INFO - continuousCrawler: Reprocessing any cached/orphan references...
+continuousCrawler: 2019-04-26 16:07:37 INFO - continuousCrawler: 23 reference(s) processed.
+continuousCrawler: 2019-04-26 16:07:37 INFO -          CRAWLER_FINISHED
+continuousCrawler: 2019-04-26 16:07:37 INFO - continuousCrawler: Crawler completed.
+continuousCrawler: 2019-04-26 16:07:37 INFO - continuousCrawler: Crawler executed in 0 second.
+continuousCrawler: 2019-04-26 16:07:37 INFO - continuousCrawler: Closing sitemap store...
+continuousCrawler: 2019-04-26 16:07:37 INFO - Running continuousCrawler: END (Fri Apr 26 16:07:37 BST 2019)

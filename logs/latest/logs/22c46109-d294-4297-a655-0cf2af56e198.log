@@ -1,0 +1,21 @@
+22c46109-d294-4297-a655-0cf2af56e198: 2019-04-26 14:57:55 INFO - Starting execution.
+22c46109-d294-4297-a655-0cf2af56e198: 2019-04-26 14:57:55 INFO - Version: "Collector" version is undefined.
+22c46109-d294-4297-a655-0cf2af56e198: 2019-04-26 14:57:55 INFO - Version: Norconex Collector Core 1.9.1 (Norconex Inc.)
+22c46109-d294-4297-a655-0cf2af56e198: 2019-04-26 14:57:55 INFO - Version: Norconex Importer 2.9.0 (Norconex Inc.)
+22c46109-d294-4297-a655-0cf2af56e198: 2019-04-26 14:57:55 INFO - Version: Norconex JEF 4.1.0 (Norconex Inc.)
+22c46109-d294-4297-a655-0cf2af56e198: 2019-04-26 14:57:55 INFO - Version: Norconex Committer Core 2.1.2 (Norconex Inc.)
+22c46109-d294-4297-a655-0cf2af56e198: 2019-04-26 14:57:55 INFO - Running 22c46109-d294-4297-a655-0cf2af56e198: BEGIN (Fri Apr 26 14:57:55 BST 2019)
+22c46109-d294-4297-a655-0cf2af56e198: 2019-04-26 14:57:55 INFO - 22c46109-d294-4297-a655-0cf2af56e198: RobotsTxt support: false
+22c46109-d294-4297-a655-0cf2af56e198: 2019-04-26 14:57:55 INFO - 22c46109-d294-4297-a655-0cf2af56e198: RobotsMeta support: false
+22c46109-d294-4297-a655-0cf2af56e198: 2019-04-26 14:57:55 INFO - 22c46109-d294-4297-a655-0cf2af56e198: Sitemap support: false
+22c46109-d294-4297-a655-0cf2af56e198: 2019-04-26 14:57:55 INFO - 22c46109-d294-4297-a655-0cf2af56e198: Canonical links support: false
+22c46109-d294-4297-a655-0cf2af56e198: 2019-04-26 14:57:55 INFO - 22c46109-d294-4297-a655-0cf2af56e198: User-Agent: M52
+22c46109-d294-4297-a655-0cf2af56e198: 2019-04-26 14:57:55 INFO - 22c46109-d294-4297-a655-0cf2af56e198: Initializing sitemap store...
+22c46109-d294-4297-a655-0cf2af56e198: 2019-04-26 14:57:55 INFO - 22c46109-d294-4297-a655-0cf2af56e198: Done initializing sitemap store.
+22c46109-d294-4297-a655-0cf2af56e198: 2019-04-26 14:57:55 INFO - 1 start URLs identified.
+22c46109-d294-4297-a655-0cf2af56e198: 2019-04-26 14:57:55 INFO -           CRAWLER_STARTED
+22c46109-d294-4297-a655-0cf2af56e198: 2019-04-26 14:57:55 INFO - 22c46109-d294-4297-a655-0cf2af56e198: Crawling references...
+22c46109-d294-4297-a655-0cf2af56e198: 2019-04-26 14:58:53 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org
+22c46109-d294-4297-a655-0cf2af56e198: 2019-04-26 14:58:57 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org
+22c46109-d294-4297-a655-0cf2af56e198: 2019-04-26 14:58:57 INFO -       REJECTED_UNMODIFIED: http://www.taglaboratory.org
+22c46109-d294-4297-a655-0cf2af56e198: 2019-04-26 14:58:57 INFO - 22c46109-d294-4297-a655-0cf2af56e198: 25% completed (1 processed/4 total)

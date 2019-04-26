@@ -1,0 +1,72 @@
+continuousCrawler: 2019-04-26 15:58:38 INFO - Starting execution.
+continuousCrawler: 2019-04-26 15:58:38 INFO - Version: "Collector" version is undefined.
+continuousCrawler: 2019-04-26 15:58:38 INFO - Version: Norconex Collector Core 1.9.1 (Norconex Inc.)
+continuousCrawler: 2019-04-26 15:58:38 INFO - Version: Norconex Importer 2.9.0 (Norconex Inc.)
+continuousCrawler: 2019-04-26 15:58:38 INFO - Version: Norconex JEF 4.1.0 (Norconex Inc.)
+continuousCrawler: 2019-04-26 15:58:38 INFO - Version: Norconex Committer Core 2.1.2 (Norconex Inc.)
+continuousCrawler: 2019-04-26 15:58:38 INFO - Running continuousCrawler: BEGIN (Fri Apr 26 15:58:38 BST 2019)
+continuousCrawler: 2019-04-26 15:58:38 INFO - continuousCrawler: RobotsTxt support: false
+continuousCrawler: 2019-04-26 15:58:38 INFO - continuousCrawler: RobotsMeta support: false
+continuousCrawler: 2019-04-26 15:58:38 INFO - continuousCrawler: Sitemap support: false
+continuousCrawler: 2019-04-26 15:58:38 INFO - continuousCrawler: Canonical links support: false
+continuousCrawler: 2019-04-26 15:58:38 INFO - continuousCrawler: User-Agent: M52
+continuousCrawler: 2019-04-26 15:58:38 INFO - continuousCrawler: Initializing sitemap store...
+continuousCrawler: 2019-04-26 15:58:38 INFO - continuousCrawler: Done initializing sitemap store.
+continuousCrawler: 2019-04-26 15:58:38 INFO - 1 start URLs identified.
+continuousCrawler: 2019-04-26 15:58:38 INFO -           CRAWLER_STARTED
+continuousCrawler: 2019-04-26 15:58:38 INFO - continuousCrawler: Crawling references...
+continuousCrawler: 2019-04-26 15:58:38 INFO - checked count: 50
+continuousCrawler: 2019-04-26 15:58:38 INFO - currentTime:1556290718095
+continuousCrawler: 2019-04-26 15:58:38 INFO - recrawlTime:2147483647
+continuousCrawler: 2019-04-26 15:58:38 INFO - Rate of change: 5.6002102744200934
+continuousCrawler: 2019-04-26 15:58:38 INFO - average crawl time: 8886
+continuousCrawler: 2019-04-26 15:58:38 INFO - time of next crawl: 20:31:23.647
+continuousCrawler: 2019-04-26 15:58:38 INFO - Page will be crawled again in 596 hours
+continuousCrawler: 2019-04-26 15:58:38 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org
+continuousCrawler: 2019-04-26 15:58:38 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org
+continuousCrawler: 2019-04-26 15:58:38 INFO -       REJECTED_UNMODIFIED: http://www.taglaboratory.org
+continuousCrawler: 2019-04-26 15:58:38 INFO - checked count: 50
+continuousCrawler: 2019-04-26 15:58:38 INFO - currentTime:1556290718495
+continuousCrawler: 2019-04-26 15:58:38 INFO - recrawlTime:2147483647
+continuousCrawler: 2019-04-26 15:58:38 INFO - Rate of change: 5.6002102744200934
+continuousCrawler: 2019-04-26 15:58:38 INFO - average crawl time: 8886
+continuousCrawler: 2019-04-26 15:58:38 INFO - time of next crawl: 20:31:23.647
+continuousCrawler: 2019-04-26 15:58:38 INFO - Page will be crawled again in 596 hours
+continuousCrawler: 2019-04-26 15:58:38 INFO - checked count: 50
+continuousCrawler: 2019-04-26 15:58:38 INFO - currentTime:1556290718495
+continuousCrawler: 2019-04-26 15:58:38 INFO - recrawlTime:2147483647
+continuousCrawler: 2019-04-26 15:58:38 INFO - Rate of change: 5.6002102744200934
+continuousCrawler: 2019-04-26 15:58:38 INFO - average crawl time: 8886
+continuousCrawler: 2019-04-26 15:58:38 INFO - checked count: 51
+continuousCrawler: 2019-04-26 15:58:38 INFO - currentTime:1556290718496
+continuousCrawler: 2019-04-26 15:58:38 INFO - recrawlTime:2147483647
+continuousCrawler: 2019-04-26 15:58:38 INFO - time of next crawl: 20:31:23.647
+continuousCrawler: 2019-04-26 15:58:38 INFO - Page will be crawled again in 596 hours
+continuousCrawler: 2019-04-26 15:58:38 INFO - Rate of change: 5.629642330555024
+continuousCrawler: 2019-04-26 15:58:38 INFO - average crawl time: 8886
+continuousCrawler: 2019-04-26 15:58:38 INFO - checked count: 50
+continuousCrawler: 2019-04-26 15:58:38 INFO - currentTime:1556290718496
+continuousCrawler: 2019-04-26 15:58:38 INFO - recrawlTime:2147483647
+continuousCrawler: 2019-04-26 15:58:38 INFO - time of next crawl: 20:31:23.647
+continuousCrawler: 2019-04-26 15:58:38 INFO - Page will be crawled again in 596 hours
+continuousCrawler: 2019-04-26 15:58:38 INFO - Rate of change: 5.6002102744200934
+continuousCrawler: 2019-04-26 15:58:38 INFO - average crawl time: 8886
+continuousCrawler: 2019-04-26 15:58:38 INFO - time of next crawl: 20:31:23.647
+continuousCrawler: 2019-04-26 15:58:38 INFO - Page will be crawled again in 596 hours
+continuousCrawler: 2019-04-26 15:58:38 INFO - checked count: 50
+continuousCrawler: 2019-04-26 15:58:38 INFO - currentTime:1556290718496
+continuousCrawler: 2019-04-26 15:58:38 INFO - recrawlTime:2147483647
+continuousCrawler: 2019-04-26 15:58:38 INFO - Rate of change: 5.6002102744200934
+continuousCrawler: 2019-04-26 15:58:38 INFO - average crawl time: 8886
+continuousCrawler: 2019-04-26 15:58:38 INFO - time of next crawl: 20:31:23.647
+continuousCrawler: 2019-04-26 15:58:38 INFO - Page will be crawled again in 596 hours
+continuousCrawler: 2019-04-26 15:58:38 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/pic01.png
+continuousCrawler: 2019-04-26 15:58:38 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/pic01.png
+continuousCrawler: 2019-04-26 15:58:38 INFO -       REJECTED_UNMODIFIED: http://www.taglaboratory.org/images/pic01.png
+continuousCrawler: 2019-04-26 15:58:38 INFO - checked count: 50
+continuousCrawler: 2019-04-26 15:58:38 INFO - currentTime:1556290718941
+continuousCrawler: 2019-04-26 15:58:38 INFO - recrawlTime:2147483647
+continuousCrawler: 2019-04-26 15:58:38 INFO - Rate of change: 5.6002102744200934
+continuousCrawler: 2019-04-26 15:58:38 INFO - average crawl time: 8886
+continuousCrawler: 2019-04-26 15:58:38 INFO - time of next crawl: 20:31:23.647
+continuousCrawler: 2019-04-26 15:58:38 INFO - Page will be crawled again in 596 hours

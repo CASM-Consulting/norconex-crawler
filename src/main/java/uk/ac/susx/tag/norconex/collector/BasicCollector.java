@@ -5,14 +5,12 @@ import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.stream.Collectors;
 
-// validator imports
-
 // logging imports
+import com.norconex.importer.parser.GenericDocumentParserFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,100 +35,92 @@ import uk.ac.susx.tag.norconex.document.Method52PostProcessor;
  *
  */
 public class BasicCollector extends HttpCollector {
-	
+
 	protected static final Logger logger = LoggerFactory.getLogger(BasicCollector.class);
 
 	public BasicCollector(HttpCollectorConfig config) {
 		super(config);
 	}
-	
-	public static HttpCrawlerConfig crawlerConfig(String userAgent, int depth, int crawlers, File crawlStore, 
-			boolean respectRobots, boolean ignoreSiteMap, String id, List<String> regxFiltPatterns,
-			BlockingQueue<HttpDocument> queue, String... seeds) {
-		
-			HttpCrawlerConfig config = new HttpCrawlerConfig();
 
-			// Basic crawler config
-			config.setUserAgent(userAgent);
-			config.setMaxDepth(depth); // -1 for inf
-			config.setIgnoreRobotsMeta(respectRobots);
-			config.setIgnoreRobotsTxt(respectRobots);
-			config.setIgnoreCanonicalLinks(false);
-			config.setIgnoreSitemap(ignoreSiteMap);	
-			
-			// Control the number of crawlers by the number of threads
-			config.setNumThreads(crawlers);
-			
-			// Location of crawl output, db etc... 
-			config.setWorkDir(crawlStore);
-			
-			// only store a crawl cache M52 deals with content
-			config.setKeepDownloads(false);
-			config.setId(id);
-			
-			// Page found but record of its parent lost - process the content and links anyway
-			config.setOrphansStrategy(OrphansStrategy.PROCESS);
-			
-			// Keeps the crawler within the same domain
-			URLCrawlScopeStrategy ucs = new URLCrawlScopeStrategy();
-			ucs.setStayOnDomain(true);
-			ucs.setStayOnPort(false);
-			ucs.setStayOnProtocol(false);
-			config.setUrlCrawlScopeStrategy(ucs);
-					
-			// set to false so crawl cache is only those of interest
-			config.setKeepOutOfScopeLinks(false);
-			
-			// set this to correctly manage file sizes etc... 
-			ImporterConfig importCon = new ImporterConfig();
-			importCon.setMaxFileCacheSize(100);
-			importCon.setMaxFilePoolCacheSize(100);
-			importCon.setTempDir(crawlStore);
-			config.setImporterConfig(importCon);
-								
-			// Used to set the politeness delay for consecutive post calls to the site (helps prevent being blocked)
-			GenericDelayResolver gdr = new GenericDelayResolver();
-			gdr.setDefaultDelay(300);
-			gdr.setIgnoreRobotsCrawlDelay(respectRobots);
-			gdr.setScope(GenericDelayResolver.SCOPE_CRAWLER);
-			config.setDelayResolver(gdr);
-			
-			GenericLinkExtractor gle = new GenericLinkExtractor();
-			gle.setIgnoreNofollow(respectRobots);
-			gle.setCharset(StandardCharsets.UTF_8.toString());
-			config.setLinkExtractors(gle);	
-			
-			// create the url filters - e.g. regex filters
-			// url regex match 
-			// parent link prevention
-			RegexReferenceFilter[] referenceFilters = regxFiltPatterns.stream()
+	public static HttpCrawlerConfig crawlerConfig(String userAgent, int depth, int crawlers, File crawlStore,
+												  boolean ignoreRobots, boolean ignoreSiteMap, String id, List<String> regxFiltPatterns,
+												  BlockingQueue<HttpDocument> queue, boolean strictDomain) {
+
+		HttpCrawlerConfig config = new HttpCrawlerConfig();
+
+		// Basic crawler config
+		config.setUserAgent(userAgent);
+		config.setMaxDepth(depth); // -1 for inf
+		config.setIgnoreRobotsMeta(ignoreRobots);
+		config.setIgnoreRobotsTxt(ignoreRobots);
+		config.setIgnoreCanonicalLinks(true);
+		config.setIgnoreSitemap(ignoreSiteMap);
+
+		// Control the number of crawlers by the number of threads
+		config.setNumThreads(crawlers);
+
+		// Location of crawl output, db etc...
+		config.setWorkDir(crawlStore);
+
+		// only store a crawl cache M52 deals with content
+		config.setKeepDownloads(false);
+		config.setId(id);
+
+		// Page found but record of its parent lost - process the content and links anyway
+		config.setOrphansStrategy(OrphansStrategy.PROCESS);
+
+		// Keeps the crawler within the same domain
+		URLCrawlScopeStrategy ucs = new URLCrawlScopeStrategy();
+		ucs.setStayOnDomain(strictDomain);
+		ucs.setStayOnPort(false);
+		ucs.setStayOnProtocol(false);
+		config.setUrlCrawlScopeStrategy(ucs);
+
+		// set to false so crawl cache is only those of interest
+		config.setKeepOutOfScopeLinks(false);
+
+		// set this to correctly manage file sizes etc...
+		ImporterConfig importCon = new ImporterConfig();
+		importCon.setMaxFileCacheSize(100);
+		importCon.setMaxFilePoolCacheSize(100);
+		importCon.setTempDir(crawlStore);
+		// For now - do not do any parsing on the discovered docs (i.e. all done by M52)
+		GenericDocumentParserFactory gdpf = new GenericDocumentParserFactory();
+		gdpf.setIgnoredContentTypesRegex(".*");
+		importCon.setParserFactory(gdpf);
+		config.setImporterConfig(importCon);
+
+
+		// Used to set the politeness delay for consecutive post calls to the site (helps prevent being blocked)
+		GenericDelayResolver gdr = new GenericDelayResolver();
+		gdr.setDefaultDelay(300);
+		gdr.setIgnoreRobotsCrawlDelay(ignoreRobots);
+		gdr.setScope(GenericDelayResolver.SCOPE_CRAWLER);
+		config.setDelayResolver(gdr);
+
+		GenericLinkExtractor gle = new GenericLinkExtractor();
+		gle.setIgnoreNofollow(ignoreRobots);
+		gle.setCharset(StandardCharsets.UTF_8.toString());
+		config.setLinkExtractors(gle);
+
+		// create the url filters - e.g. regex filters
+		// url regex match
+		// parent link prevention
+		RegexReferenceFilter[] referenceFilters = regxFiltPatterns.stream()
 				.map(regex -> new RegexReferenceFilter(regex))
 				.collect(Collectors.toList()).toArray(new RegexReferenceFilter[regxFiltPatterns.size()]);
-			config.setReferenceFilters(referenceFilters);
+		config.setReferenceFilters(referenceFilters);
 
-			config.setPostImportProcessors(new Method52PostProcessor(queue));
-			
-			return config;
-					
-		}
+		config.setPostImportProcessors(new Method52PostProcessor(queue));
 
-	public static void main(String[] args) {
-		BlockingQueue<HttpDocument> queue = new ArrayBlockingQueue<HttpDocument>(10000);
-		String seed = "https://www.gamespot.com/forums/system-wars-314159282/as-the-entire-population-gains-basic-gaming-skills-33456501/";
-		HttpCollectorConfig hcc = new HttpCollectorConfig();
-		hcc.setId(UUID.randomUUID().toString());
-		HttpCrawlerConfig config = BasicCollector.crawlerConfig("m52",1,5,
-				new File("/Users/jp242/Documents/Projects/Crawler-Upgrade/testdb"),false,
-				true,UUID.randomUUID().toString(),new ArrayList<>(), new ArrayBlockingQueue<HttpDocument>(10000),seed);
-		hcc.setProgressDir("/Users/jp242/Documents/Projects/Crawler-Upgrade/testdb/progress");
-		hcc.setLogsDir("/Users/jp242/Documents/Projects/Crawler-Upgrade/testdb/logs");
-		hcc.setCrawlerConfigs(config);
+		return config;
 
-		BasicCollector bc = new BasicCollector(hcc);
-		boolean resume = false;
-		bc.start(resume);
 	}
 }
+
+
+//
+//}
 	
 	// Need to create a custom HttpImporterPipeline to explain the picking strategy and where to send content (i.e. M52)
 	// checkout HttpDocument (to retrieve html content), HttpMetadata (to add scores) classes 

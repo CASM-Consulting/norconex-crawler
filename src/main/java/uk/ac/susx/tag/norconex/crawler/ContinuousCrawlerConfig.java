@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 // logging imports
+import com.norconex.importer.parser.GenericDocumentParserFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,16 +35,18 @@ import com.norconex.importer.ImporterConfig;
 public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 
 	public ContinuousCrawlerConfig(String userAgent, int depth, int crawlers, File crawlStore, 
-			boolean respectRobots, boolean ignoreSiteMap, String id, List<String> regxFiltPatterns,
+			boolean ignoreRobots, boolean ignoreSiteMap, String id, List<String> regxFiltPatterns,
 			String seed) {
 		
 		// Basic crawler config
 		setUserAgent(userAgent);
 		setMaxDepth(depth); // -1 for inf
-		setIgnoreRobotsMeta(respectRobots);
-		setIgnoreRobotsTxt(respectRobots);
-		setIgnoreCanonicalLinks(false);
+		setIgnoreRobotsMeta(ignoreRobots);
+		setIgnoreRobotsTxt(ignoreRobots);
+		setIgnoreCanonicalLinks(true);
+		setDocumentChecksummer(new MD5DocumentChecksummer());
 		setIgnoreSitemap(ignoreSiteMap);
+		setKeepDownloads(true);
 		// Control the number of crawlers by the number of threads
 		setNumThreads(crawlers);
 		
@@ -68,6 +71,7 @@ public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 		setKeepOutOfScopeLinks(false);
 
 		setStartURLs(seed);
+
 		// use this if you want to adhere to sitemap.
 		if(!ignoreSiteMap) {
 			setStartSitemapURLs(seed);
@@ -77,20 +81,23 @@ public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 		ImporterConfig importCon = new ImporterConfig();
 		importCon.setMaxFileCacheSize(100);
 		importCon.setMaxFilePoolCacheSize(100);
+		GenericDocumentParserFactory gdpf = new GenericDocumentParserFactory();
+		gdpf.setIgnoredContentTypesRegex(".*");
+		importCon.setParserFactory(gdpf);
 		importCon.setTempDir(crawlStore);
 		setImporterConfig(importCon);
 							
 		// Used to set the politeness delay for consecutive post calls to the site (helps prevent being blocked)
 		GenericDelayResolver gdr = new GenericDelayResolver();
 		gdr.setDefaultDelay(400);
-		gdr.setIgnoreRobotsCrawlDelay(respectRobots);
+		gdr.setIgnoreRobotsCrawlDelay(ignoreRobots);
 		gdr.setScope(GenericDelayResolver.SCOPE_CRAWLER);
 		setDelayResolver(gdr);
 		
 		GenericLinkExtractor gle = new GenericLinkExtractor();
-		gle.setIgnoreNofollow(respectRobots);
+		gle.setIgnoreNofollow(ignoreRobots);
 		gle.setCharset(StandardCharsets.UTF_8.toString());
-		setLinkExtractors(gle);	
+		setLinkExtractors(gle);
 		
 		// create the url filters - e.g. regex filters
 		// url regex match 

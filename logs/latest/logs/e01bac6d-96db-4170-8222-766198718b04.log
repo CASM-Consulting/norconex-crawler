@@ -1,0 +1,50 @@
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:35 INFO - Starting execution.
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:35 INFO - Version: "Collector" version is undefined.
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:35 INFO - Version: Norconex Collector Core 1.9.1 (Norconex Inc.)
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:35 INFO - Version: Norconex Importer 2.9.0 (Norconex Inc.)
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:35 INFO - Version: Norconex JEF 4.1.0 (Norconex Inc.)
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:35 INFO - Version: Norconex Committer Core 2.1.2 (Norconex Inc.)
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:35 INFO - Running e01bac6d-96db-4170-8222-766198718b04: BEGIN (Fri Apr 26 15:05:35 BST 2019)
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:35 INFO - e01bac6d-96db-4170-8222-766198718b04: RobotsTxt support: false
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:35 INFO - e01bac6d-96db-4170-8222-766198718b04: RobotsMeta support: false
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:35 INFO - e01bac6d-96db-4170-8222-766198718b04: Sitemap support: false
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:35 INFO - e01bac6d-96db-4170-8222-766198718b04: Canonical links support: false
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:35 INFO - e01bac6d-96db-4170-8222-766198718b04: User-Agent: M52
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:35 INFO - e01bac6d-96db-4170-8222-766198718b04: Initializing sitemap store...
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:35 INFO - e01bac6d-96db-4170-8222-766198718b04: Done initializing sitemap store.
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:35 INFO - 1 start URLs identified.
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:35 INFO -           CRAWLER_STARTED
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:35 INFO - e01bac6d-96db-4170-8222-766198718b04: Crawling references...
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:35 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:35 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:35 INFO -       REJECTED_UNMODIFIED: http://www.taglaboratory.org
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:35 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/pic01.png
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:35 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/pic01.png
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:35 INFO -       REJECTED_UNMODIFIED: http://www.taglaboratory.org/images/pic01.png
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:36 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/taglab.png
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:36 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/taglab.png
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:36 INFO -       REJECTED_UNMODIFIED: http://www.taglaboratory.org/images/taglab.png
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:36 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/major_projects.html
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:36 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/major_projects.html
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:36 INFO -       REJECTED_UNMODIFIED: http://www.taglaboratory.org/major_projects.html
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:37 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/index.html
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:37 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/index.html
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:37 INFO -       REJECTED_UNMODIFIED: http://www.taglaboratory.org/index.html
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:37 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/taglab_partners.jpg
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:37 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/taglab_partners.jpg
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:37 INFO -       REJECTED_UNMODIFIED: http://www.taglaboratory.org/images/taglab_partners.jpg
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:37 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/team.html
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:37 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/team.html
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:37 INFO -       REJECTED_UNMODIFIED: http://www.taglaboratory.org/team.html
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:38 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/publications.html
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:38 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/publications.html
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:38 INFO -       REJECTED_UNMODIFIED: http://www.taglaboratory.org/publications.html
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:38 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/team/chris-small.jpg
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:38 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/team/chris-small.jpg
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:38 INFO -       REJECTED_UNMODIFIED: http://www.taglaboratory.org/images/team/chris-small.jpg
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:39 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/team/davidw-small.jpg
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:39 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/team/davidw-small.jpg
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:39 INFO -       REJECTED_UNMODIFIED: http://www.taglaboratory.org/images/team/davidw-small.jpg
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:39 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/team/andy-small.png
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:39 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/team/andy-small.png
+e01bac6d-96db-4170-8222-766198718b04: 2019-04-26 15:05:39 INFO -       REJECTED_UNMODIFIED: http://www.taglaboratory.org/images/team/andy-small.png

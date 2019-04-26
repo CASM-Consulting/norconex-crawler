@@ -1,15 +1,17 @@
 package uk.ac.susx.tag.norconex.crawler;
 
 // logging imports
+import com.norconex.collector.http.recrawl.IRecrawlableResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 // norconcex imports
 import com.norconex.collector.http.recrawl.PreviousCrawlData;
-import com.norconex.collector.http.recrawl.impl.GenericRecrawlableResolver;
 
 import uk.ac.susx.tag.norconex.controller.ContinuousController;
-import uk.ac.susx.tag.norconex.crawler.ContinuousEstimatorStore.ContinuousMetadata;
+import uk.ac.susx.tag.norconex.crawlstore.ContinuousEstimatorStore;
+import uk.ac.susx.tag.norconex.crawlstore.ContinuousMetadata;
+
 
 /**
  * Used to control whether this site should be recrawled based on url match
@@ -17,25 +19,19 @@ import uk.ac.susx.tag.norconex.crawler.ContinuousEstimatorStore.ContinuousMetada
  * Not to be confused with crawl priority
  * @author jp242
  */
-public class ContinuousRecrawlableResolver extends GenericRecrawlableResolver {
+//public class ContinuousRecrawlableResolver extends GenericRecrawlableResolver {
+
+public class ContinuousRecrawlableResolver implements IRecrawlableResolver {
 	
 	protected static final Logger logger = LoggerFactory.getLogger(ContinuousRecrawlableResolver.class);
 
 //	private double rate;          // parameter to control the interval calculation
-	boolean siteMap;
+
 	private ContinuousEstimatorStore store;
 		
-	public ContinuousRecrawlableResolver(boolean siteMap, ContinuousEstimatorStore conStats) {
+	public ContinuousRecrawlableResolver(ContinuousEstimatorStore conStats) {
 		
 		store = conStats;
-		
-		if(siteMap) {
-			this.setSitemapSupport(SitemapSupport.LAST);
-		}
-		else {
-			this.setSitemapSupport(SitemapSupport.NEVER);
-		}
-		this.siteMap = siteMap;
 
 	}
 	
@@ -54,13 +50,10 @@ public class ContinuousRecrawlableResolver extends GenericRecrawlableResolver {
 			return true;
 		}
 
-		// if sitemap enabled then backoff to generic implementation
-		if(siteMap) {
-			return super.isRecrawlable(prevData);
-		}
 		
 		// If enough stats have not yet been collected to estimate the delay then recrawl
 		if(crawlStats.getCheckedCount() < ContinuousController.BURNIN_CRAWLS) {
+			crawlStats.incrementCheckedCount();
 			return true;
 		}
 
