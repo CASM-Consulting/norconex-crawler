@@ -34,6 +34,9 @@ import com.norconex.importer.ImporterConfig;
  */
 public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 
+	// politeness delay in seconds
+	public static final double POLITE_DELAY = 0.5;					// TODO: Make a parameter?
+
 	public ContinuousCrawlerConfig(String userAgent, int depth, int crawlers, File crawlStore, 
 			boolean ignoreRobots, boolean ignoreSiteMap, String id, List<String> regxFiltPatterns,
 			String seed) {
@@ -89,7 +92,7 @@ public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 							
 		// Used to set the politeness delay for consecutive post calls to the site (helps prevent being blocked)
 		GenericDelayResolver gdr = new GenericDelayResolver();
-		gdr.setDefaultDelay(400);
+		gdr.setDefaultDelay(Math.round(POLITE_DELAY * 1000));
 		gdr.setIgnoreRobotsCrawlDelay(ignoreRobots);
 		gdr.setScope(GenericDelayResolver.SCOPE_CRAWLER);
 		setDelayResolver(gdr);

@@ -42,24 +42,34 @@ public class ContinuousController {
 	public static final long DEFAULT_MAX_RECRAWL_DELAY  = 730;
 	public static final long DEFAULT_DELAY 				= 12;
 
+	// crawl-store suffixes
 	private static final String PROGRESS = "progress";
 	private static final String LOGS = "logs";
+
+	// parent directory for all crawl-store info.
 	private final File crawlStore;
 
+	// Collector components
 	private ContinuousCollectorFactory factory; 	// Factory that produces consistently configured crawlers for continuous running
 	private ContinuousListener listener;		 	// Listens for the end of each crawl and restarts unless stop instruction given
 	private ContinuousCollector collector; 		 	// Current collector which controls the crawling behaviour at run-time.
 	private ContinuousCollectorListener collectorListener;
 	private ContinuousEstimatorStore cacheStore;		// The store that contains the needed meta-data for each urls recrawl strategy
 	private ContinuousCrawlerConfig config;			// the config that controls the crawl
-	
+
+	// Queue to send output
 	private BlockingQueue<HttpDocument> outputQueue;
-	private String collectorId; 						// Used to store the id of the current collector;
-	private String crawlerId;
+
+	// collector id - remains static so that the cache is not lost between runs.
+	private static final String collectorId = "continuousCollector";
+	private static final String crawlerId = "continuousCrawler";
+
+	// standard params
 	private boolean ignoreSiteMap;
 	private final String storeLocation;
 
-	private boolean finished;						// Has the crawler been requested to shutdown the crawl permanently
+	// Has the crawler been requested to shutdown the crawl permanently?
+	private boolean finished;
 
 
 	// Used to create upper and lower bounds on crawl delays to prevent the statistics running out of control
@@ -80,8 +90,8 @@ public class ContinuousController {
 		finished = false;
 		factory = new ContinuousCollectorFactory();
 
-		collectorId = "continuousCollector";
-		crawlerId = "continuousCrawler";
+
+
 
 		config = new ContinuousCrawlerConfig(userAgent,depth,numCrawlers,crawlStore,ignoreRobots,
 				ignoreSiteMap,crawlerId,urlRegex,seed);
@@ -233,26 +243,5 @@ public class ContinuousController {
 				controller.getListener().restartCollector();		
 			}
 		}
-	}
-
-	public static void main(String[] args) {
-		BlockingQueue<HttpDocument> queue = new ArrayBlockingQueue<HttpDocument>(10000);
-//		String seed = "https://www.gamespot.com/forums/system-wars-314159282/as-the-entire-population-gains-basic-gaming-skills-33456501/";
-		String seed = "http://www.taglaboratory.org";
-//		String seed = "https://www.neogaf.com/threads/days-gone-ot-days-gone-b-gud.1478110/";
-//		HttpCollectorConfig hcc = new HttpCollectorConfig();
-//		hcc.setId(UUID.randomUUID().toString());
-//		HttpCrawlerConfig config = BasicCollector.crawlerConfig("m52",-1,5,
-//				new File("/Users/jp242/Documents/Projects/Crawler-Upgrade/testdb"),true,
-//				true,UUID.randomUUID().toString(),new ArrayList<>(), new ArrayBlockingQueue<>(10000));
-//		config.setStartURLs(seed);
-//		hcc.setProgressDir("/Users/jp242/Documents/Projects/Crawler-Upgrade/testdb/progress");
-//		hcc.setLogsDir("/Users/jp242/Documents/Projects/Crawler-Upgrade/testdb/logs");
-//		hcc.setCrawlerConfigs(config);
-
-		ContinuousController cc = new ContinuousController("M52",new File("/Users/jp242/Documents/Projects/Crawler-Upgrade/testdb"),-1,new ArrayList<>(),5,
-				true,true, seed ,new ArrayBlockingQueue<>(1000));
-
-		cc.start();
 	}
 }
