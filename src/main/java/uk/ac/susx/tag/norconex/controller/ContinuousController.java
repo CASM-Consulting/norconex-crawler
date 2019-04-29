@@ -194,6 +194,7 @@ public class ContinuousController {
 			HttpCollectorConfig collectorConfig = ContinuousCollector.createCollectorConfig(collectorId, collectorListener);
 			collectorConfig.setCrawlerConfigs(config);
 			collectorConfig.setProgressDir(new File(crawlStore,PROGRESS).getAbsolutePath());
+			collectorConfig.setLogsDir(new File(crawlStore,LOGS).getAbsolutePath());
 			collector = new ContinuousCollector(collectorConfig);
 
 			return collector;

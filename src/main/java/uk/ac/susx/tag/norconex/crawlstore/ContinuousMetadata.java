@@ -35,7 +35,6 @@ public class ContinuousMetadata implements Serializable {
 
     public void incrementCheckedCount() {
         checkedCount++;
-        logger.info("checked count: " + checkedCount);
     }
 
     public long getCheckedCount(){ return checkedCount; }
