@@ -33,25 +33,27 @@ public class ContinuousEstimatorStore {
 	
 	public ContinuousEstimatorStore(String cacheStore) {
 
-		// makesure db is avail
-		File storeParent = new File(cacheStore);
-		if(!storeParent.exists()) {
-			storeParent.mkdirs();
-		}
 
 		initStore(cacheStore);
 
 	}
 
-	private void initStore(String storeLocation) {
-		try{
+	private void initStore(String storeLocation) throws RuntimeException {
+		try {
+
+			// makesure db is avail
+			File storeParent = new File(storeLocation);
+			if(!storeParent.exists()) {
+				storeParent.mkdirs();
+			}
+
 			cacheStore = new MVStore.Builder().fileName(new File(new File(storeLocation), MAPCACHE).getAbsolutePath()).open();
 			continuousCache = cacheStore.openMap(CONMAP);
 			globalCache = cacheStore.openMap(GLOBALMAP);
-		} catch (Exception w) {
-			logger.error(w.getMessage());
 		}
-
+		catch (Exception e) {
+			throw new RuntimeException("ERROR: Failed when attempting to open the continuous crawler cache at: " + new File(new File(storeLocation), MAPCACHE).getAbsolutePath());
+		}
 	}
 
 	/**
