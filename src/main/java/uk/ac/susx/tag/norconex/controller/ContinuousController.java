@@ -150,7 +150,6 @@ public class ContinuousController {
 
 		scheduler.schedule(new SheduledCrawl(), delaySeconds, TimeUnit.SECONDS);
 
-
 	}
 
 	
@@ -257,12 +256,6 @@ public class ContinuousController {
 			}
 		}
 	}
-
-	public static void main(String[] args) {
-		ContinuousController cc = new ContinuousController("m52",new File("/Users/jp242/Documents/Projects/Crawler-Upgrade/testdb"),-1,
-				new ArrayList<>(),1,true,true,"http://www.taglaboratory.org/", new ArrayBlockingQueue<>(10000),1);
-
-		cc.start();
-	}
+	
 
 }
