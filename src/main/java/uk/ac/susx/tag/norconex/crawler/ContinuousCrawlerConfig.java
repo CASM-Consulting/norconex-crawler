@@ -35,7 +35,7 @@ import com.norconex.importer.ImporterConfig;
 public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 
 	// politeness delay in seconds
-	public static final double POLITE_DELAY = 0.5;					// TODO: Make a parameter?
+	public static final double POLITE_DELAY = 0.3;					// TODO: Make a parameter?
 
 	public ContinuousCrawlerConfig(String userAgent, int depth, int crawlers, File crawlStore, 
 			boolean ignoreRobots, boolean ignoreSiteMap, String id, List<String> regxFiltPatterns,
@@ -49,10 +49,10 @@ public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 		setIgnoreCanonicalLinks(true);
 		setDocumentChecksummer(new MD5DocumentChecksummer());
 		setIgnoreSitemap(ignoreSiteMap);
-		setKeepDownloads(true);
+
 		// Control the number of crawlers by the number of threads
 		setNumThreads(crawlers);
-		
+
 		// Location of crawl output, db etc... 
 		setWorkDir(crawlStore);
 		
@@ -82,8 +82,8 @@ public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 
 		// set this to correctly manage file sizes etc... 
 		ImporterConfig importCon = new ImporterConfig();
-		importCon.setMaxFileCacheSize(100);
-		importCon.setMaxFilePoolCacheSize(100);
+		importCon.setMaxFileCacheSize(10);
+		importCon.setMaxFilePoolCacheSize(10);
 		GenericDocumentParserFactory gdpf = new GenericDocumentParserFactory();
 		gdpf.setIgnoredContentTypesRegex(".*");
 		importCon.setParserFactory(gdpf);
@@ -101,9 +101,11 @@ public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 		gle.setIgnoreNofollow(ignoreRobots);
 		gle.setCharset(StandardCharsets.UTF_8.toString());
 		setLinkExtractors(gle);
-		
+
+
+
 		// create the url filters - e.g. regex filters
-		// url regex match 
+		// url regex match
 		// parent link prevention
 		RegexReferenceFilter[] referenceFilters = regxFiltPatterns.stream()
 			.map(regex -> new RegexReferenceFilter(regex))
