@@ -19,8 +19,6 @@ import uk.ac.susx.tag.norconex.crawlstore.ContinuousMetadata;
  * Not to be confused with crawl priority
  * @author jp242
  */
-//public class ContinuousRecrawlableResolver extends GenericRecrawlableResolver {
-
 public class ContinuousRecrawlableResolver implements IRecrawlableResolver {
 	
 	protected static final Logger logger = LoggerFactory.getLogger(ContinuousRecrawlableResolver.class);

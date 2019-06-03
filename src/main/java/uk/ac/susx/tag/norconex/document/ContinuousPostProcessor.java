@@ -1,9 +1,5 @@
 package uk.ac.susx.tag.norconex.document;
 
-// logging imports
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 // http imports
 import org.apache.http.client.HttpClient;
 

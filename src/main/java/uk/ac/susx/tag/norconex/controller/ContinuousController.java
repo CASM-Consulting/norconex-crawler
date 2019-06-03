@@ -66,7 +66,7 @@ public class ContinuousController {
 	private final ContinuousEstimatorStore cacheStore;	// The store that contains the needed meta-data for each urls recrawl strategy
 
 	// Queue to send output
-	private final BlockingQueue<HttpDocument> outputQueue;
+	private final BlockingQueue<String> outputQueue;
 
 	// collector id - remains static so that the cache is not lost between runs.
 	private static final String collectorId = "continuousCollector";
@@ -89,7 +89,7 @@ public class ContinuousController {
 	
 	public ContinuousController(String userAgent, File crawlStore, int depth, 
 			List<String> urlRegex, int numCrawlers, boolean ignoreRobots,
-			boolean ignoreSiteMap, String seed, BlockingQueue<HttpDocument> queue, long scheduleHours) {
+			boolean ignoreSiteMap, String seed, BlockingQueue<String> queue, long scheduleHours) {
 		
 		listener = new ContinuousListener();
 		storeLocation = new File(crawlStore,"conCache").getAbsolutePath();

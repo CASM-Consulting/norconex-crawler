@@ -44,7 +44,7 @@ public class BasicCollector extends HttpCollector {
 
 	public static HttpCrawlerConfig crawlerConfig(String userAgent, int depth, int crawlers, File crawlStore,
 												  boolean ignoreRobots, boolean ignoreSiteMap, String id, List<String> regxFiltPatterns,
-												  BlockingQueue<HttpDocument> queue, boolean strictDomain) {
+												  BlockingQueue<String> queue, boolean strictDomain) {
 
 		HttpCrawlerConfig config = new HttpCrawlerConfig();
 
