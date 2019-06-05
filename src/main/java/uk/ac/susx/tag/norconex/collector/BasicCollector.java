@@ -3,9 +3,7 @@ package uk.ac.susx.tag.norconex.collector;
 // java imports
 import java.io.File;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.stream.Collectors;
 
@@ -22,7 +20,6 @@ import com.norconex.collector.http.HttpCollectorConfig;
 import com.norconex.collector.http.crawler.HttpCrawlerConfig;
 import com.norconex.collector.http.crawler.URLCrawlScopeStrategy;
 import com.norconex.collector.http.delay.impl.GenericDelayResolver;
-import com.norconex.collector.http.doc.HttpDocument;
 import com.norconex.collector.http.url.impl.GenericLinkExtractor;
 import com.norconex.importer.ImporterConfig;
 
@@ -44,7 +41,7 @@ public class BasicCollector extends HttpCollector {
 
 	public static HttpCrawlerConfig crawlerConfig(String userAgent, int depth, int crawlers, File crawlStore,
 												  boolean ignoreRobots, boolean ignoreSiteMap, String id, List<String> regxFiltPatterns,
-												  BlockingQueue<String> queue, boolean strictDomain) {
+												  BlockingQueue<String> queue, boolean strictDomain, long politeness) {
 
 		HttpCrawlerConfig config = new HttpCrawlerConfig();
 
@@ -93,9 +90,9 @@ public class BasicCollector extends HttpCollector {
 
 		// Used to set the politeness delay for consecutive post calls to the site (helps prevent being blocked)
 		GenericDelayResolver gdr = new GenericDelayResolver();
-		gdr.setDefaultDelay(300);
+		gdr.setDefaultDelay((politeness <= 50) ? 50 : politeness);
 		gdr.setIgnoreRobotsCrawlDelay(ignoreRobots);
-		gdr.setScope(GenericDelayResolver.SCOPE_CRAWLER);
+		gdr.setScope(GenericDelayResolver.SCOPE_SITE);
 		config.setDelayResolver(gdr);
 
 		GenericLinkExtractor gle = new GenericLinkExtractor();

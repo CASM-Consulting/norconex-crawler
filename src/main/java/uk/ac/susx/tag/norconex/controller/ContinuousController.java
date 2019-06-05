@@ -57,8 +57,8 @@ public class ContinuousController {
 	private final boolean ignoreRobots;
 	private final int depth;
 	private final List<String> urlRegex;
-	private final String seed;
-	private final long shedule;							// Delay between crawler runs
+	private final String[] seeds;
+	private final long politeness;
 
 	// Collector components
 	private final ContinuousCollectorFactory factory; 	// Factory that produces consistently configured crawlers for continuous running
@@ -89,7 +89,7 @@ public class ContinuousController {
 	
 	public ContinuousController(String userAgent, File crawlStore, int depth, 
 			List<String> urlRegex, int numCrawlers, boolean ignoreRobots,
-			boolean ignoreSiteMap, String seed, BlockingQueue<String> queue, long scheduleHours) {
+			boolean ignoreSiteMap, BlockingQueue<String> queue, long politenesDelay, String... seeds) {
 		
 		listener = new ContinuousListener();
 		storeLocation = new File(crawlStore,"conCache").getAbsolutePath();
@@ -104,8 +104,8 @@ public class ContinuousController {
 		this.ignoreRobots = ignoreRobots;
 		this.depth = depth;
 		this.urlRegex = urlRegex;
-		this.seed = seed;
-		this.shedule = scheduleHours;
+		this.seeds = seeds;
+		this.politeness = politenesDelay;
 
 		factory = new ContinuousCollectorFactory();
 		configFactory = new CollectorConfigurationFactory();
@@ -191,7 +191,7 @@ public class ContinuousController {
 
 		public HttpCrawlerConfig createConfiguration() {
 			ContinuousCrawlerConfig config = new ContinuousCrawlerConfig(userAgent, depth, numCrawlers, crawlStore, ignoreRobots,
-					ignoreSiteMap, crawlerId, urlRegex, seed);
+					ignoreSiteMap, crawlerId, urlRegex, politeness, seeds);
 
 
 			if(ignoreSiteMap) {
@@ -235,7 +235,7 @@ public class ContinuousController {
 			cacheStore.getGlobalMetadata().incrementCrawls();
 			cacheStore.getGlobalMetadata().updateCrawlTime();
 			cacheStore.commit();
-			scheduleNextCrawl(shedule);
+			scheduleNextCrawl(10l);
 			logger.info("There have been a total of " + cacheStore.getGlobalMetadata().getTotalCrawls() + " crawls");
 		}
 

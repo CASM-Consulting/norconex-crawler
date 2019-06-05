@@ -34,12 +34,10 @@ import com.norconex.importer.ImporterConfig;
  */
 public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 
-	// politeness delay in seconds
-	public static final double POLITE_DELAY = 0.3;					// TODO: Make a parameter?
-
-	public ContinuousCrawlerConfig(String userAgent, int depth, int crawlers, File crawlStore, 
-			boolean ignoreRobots, boolean ignoreSiteMap, String id, List<String> regxFiltPatterns,
-			String seed) {
+	public ContinuousCrawlerConfig(String userAgent, int depth, int crawlers, File crawlStore,
+								   boolean ignoreRobots, boolean ignoreSiteMap, String id,
+								   List<String> regxFiltPatterns, long politeness,
+								   String... seeds) {
 		
 		// Basic crawler config
 		setUserAgent(userAgent);
@@ -73,11 +71,11 @@ public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 		// set to false so crawl cache is only those of interest
 		setKeepOutOfScopeLinks(false);
 
-		setStartURLs(seed);
+		setStartURLs(seeds);
 
 		// use this if you want to adhere to sitemap.
 		if(!ignoreSiteMap) {
-			setStartSitemapURLs(seed);
+			setStartSitemapURLs(seeds);
 		}
 
 		// set this to correctly manage file sizes etc... 
@@ -92,17 +90,15 @@ public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 							
 		// Used to set the politeness delay for consecutive post calls to the site (helps prevent being blocked)
 		GenericDelayResolver gdr = new GenericDelayResolver();
-		gdr.setDefaultDelay(Math.round(POLITE_DELAY * 1000));
+		gdr.setDefaultDelay((politeness <= 50) ? 50 : politeness); // safety check to avoid to to small a delay
 		gdr.setIgnoreRobotsCrawlDelay(ignoreRobots);
-		gdr.setScope(GenericDelayResolver.SCOPE_CRAWLER);
+		gdr.setScope(GenericDelayResolver.SCOPE_SITE);
 		setDelayResolver(gdr);
 		
 		GenericLinkExtractor gle = new GenericLinkExtractor();
 		gle.setIgnoreNofollow(ignoreRobots);
 		gle.setCharset(StandardCharsets.UTF_8.toString());
 		setLinkExtractors(gle);
-
-
 
 		// create the url filters - e.g. regex filters
 		// url regex match
