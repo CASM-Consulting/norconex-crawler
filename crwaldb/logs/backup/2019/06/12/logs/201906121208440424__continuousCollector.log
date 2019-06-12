@@ -1,0 +1,265 @@
+[non-job]: 2019-06-12 12:08:38 INFO - Starting execution.
+[non-job]: 2019-06-12 12:08:38 INFO - Version: "Collector" version is undefined.
+[non-job]: 2019-06-12 12:08:38 INFO - Version: Norconex Collector Core 1.9.1 (Norconex Inc.)
+[non-job]: 2019-06-12 12:08:38 INFO - Version: Norconex Importer 2.9.0 (Norconex Inc.)
+[non-job]: 2019-06-12 12:08:38 INFO - Version: Norconex JEF 4.1.0 (Norconex Inc.)
+[non-job]: 2019-06-12 12:08:38 INFO - Version: Norconex Committer Core 2.1.2 (Norconex Inc.)
+continuousCollector: 2019-06-12 12:08:38 INFO - Running continuousCollector: BEGIN (Wed Jun 12 12:08:38 BST 2019)
+continuousCrawler: 2019-06-12 12:08:38 DEBUG - Thread from continuousCollector started and about to run: continuousCrawler
+continuousCrawler: 2019-06-12 12:08:38 DEBUG - Thread from continuousCollector started and about to run: continuousCrawler
+continuousCrawler: 2019-06-12 12:08:38 DEBUG - Thread from continuousCollector started and about to run: continuousCrawler
+continuousCrawler: 2019-06-12 12:08:38 INFO - Running continuousCrawler: BEGIN (Wed Jun 12 12:08:38 BST 2019)
+continuousCrawler: 2019-06-12 12:08:38 INFO - Running continuousCrawler: BEGIN (Wed Jun 12 12:08:38 BST 2019)
+continuousCrawler: 2019-06-12 12:08:38 INFO - Running continuousCrawler: BEGIN (Wed Jun 12 12:08:38 BST 2019)
+continuousCrawler: 2019-06-12 12:08:38 ERROR - Execution failed for job: continuousCrawler
+java.lang.IllegalStateException: The file is locked: nio:./crwaldb/crawlstore/mvstore/continuousCrawler//mvstore [1.4.196/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:765)
+	at org.h2.mvstore.FileStore.open(FileStore.java:168)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:347)
+	at org.h2.mvstore.MVStore.open(MVStore.java:395)
+	at com.norconex.collector.core.data.store.impl.mvstore.MVStoreCrawlDataStore.<init>(MVStoreCrawlDataStore.java:57)
+	at com.norconex.collector.core.data.store.impl.mvstore.MVStoreCrawlDataStoreFactory.createCrawlDataStore(MVStoreCrawlDataStoreFactory.java:49)
+	at com.norconex.collector.core.crawler.AbstractCrawler.createCrawlDataStore(AbstractCrawler.java:243)
+	at com.norconex.collector.core.crawler.AbstractCrawler.doExecute(AbstractCrawler.java:204)
+	at com.norconex.collector.core.crawler.AbstractCrawler.startExecution(AbstractCrawler.java:184)
+	at com.norconex.jef4.job.AbstractResumableJob.execute(AbstractResumableJob.java:49)
+	at com.norconex.jef4.suite.JobSuite.runJob(JobSuite.java:355)
+	at com.norconex.jef4.job.group.AsyncJobGroup.runJob(AsyncJobGroup.java:119)
+	at com.norconex.jef4.job.group.AsyncJobGroup.access$000(AsyncJobGroup.java:44)
+	at com.norconex.jef4.job.group.AsyncJobGroup$1.run(AsyncJobGroup.java:86)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: java.nio.channels.OverlappingFileLockException
+	at sun.nio.ch.SharedFileLockTable.checkList(FileLockTable.java:255)
+	at sun.nio.ch.SharedFileLockTable.add(FileLockTable.java:152)
+	at sun.nio.ch.FileChannelImpl.tryLock(FileChannelImpl.java:1107)
+	at org.h2.store.fs.FileNio.tryLock(FilePathNio.java:121)
+	at java.nio.channels.FileChannel.tryLock(FileChannel.java:1155)
+	at org.h2.mvstore.FileStore.open(FileStore.java:165)
+	... 15 more
+continuousCrawler: 2019-06-12 12:08:38 ERROR - Execution failed for job: continuousCrawler
+java.lang.IllegalStateException: The file is locked: nio:./crwaldb/crawlstore/mvstore/continuousCrawler//mvstore [1.4.196/7]
+	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:765)
+	at org.h2.mvstore.FileStore.open(FileStore.java:168)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:347)
+	at org.h2.mvstore.MVStore.open(MVStore.java:395)
+	at com.norconex.collector.core.data.store.impl.mvstore.MVStoreCrawlDataStore.<init>(MVStoreCrawlDataStore.java:57)
+	at com.norconex.collector.core.data.store.impl.mvstore.MVStoreCrawlDataStoreFactory.createCrawlDataStore(MVStoreCrawlDataStoreFactory.java:49)
+	at com.norconex.collector.core.crawler.AbstractCrawler.createCrawlDataStore(AbstractCrawler.java:243)
+	at com.norconex.collector.core.crawler.AbstractCrawler.doExecute(AbstractCrawler.java:204)
+	at com.norconex.collector.core.crawler.AbstractCrawler.startExecution(AbstractCrawler.java:184)
+	at com.norconex.jef4.job.AbstractResumableJob.execute(AbstractResumableJob.java:49)
+	at com.norconex.jef4.suite.JobSuite.runJob(JobSuite.java:355)
+	at com.norconex.jef4.job.group.AsyncJobGroup.runJob(AsyncJobGroup.java:119)
+	at com.norconex.jef4.job.group.AsyncJobGroup.access$000(AsyncJobGroup.java:44)
+	at com.norconex.jef4.job.group.AsyncJobGroup$1.run(AsyncJobGroup.java:86)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: java.nio.channels.OverlappingFileLockException
+	at sun.nio.ch.SharedFileLockTable.checkList(FileLockTable.java:255)
+	at sun.nio.ch.SharedFileLockTable.add(FileLockTable.java:152)
+	at sun.nio.ch.FileChannelImpl.tryLock(FileChannelImpl.java:1107)
+	at org.h2.store.fs.FileNio.tryLock(FilePathNio.java:121)
+	at java.nio.channels.FileChannel.tryLock(FileChannel.java:1155)
+	at org.h2.mvstore.FileStore.open(FileStore.java:165)
+	... 15 more
+continuousCrawler: 2019-06-12 12:08:38 INFO - continuousCrawler: RobotsTxt support: true
+continuousCrawler: 2019-06-12 12:08:38 INFO - continuousCrawler: RobotsMeta support: true
+continuousCrawler: 2019-06-12 12:08:38 INFO - continuousCrawler: Sitemap support: false
+continuousCrawler: 2019-06-12 12:08:38 INFO - continuousCrawler: Canonical links support: false
+continuousCrawler: 2019-06-12 12:08:38 INFO - continuousCrawler: User-Agent: m52-test
+continuousCrawler: 2019-06-12 12:08:38 INFO - Running continuousCrawler: END (Wed Jun 12 12:08:38 BST 2019)
+continuousCrawler: 2019-06-12 12:08:38 ERROR - continuousCrawler failed.
+continuousCollector: 2019-06-12 12:08:38 DEBUG - Thread from continuousCollector finished to run: continuousCrawler
+continuousCrawler: 2019-06-12 12:08:38 INFO - Running continuousCrawler: END (Wed Jun 12 12:08:38 BST 2019)
+continuousCrawler: 2019-06-12 12:08:38 ERROR - continuousCrawler failed.
+continuousCollector: 2019-06-12 12:08:38 DEBUG - Thread from continuousCollector finished to run: continuousCrawler
+continuousCrawler: 2019-06-12 12:08:38 INFO - continuousCrawler: Initializing sitemap store...
+continuousCrawler: 2019-06-12 12:08:38 INFO - continuousCrawler: Done initializing sitemap store.
+continuousCrawler: 2019-06-12 12:08:39 INFO - 1 start URLs identified.
+continuousCrawler: 2019-06-12 12:08:39 INFO -           CRAWLER_STARTED
+continuousCrawler: 2019-06-12 12:08:39 INFO - continuousCrawler: Crawling references...
+continuousCrawler: 2019-06-12 12:08:39 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/
+continuousCrawler: 2019-06-12 12:08:39 INFO -       CREATED_ROBOTS_META: http://www.taglaboratory.org/
+continuousCrawler: 2019-06-12 12:08:39 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/
+continuousCrawler: 2019-06-12 12:08:40 INFO -         DOCUMENT_IMPORTED: http://www.taglaboratory.org/
+continuousCrawler: 2019-06-12 12:08:40 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/
+continuousCrawler: 2019-06-12 12:08:40 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/
+continuousCrawler: 2019-06-12 12:08:40 INFO -    DOCUMENT_COMMITTED_ADD: http://www.taglaboratory.org/
+continuousCrawler: 2019-06-12 12:08:40 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/team.html
+continuousCrawler: 2019-06-12 12:08:40 INFO -       CREATED_ROBOTS_META: http://www.taglaboratory.org/team.html
+continuousCrawler: 2019-06-12 12:08:40 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/team.html
+continuousCrawler: 2019-06-12 12:08:40 INFO -         DOCUMENT_IMPORTED: http://www.taglaboratory.org/team.html
+continuousCrawler: 2019-06-12 12:08:40 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/team.html
+continuousCrawler: 2019-06-12 12:08:40 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/team.html
+continuousCrawler: 2019-06-12 12:08:40 INFO -    DOCUMENT_COMMITTED_ADD: http://www.taglaboratory.org/team.html
+continuousCrawler: 2019-06-12 12:08:40 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/index.html
+continuousCrawler: 2019-06-12 12:08:40 INFO -       CREATED_ROBOTS_META: http://www.taglaboratory.org/index.html
+continuousCrawler: 2019-06-12 12:08:40 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/index.html
+continuousCrawler: 2019-06-12 12:08:40 INFO -         DOCUMENT_IMPORTED: http://www.taglaboratory.org/index.html
+continuousCrawler: 2019-06-12 12:08:40 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/index.html
+continuousCrawler: 2019-06-12 12:08:40 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/index.html
+continuousCrawler: 2019-06-12 12:08:40 INFO -    DOCUMENT_COMMITTED_ADD: http://www.taglaboratory.org/index.html
+continuousCrawler: 2019-06-12 12:08:40 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/publications.html
+continuousCrawler: 2019-06-12 12:08:40 INFO -       CREATED_ROBOTS_META: http://www.taglaboratory.org/publications.html
+continuousCrawler: 2019-06-12 12:08:40 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/publications.html
+continuousCrawler: 2019-06-12 12:08:40 INFO -         DOCUMENT_IMPORTED: http://www.taglaboratory.org/publications.html
+continuousCrawler: 2019-06-12 12:08:40 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/publications.html
+continuousCrawler: 2019-06-12 12:08:40 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/publications.html
+continuousCrawler: 2019-06-12 12:08:40 INFO -    DOCUMENT_COMMITTED_ADD: http://www.taglaboratory.org/publications.html
+continuousCrawler: 2019-06-12 12:08:40 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/major_projects.html
+continuousCrawler: 2019-06-12 12:08:40 INFO -       CREATED_ROBOTS_META: http://www.taglaboratory.org/major_projects.html
+continuousCrawler: 2019-06-12 12:08:40 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/major_projects.html
+continuousCrawler: 2019-06-12 12:08:40 INFO -         DOCUMENT_IMPORTED: http://www.taglaboratory.org/major_projects.html
+continuousCrawler: 2019-06-12 12:08:40 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/major_projects.html
+continuousCrawler: 2019-06-12 12:08:40 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/major_projects.html
+continuousCrawler: 2019-06-12 12:08:40 INFO -    DOCUMENT_COMMITTED_ADD: http://www.taglaboratory.org/major_projects.html
+continuousCrawler: 2019-06-12 12:08:40 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/taglab.png
+continuousCrawler: 2019-06-12 12:08:40 INFO -       CREATED_ROBOTS_META: http://www.taglaboratory.org/images/taglab.png
+continuousCrawler: 2019-06-12 12:08:40 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/taglab.png
+continuousCrawler: 2019-06-12 12:08:40 INFO -         DOCUMENT_IMPORTED: http://www.taglaboratory.org/images/taglab.png
+continuousCrawler: 2019-06-12 12:08:40 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/images/taglab.png
+continuousCrawler: 2019-06-12 12:08:40 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/images/taglab.png
+continuousCrawler: 2019-06-12 12:08:40 INFO -    DOCUMENT_COMMITTED_ADD: http://www.taglaboratory.org/images/taglab.png
+continuousCrawler: 2019-06-12 12:08:41 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/pic01.png
+continuousCrawler: 2019-06-12 12:08:41 INFO -       CREATED_ROBOTS_META: http://www.taglaboratory.org/images/pic01.png
+continuousCrawler: 2019-06-12 12:08:41 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/pic01.png
+continuousCrawler: 2019-06-12 12:08:41 INFO -         DOCUMENT_IMPORTED: http://www.taglaboratory.org/images/pic01.png
+continuousCrawler: 2019-06-12 12:08:41 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/images/pic01.png
+continuousCrawler: 2019-06-12 12:08:41 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/images/pic01.png
+continuousCrawler: 2019-06-12 12:08:41 INFO -    DOCUMENT_COMMITTED_ADD: http://www.taglaboratory.org/images/pic01.png
+continuousCrawler: 2019-06-12 12:08:41 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/taglab_partners.jpg
+continuousCrawler: 2019-06-12 12:08:41 INFO -       CREATED_ROBOTS_META: http://www.taglaboratory.org/images/taglab_partners.jpg
+continuousCrawler: 2019-06-12 12:08:41 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/taglab_partners.jpg
+continuousCrawler: 2019-06-12 12:08:41 INFO -         DOCUMENT_IMPORTED: http://www.taglaboratory.org/images/taglab_partners.jpg
+continuousCrawler: 2019-06-12 12:08:41 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/images/taglab_partners.jpg
+continuousCrawler: 2019-06-12 12:08:41 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/images/taglab_partners.jpg
+continuousCrawler: 2019-06-12 12:08:41 INFO -    DOCUMENT_COMMITTED_ADD: http://www.taglaboratory.org/images/taglab_partners.jpg
+continuousCrawler: 2019-06-12 12:08:41 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/team/joe-small.jpg
+continuousCrawler: 2019-06-12 12:08:41 INFO -       CREATED_ROBOTS_META: http://www.taglaboratory.org/images/team/joe-small.jpg
+continuousCrawler: 2019-06-12 12:08:41 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/team/joe-small.jpg
+continuousCrawler: 2019-06-12 12:08:41 INFO -         DOCUMENT_IMPORTED: http://www.taglaboratory.org/images/team/joe-small.jpg
+continuousCrawler: 2019-06-12 12:08:41 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/images/team/joe-small.jpg
+continuousCrawler: 2019-06-12 12:08:41 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/images/team/joe-small.jpg
+continuousCrawler: 2019-06-12 12:08:41 INFO -    DOCUMENT_COMMITTED_ADD: http://www.taglaboratory.org/images/team/joe-small.jpg
+continuousCrawler: 2019-06-12 12:08:41 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/team/jack-small.jpg
+continuousCrawler: 2019-06-12 12:08:41 INFO -       CREATED_ROBOTS_META: http://www.taglaboratory.org/images/team/jack-small.jpg
+continuousCrawler: 2019-06-12 12:08:41 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/team/jack-small.jpg
+continuousCrawler: 2019-06-12 12:08:41 INFO -         DOCUMENT_IMPORTED: http://www.taglaboratory.org/images/team/jack-small.jpg
+continuousCrawler: 2019-06-12 12:08:41 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/images/team/jack-small.jpg
+continuousCrawler: 2019-06-12 12:08:41 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/images/team/jack-small.jpg
+continuousCrawler: 2019-06-12 12:08:41 INFO -    DOCUMENT_COMMITTED_ADD: http://www.taglaboratory.org/images/team/jack-small.jpg
+continuousCrawler: 2019-06-12 12:08:41 INFO -         REJECTED_NOTFOUND: http://www.taglaboratory.org/bib/terminology05.bib
+continuousCrawler: 2019-06-12 12:08:42 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/team/davidw-small.jpg
+continuousCrawler: 2019-06-12 12:08:42 INFO -       CREATED_ROBOTS_META: http://www.taglaboratory.org/images/team/davidw-small.jpg
+continuousCrawler: 2019-06-12 12:08:42 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/team/davidw-small.jpg
+continuousCrawler: 2019-06-12 12:08:42 INFO -         DOCUMENT_IMPORTED: http://www.taglaboratory.org/images/team/davidw-small.jpg
+continuousCrawler: 2019-06-12 12:08:42 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/images/team/davidw-small.jpg
+continuousCrawler: 2019-06-12 12:08:42 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/images/team/davidw-small.jpg
+continuousCrawler: 2019-06-12 12:08:42 INFO -    DOCUMENT_COMMITTED_ADD: http://www.taglaboratory.org/images/team/davidw-small.jpg
+continuousCrawler: 2019-06-12 12:08:42 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/team/andy-small.png
+continuousCrawler: 2019-06-12 12:08:42 INFO -       CREATED_ROBOTS_META: http://www.taglaboratory.org/images/team/andy-small.png
+continuousCrawler: 2019-06-12 12:08:42 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/team/andy-small.png
+continuousCrawler: 2019-06-12 12:08:42 INFO -         DOCUMENT_IMPORTED: http://www.taglaboratory.org/images/team/andy-small.png
+continuousCrawler: 2019-06-12 12:08:42 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/images/team/andy-small.png
+continuousCrawler: 2019-06-12 12:08:42 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/images/team/andy-small.png
+continuousCrawler: 2019-06-12 12:08:42 INFO -    DOCUMENT_COMMITTED_ADD: http://www.taglaboratory.org/images/team/andy-small.png
+continuousCrawler: 2019-06-12 12:08:42 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/team/jeremy-small.jpeg
+continuousCrawler: 2019-06-12 12:08:42 INFO -       CREATED_ROBOTS_META: http://www.taglaboratory.org/images/team/jeremy-small.jpeg
+continuousCrawler: 2019-06-12 12:08:42 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/team/jeremy-small.jpeg
+continuousCrawler: 2019-06-12 12:08:42 INFO -         DOCUMENT_IMPORTED: http://www.taglaboratory.org/images/team/jeremy-small.jpeg
+continuousCrawler: 2019-06-12 12:08:42 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/images/team/jeremy-small.jpeg
+continuousCrawler: 2019-06-12 12:08:42 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/images/team/jeremy-small.jpeg
+continuousCrawler: 2019-06-12 12:08:42 INFO -    DOCUMENT_COMMITTED_ADD: http://www.taglaboratory.org/images/team/jeremy-small.jpeg
+continuousCrawler: 2019-06-12 12:08:42 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/team/chris-small.jpg
+continuousCrawler: 2019-06-12 12:08:42 INFO -       CREATED_ROBOTS_META: http://www.taglaboratory.org/images/team/chris-small.jpg
+continuousCrawler: 2019-06-12 12:08:42 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/team/chris-small.jpg
+continuousCrawler: 2019-06-12 12:08:42 INFO -         DOCUMENT_IMPORTED: http://www.taglaboratory.org/images/team/chris-small.jpg
+continuousCrawler: 2019-06-12 12:08:42 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/images/team/chris-small.jpg
+continuousCrawler: 2019-06-12 12:08:42 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/images/team/chris-small.jpg
+continuousCrawler: 2019-06-12 12:08:42 INFO -    DOCUMENT_COMMITTED_ADD: http://www.taglaboratory.org/images/team/chris-small.jpg
+continuousCrawler: 2019-06-12 12:08:42 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/team/davidsp-small.jpg
+continuousCrawler: 2019-06-12 12:08:42 INFO -       CREATED_ROBOTS_META: http://www.taglaboratory.org/images/team/davidsp-small.jpg
+continuousCrawler: 2019-06-12 12:08:42 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/team/davidsp-small.jpg
+continuousCrawler: 2019-06-12 12:08:42 INFO -         DOCUMENT_IMPORTED: http://www.taglaboratory.org/images/team/davidsp-small.jpg
+continuousCrawler: 2019-06-12 12:08:42 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/images/team/davidsp-small.jpg
+continuousCrawler: 2019-06-12 12:08:42 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/images/team/davidsp-small.jpg
+continuousCrawler: 2019-06-12 12:08:42 INFO -    DOCUMENT_COMMITTED_ADD: http://www.taglaboratory.org/images/team/davidsp-small.jpg
+continuousCrawler: 2019-06-12 12:08:43 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/team/tom-small.jpg
+continuousCrawler: 2019-06-12 12:08:43 INFO -       CREATED_ROBOTS_META: http://www.taglaboratory.org/images/team/tom-small.jpg
+continuousCrawler: 2019-06-12 12:08:43 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/team/tom-small.jpg
+continuousCrawler: 2019-06-12 12:08:43 INFO -         DOCUMENT_IMPORTED: http://www.taglaboratory.org/images/team/tom-small.jpg
+continuousCrawler: 2019-06-12 12:08:43 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/images/team/tom-small.jpg
+continuousCrawler: 2019-06-12 12:08:43 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/images/team/tom-small.jpg
+continuousCrawler: 2019-06-12 12:08:43 INFO -    DOCUMENT_COMMITTED_ADD: http://www.taglaboratory.org/images/team/tom-small.jpg
+continuousCrawler: 2019-06-12 12:08:43 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/team/thomask-small.jpg
+continuousCrawler: 2019-06-12 12:08:43 INFO -       CREATED_ROBOTS_META: http://www.taglaboratory.org/images/team/thomask-small.jpg
+continuousCrawler: 2019-06-12 12:08:43 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/team/thomask-small.jpg
+continuousCrawler: 2019-06-12 12:08:43 INFO -         DOCUMENT_IMPORTED: http://www.taglaboratory.org/images/team/thomask-small.jpg
+continuousCrawler: 2019-06-12 12:08:43 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/images/team/thomask-small.jpg
+continuousCrawler: 2019-06-12 12:08:43 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/images/team/thomask-small.jpg
+continuousCrawler: 2019-06-12 12:08:43 INFO -    DOCUMENT_COMMITTED_ADD: http://www.taglaboratory.org/images/team/thomask-small.jpg
+continuousCrawler: 2019-06-12 12:08:43 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/team/simon-small.png
+continuousCrawler: 2019-06-12 12:08:43 INFO -       CREATED_ROBOTS_META: http://www.taglaboratory.org/images/team/simon-small.png
+continuousCrawler: 2019-06-12 12:08:43 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/team/simon-small.png
+continuousCrawler: 2019-06-12 12:08:43 INFO -         DOCUMENT_IMPORTED: http://www.taglaboratory.org/images/team/simon-small.png
+continuousCrawler: 2019-06-12 12:08:43 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/images/team/simon-small.png
+continuousCrawler: 2019-06-12 12:08:43 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/images/team/simon-small.png
+continuousCrawler: 2019-06-12 12:08:43 INFO -    DOCUMENT_COMMITTED_ADD: http://www.taglaboratory.org/images/team/simon-small.png
+continuousCrawler: 2019-06-12 12:08:43 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/team/roland-small.jpg
+continuousCrawler: 2019-06-12 12:08:43 INFO -       CREATED_ROBOTS_META: http://www.taglaboratory.org/images/team/roland-small.jpg
+continuousCrawler: 2019-06-12 12:08:43 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/team/roland-small.jpg
+continuousCrawler: 2019-06-12 12:08:43 INFO -         DOCUMENT_IMPORTED: http://www.taglaboratory.org/images/team/roland-small.jpg
+continuousCrawler: 2019-06-12 12:08:43 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/images/team/roland-small.jpg
+continuousCrawler: 2019-06-12 12:08:43 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/images/team/roland-small.jpg
+continuousCrawler: 2019-06-12 12:08:43 INFO -    DOCUMENT_COMMITTED_ADD: http://www.taglaboratory.org/images/team/roland-small.jpg
+continuousCrawler: 2019-06-12 12:08:44 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/team/matti-small.jpg
+continuousCrawler: 2019-06-12 12:08:44 INFO -       CREATED_ROBOTS_META: http://www.taglaboratory.org/images/team/matti-small.jpg
+continuousCrawler: 2019-06-12 12:08:44 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/team/matti-small.jpg
+continuousCrawler: 2019-06-12 12:08:44 INFO -         DOCUMENT_IMPORTED: http://www.taglaboratory.org/images/team/matti-small.jpg
+continuousCrawler: 2019-06-12 12:08:44 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/images/team/matti-small.jpg
+continuousCrawler: 2019-06-12 12:08:44 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/images/team/matti-small.jpg
+continuousCrawler: 2019-06-12 12:08:44 INFO -    DOCUMENT_COMMITTED_ADD: http://www.taglaboratory.org/images/team/matti-small.jpg
+continuousCrawler: 2019-06-12 12:08:44 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/team/justin-small.jpg
+continuousCrawler: 2019-06-12 12:08:44 INFO -       CREATED_ROBOTS_META: http://www.taglaboratory.org/images/team/justin-small.jpg
+continuousCrawler: 2019-06-12 12:08:44 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/team/justin-small.jpg
+continuousCrawler: 2019-06-12 12:08:44 INFO -         DOCUMENT_IMPORTED: http://www.taglaboratory.org/images/team/justin-small.jpg
+continuousCrawler: 2019-06-12 12:08:44 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/images/team/justin-small.jpg
+continuousCrawler: 2019-06-12 12:08:44 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/images/team/justin-small.jpg
+continuousCrawler: 2019-06-12 12:08:44 INFO -    DOCUMENT_COMMITTED_ADD: http://www.taglaboratory.org/images/team/justin-small.jpg
+continuousCrawler: 2019-06-12 12:08:44 INFO -          DOCUMENT_FETCHED: http://www.taglaboratory.org/images/team/julie-small.jpg
+continuousCrawler: 2019-06-12 12:08:44 INFO -       CREATED_ROBOTS_META: http://www.taglaboratory.org/images/team/julie-small.jpg
+continuousCrawler: 2019-06-12 12:08:44 INFO -            URLS_EXTRACTED: http://www.taglaboratory.org/images/team/julie-small.jpg
+continuousCrawler: 2019-06-12 12:08:44 INFO -         DOCUMENT_IMPORTED: http://www.taglaboratory.org/images/team/julie-small.jpg
+continuousCrawler: 2019-06-12 12:08:44 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/images/team/julie-small.jpg
+continuousCrawler: 2019-06-12 12:08:44 INFO -     DOCUMENT_POSTIMPORTED: http://www.taglaboratory.org/images/team/julie-small.jpg
+continuousCrawler: 2019-06-12 12:08:44 INFO -    DOCUMENT_COMMITTED_ADD: http://www.taglaboratory.org/images/team/julie-small.jpg
+continuousCrawler: 2019-06-12 12:08:44 INFO - continuousCrawler: Reprocessing any cached/orphan references...
+continuousCrawler: 2019-06-12 12:08:44 INFO - continuousCrawler: 23 reference(s) processed.
+continuousCrawler: 2019-06-12 12:08:44 INFO -          CRAWLER_FINISHED
+continuousCrawler: 2019-06-12 12:08:44 INFO - continuousCrawler: Crawler completed.
+continuousCrawler: 2019-06-12 12:08:44 INFO - continuousCrawler: Crawler executed in 5 seconds.
+continuousCrawler: 2019-06-12 12:08:44 INFO - continuousCrawler: Closing sitemap store...
+continuousCrawler: 2019-06-12 12:08:44 INFO - Running continuousCrawler: END (Wed Jun 12 12:08:38 BST 2019)
+continuousCrawler: 2019-06-12 12:08:44 DEBUG - continuousCrawler succeeded.
+continuousCollector: 2019-06-12 12:08:44 DEBUG - Thread from continuousCollector finished to run: continuousCrawler
+continuousCollector: 2019-06-12 12:08:44 DEBUG - All threads finished for async group"continuousCollector".
+continuousCollector: 2019-06-12 12:08:44 ERROR - Execution failed for job: continuousCollector
+com.norconex.jef4.job.JobException: 2 out of 3 jobs failed in async group "continuousCollector"
+	at com.norconex.jef4.job.group.AsyncJobGroup.executeGroup(AsyncJobGroup.java:105)
+	at com.norconex.jef4.job.group.AbstractJobGroup.execute(AbstractJobGroup.java:80)
+	at com.norconex.jef4.suite.JobSuite.runJob(JobSuite.java:355)
+	at com.norconex.jef4.suite.JobSuite.doExecute(JobSuite.java:296)
+	at com.norconex.jef4.suite.JobSuite.execute(JobSuite.java:168)
+	at com.norconex.collector.core.AbstractCollector.start(AbstractCollector.java:131)
+	at uk.ac.susx.tag.norconex.controller.ContinuousController$SheduledCrawl.run(ContinuousController.java:223)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+continuousCollector: 2019-06-12 12:08:44 INFO - Running continuousCollector: END (Wed Jun 12 12:08:38 BST 2019)

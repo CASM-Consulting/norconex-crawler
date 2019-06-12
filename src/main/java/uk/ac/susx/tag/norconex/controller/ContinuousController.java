@@ -2,18 +2,12 @@ package uk.ac.susx.tag.norconex.controller;
 
 // java imports
 import java.io.File;
-import java.io.IOException;
-import java.lang.management.MemoryUsage;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.*;
 
 // logging imports
 import com.norconex.collector.http.crawler.HttpCrawlerConfig;
-import com.norconex.commons.lang.MemoryUtil;
-import com.norconex.importer.parser.GenericDocumentParserFactory;
-import org.apache.commons.lang.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,8 +15,6 @@ import org.slf4j.LoggerFactory;
 import com.norconex.collector.core.ICollector;
 import com.norconex.collector.core.ICollectorLifeCycleListener;
 import com.norconex.collector.http.HttpCollectorConfig;
-import com.norconex.collector.http.doc.HttpDocument;
-import com.norconex.importer.ImporterConfig;
 
 import uk.ac.susx.tag.norconex.collector.ContinuousCollector;
 import uk.ac.susx.tag.norconex.crawler.ContinuousCrawlerConfig;
@@ -53,7 +45,7 @@ public class ContinuousController {
 	private final File crawlStore;
 	private final CollectorConfigurationFactory configFactory;
 	private final String userAgent;
-	private final int numCrawlers;
+	private final int threads;
 	private final boolean ignoreRobots;
 	private final int depth;
 	private final List<String> urlRegex;
@@ -87,9 +79,9 @@ public class ContinuousController {
 	// (e.g. if for a instance a page never seems to change we still want to check it once in a while or changes so frequently the crawler polls the server too often)
 	public enum Delay { DEFAULT, MINIMUM, MAXIMUM }
 	
-	public ContinuousController(String userAgent, File crawlStore, int depth, 
-			List<String> urlRegex, int numCrawlers, boolean ignoreRobots,
-			boolean ignoreSiteMap, BlockingQueue<String> queue, long politenesDelay, String... seeds) {
+	public ContinuousController(String userAgent, File crawlStore, int depth,
+								List<String> urlRegex, int threads, boolean ignoreRobots,
+								boolean ignoreSiteMap, BlockingQueue<String> queue, long politenesDelay, String... seeds) {
 		
 		listener = new ContinuousListener();
 		storeLocation = new File(crawlStore,"conCache").getAbsolutePath();
@@ -100,7 +92,7 @@ public class ContinuousController {
 		finished = false;
 
 		this.userAgent = userAgent;
-		this.numCrawlers = numCrawlers;
+		this.threads = Math.round(threads/seeds.length);
 		this.ignoreRobots = ignoreRobots;
 		this.depth = depth;
 		this.urlRegex = urlRegex;
@@ -177,11 +169,13 @@ public class ContinuousController {
 
 			ContinuousCollectorListener ccl = new ContinuousCollectorListener();
 			HttpCollectorConfig collectorConfig = ContinuousCollector.createCollectorConfig(collectorId, ccl);
-			collectorConfig.setCrawlerConfigs(configFactory.createConfiguration());
+			collectorConfig.setCrawlerConfigs(configFactory.createConfigurations());
 			collectorConfig.setProgressDir(new File(crawlStore,PROGRESS).getAbsolutePath());
 			collectorConfig.setLogsDir(new File(crawlStore,LOGS).getAbsolutePath());
 
+
 			return new ContinuousCollector(collectorConfig);
+
 		}
 	}
 
@@ -189,20 +183,33 @@ public class ContinuousController {
 
 	public class CollectorConfigurationFactory {
 
-		public HttpCrawlerConfig createConfiguration() {
-			ContinuousCrawlerConfig config = new ContinuousCrawlerConfig(userAgent, depth, numCrawlers, crawlStore, ignoreRobots,
-					ignoreSiteMap, crawlerId, urlRegex, politeness, seeds);
+		public HttpCrawlerConfig[] createConfigurations() {
+
+			List<HttpCrawlerConfig> configs = new ArrayList<>();
+
+			int id = 0;
+
+			for(String seed : seeds) {
+
+				ContinuousCrawlerConfig config = new ContinuousCrawlerConfig(userAgent, depth, threads, crawlStore, ignoreRobots,
+						ignoreSiteMap, crawlerId + id, urlRegex, politeness, seed);
 
 
-			if(ignoreSiteMap) {
-				ContinuousRecrawlableResolver crr = new ContinuousRecrawlableResolver(cacheStore);
-				config.setRecrawlableResolver(crr);
+				if (ignoreSiteMap) {
+					ContinuousRecrawlableResolver crr = new ContinuousRecrawlableResolver(cacheStore);
+					config.setRecrawlableResolver(crr);
+				}
+
+				// custom fetcher or postimporter to send to M52 queue
+				config.setPostImportProcessors(new Method52PostProcessor(outputQueue), new ContinuousPostProcessor(cacheStore));
+
+				configs.add(config);
+
+				id++;
 			}
 
-			// custom fetcher or postimporter to send to M52 queue
-			config.setPostImportProcessors(new Method52PostProcessor(outputQueue),new ContinuousPostProcessor(cacheStore));
+			return configs.toArray(new HttpCrawlerConfig[configs.size()]);
 
-			return config;
 		}
 
 	}
@@ -256,6 +263,5 @@ public class ContinuousController {
 			}
 		}
 	}
-
 
 }
