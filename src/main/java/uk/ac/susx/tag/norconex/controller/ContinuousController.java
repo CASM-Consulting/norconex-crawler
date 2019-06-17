@@ -53,7 +53,7 @@ public class ContinuousController {
 	private final File crawlStore;
 	private final CollectorConfigurationFactory configFactory;
 	private final String userAgent;
-	private final int numCrawlers;
+	private final int threadsPerSeed;
 	private final boolean ignoreRobots;
 	private final int depth;
 	private final List<String> urlRegex;
@@ -88,7 +88,7 @@ public class ContinuousController {
 	public enum Delay { DEFAULT, MINIMUM, MAXIMUM }
 	
 	public ContinuousController(String userAgent, File crawlStore, int depth, 
-			List<String> urlRegex, int numCrawlers, boolean ignoreRobots,
+			List<String> urlRegex, int threadsPerSeed, boolean ignoreRobots,
 			boolean ignoreSiteMap, BlockingQueue<String> queue, long politenesDelay, String... seeds) {
 		
 		listener = new ContinuousListener();
@@ -100,7 +100,7 @@ public class ContinuousController {
 		finished = false;
 
 		this.userAgent = userAgent;
-		this.numCrawlers = numCrawlers;
+		this.threadsPerSeed = threadsPerSeed;
 		this.ignoreRobots = ignoreRobots;
 		this.depth = depth;
 		this.urlRegex = urlRegex;
@@ -177,7 +177,7 @@ public class ContinuousController {
 
 			ContinuousCollectorListener ccl = new ContinuousCollectorListener();
 			HttpCollectorConfig collectorConfig = ContinuousCollector.createCollectorConfig(collectorId, ccl);
-			collectorConfig.setCrawlerConfigs(configFactory.createConfiguration());
+			collectorConfig.setCrawlerConfigs(configFactory.createConfigurations());
 			collectorConfig.setProgressDir(new File(crawlStore,PROGRESS).getAbsolutePath());
 			collectorConfig.setLogsDir(new File(crawlStore,LOGS).getAbsolutePath());
 
@@ -189,20 +189,33 @@ public class ContinuousController {
 
 	public class CollectorConfigurationFactory {
 
-		public HttpCrawlerConfig createConfiguration() {
-			ContinuousCrawlerConfig config = new ContinuousCrawlerConfig(userAgent, depth, numCrawlers, crawlStore, ignoreRobots,
-					ignoreSiteMap, crawlerId, urlRegex, politeness, seeds);
+		public HttpCrawlerConfig[] createConfigurations() {
+
+			List<HttpCrawlerConfig> configs = new ArrayList<>();
+
+			int id = 0;
+
+			for(String seed : seeds) {
+
+				ContinuousCrawlerConfig config = new ContinuousCrawlerConfig(userAgent, depth, threadsPerSeed, crawlStore, ignoreRobots,
+						ignoreSiteMap, crawlerId + id, urlRegex, politeness, seed);
 
 
-			if(ignoreSiteMap) {
-				ContinuousRecrawlableResolver crr = new ContinuousRecrawlableResolver(cacheStore);
-				config.setRecrawlableResolver(crr);
+				if (ignoreSiteMap) {
+					ContinuousRecrawlableResolver crr = new ContinuousRecrawlableResolver(cacheStore);
+					config.setRecrawlableResolver(crr);
+				}
+
+				// custom fetcher or postimporter to send to M52 queue
+				config.setPostImportProcessors(new Method52PostProcessor(outputQueue), new ContinuousPostProcessor(cacheStore));
+
+				configs.add(config);
+
+				id++;
 			}
 
-			// custom fetcher or postimporter to send to M52 queue
-			config.setPostImportProcessors(new Method52PostProcessor(outputQueue),new ContinuousPostProcessor(cacheStore));
+			return configs.toArray(new HttpCrawlerConfig[configs.size()]);
 
-			return config;
 		}
 
 	}
