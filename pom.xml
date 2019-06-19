@@ -41,6 +41,18 @@
       <scope>test</scope>
     </dependency>
 
+      <dependency>
+          <groupId>de.l3s.boilerpipe</groupId>
+          <artifactId>boilerpipe</artifactId>
+          <version>1.1.0</version>
+      </dependency>
+
+      <dependency>
+          <groupId>net.sourceforge.nekohtml</groupId>
+          <artifactId>nekohtml</artifactId>
+          <version>1.9.13</version>
+      </dependency>
+
       <!-- UNUSED -->
       <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-math3 -->
 <!--      <dependency>-->
