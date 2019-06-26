@@ -51,6 +51,12 @@
           <groupId>net.sourceforge.nekohtml</groupId>
           <artifactId>nekohtml</artifactId>
           <version>1.9.13</version>
+          <exclusions>
+              <exclusion>
+                  <groupId>xerces</groupId>
+                  <artifactId>xercesImpl</artifactId>
+              </exclusion>
+          </exclusions>
       </dependency>
 
       <!-- UNUSED -->

@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 // logging imports
 import com.norconex.collector.http.crawler.HttpCrawlerConfig;
@@ -268,6 +270,13 @@ public class ContinuousController {
 				getListener().restart();
 			}
 		}
+	}
+
+	public static void main(String[] args) {
+//		List<String> reg = Stream.of(".*news.*").collect(Collectors.toList());
+		ContinuousController cc = new ContinuousController("m52",new File("/Users/jp242/Documents/Projects/Crawler-Upgrade/testdb"),0, new ArrayList<>(),10,false,true,new ArrayBlockingQueue<>(10000),500,
+				"https://uk.ign.com/articles/2019/06/19/super-mario-maker-2-co-op-building-exists-but-who-is-it-for");
+		cc.start();
 	}
 
 
