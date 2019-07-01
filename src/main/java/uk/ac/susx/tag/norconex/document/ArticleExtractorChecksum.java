@@ -11,6 +11,10 @@ import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 import java.io.StringWriter;
 
+// logging imports
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.norconex.collector.core.checksum.AbstractDocumentChecksummer;
 import com.norconex.collector.core.checksum.ChecksumUtil;
 import com.norconex.commons.lang.xml.EnhancedXMLStreamWriter;
@@ -18,7 +22,10 @@ import com.norconex.importer.doc.ImporterDocument;
 import org.apache.commons.configuration.XMLConfiguration;
 import org.apache.commons.io.IOUtils;
 
+
 public class ArticleExtractorChecksum extends AbstractDocumentChecksummer {
+
+    protected static final Logger logger = LoggerFactory.getLogger(ArticleExtractorChecksum.class);
 
 
     @Override
@@ -29,6 +36,7 @@ public class ArticleExtractorChecksum extends AbstractDocumentChecksummer {
 
         StringWriter sw = new StringWriter();
         document.getContent().rewind();
+
         try {
             IOUtils.copy(document.getContent(), sw, document.getContentEncoding());
         } catch (IOException e) {

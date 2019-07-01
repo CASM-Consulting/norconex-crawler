@@ -47,6 +47,8 @@ public class ContinuousController {
 	public static final long DEFAULT_MAX_RECRAWL_DELAY  = 730;
 	public static final long DEFAULT_DELAY 				= 12;
 
+	public static final long SCHEDULE_DELAY_SECONDS = 10;			// The delay between each scehduled recrawl
+
 	// crawl-store suffixes
 	private static final String PROGRESS = "progress";
 	private static final String LOGS = "logs";
@@ -250,7 +252,7 @@ public class ContinuousController {
 			cacheStore.getGlobalMetadata().incrementCrawls();
 			cacheStore.getGlobalMetadata().updateCrawlTime();
 			cacheStore.commit();
-			scheduleNextCrawl(10l);
+			scheduleNextCrawl(SCHEDULE_DELAY_SECONDS);
 			logger.info("There have been a total of " + cacheStore.getGlobalMetadata().getTotalCrawls() + " crawls");
 		}
 
@@ -272,12 +274,12 @@ public class ContinuousController {
 		}
 	}
 
-	public static void main(String[] args) {
-//		List<String> reg = Stream.of(".*news.*").collect(Collectors.toList());
-		ContinuousController cc = new ContinuousController("m52",new File("/Users/jp242/Documents/Projects/Crawler-Upgrade/testdb"),0, new ArrayList<>(),10,false,true,new ArrayBlockingQueue<>(10000),500,
-				"https://uk.ign.com/articles/2019/06/19/super-mario-maker-2-co-op-building-exists-but-who-is-it-for");
-		cc.start();
-	}
-
+//  Used for testing only
+//	public static void main(String[] args) {
+////		List<String> reg = Stream.of(".*news.*").collect(Collectors.toList());
+//		ContinuousController cc = new ContinuousController("m52",new File("/Users/jp242/Documents/Projects/Crawler-Upgrade/testdb"),0, new ArrayList<>(),10,false,true,new ArrayBlockingQueue<>(10000),500,
+//				"https://www.thestar.com.my");
+//		cc.start();
+//	}
 
 }

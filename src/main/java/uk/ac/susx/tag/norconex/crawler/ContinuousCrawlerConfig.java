@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 // logging imports
+import com.norconex.collector.core.checksum.impl.GenericMetadataChecksummer;
+import com.norconex.collector.core.doc.CollectorMetadata;
+import com.norconex.collector.http.fetch.impl.GenericMetadataFetcher;
 import com.norconex.importer.parser.GenericDocumentParserFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,7 +52,7 @@ public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 		setDocumentChecksummer(new ArticleExtractorChecksum());
 		setIgnoreSitemap(ignoreSiteMap);
 
-		// Control the number of crawlers by the number of threads
+		// Control the threadpool size for each crawler
 		setNumThreads(crawlers);
 
 		// Location of crawl output, db etc... 
