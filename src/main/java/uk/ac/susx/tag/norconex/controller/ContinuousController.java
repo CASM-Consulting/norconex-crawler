@@ -72,7 +72,7 @@ public class ContinuousController {
 
 	// collector id - remains static so that the cache is not lost between runs.
 	private static final String collectorId = "continuousCollector";
-	private static final String crawlerId = "continuousCrawler";
+	private static String crawlerId = "continuousCrawler";
 
 	// Scheduler for crawling delay
 	final ScheduledExecutorService scheduler;
@@ -91,7 +91,8 @@ public class ContinuousController {
 	
 	public ContinuousController(String userAgent, File crawlStore, int depth, 
 			List<String> urlRegex, int threadsPerSeed, boolean ignoreRobots,
-			boolean ignoreSiteMap, BlockingQueue<String> queue, long politenesDelay, String... seeds) {
+			boolean ignoreSiteMap, BlockingQueue<String> queue,
+								String crawlerId, long politenesDelay, String... seeds) {
 		
 		listener = new ContinuousListener();
 		storeLocation = new File(crawlStore,"conCache").getAbsolutePath();
@@ -107,6 +108,7 @@ public class ContinuousController {
 		this.depth = depth;
 		this.urlRegex = urlRegex;
 		this.seeds = seeds;
+		this.crawlerId = crawlerId;
 		this.politeness = politenesDelay;
 
 		factory = new ContinuousCollectorFactory();
@@ -274,7 +276,7 @@ public class ContinuousController {
 
 	public static void main(String[] args) {
 //		List<String> reg = Stream.of(".*news.*").collect(Collectors.toList());
-		ContinuousController cc = new ContinuousController("m52",new File("/Users/jp242/Documents/Projects/Crawler-Upgrade/testdb"),0, new ArrayList<>(),10,false,true,new ArrayBlockingQueue<>(10000),500,
+		ContinuousController cc = new ContinuousController("m52",new File("/Users/jp242/Documents/Projects/Crawler-Upgrade/testdb"),0, new ArrayList<>(),10,false,true,new ArrayBlockingQueue<>(10000),"cont-crawler", 500,
 				"https://uk.ign.com/articles/2019/06/19/super-mario-maker-2-co-op-building-exists-but-who-is-it-for");
 		cc.start();
 	}
