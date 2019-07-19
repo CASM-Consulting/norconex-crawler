@@ -9,6 +9,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 // logging imports
 import com.norconex.collector.http.crawler.HttpCrawlerConfig;
@@ -45,6 +47,8 @@ public class ContinuousController {
 	public static final long DEFAULT_MIN_RECRAWL_DELAY  = 6;  		// The default recrawl delays in hours.
 	public static final long DEFAULT_MAX_RECRAWL_DELAY  = 730;
 	public static final long DEFAULT_DELAY 				= 12;
+
+	public static final long SCHEDULE_DELAY_SECONDS = 10;			// The delay between each scehduled recrawl
 
 	// crawl-store suffixes
 	private static final String PROGRESS = "progress";
@@ -250,7 +254,7 @@ public class ContinuousController {
 			cacheStore.getGlobalMetadata().incrementCrawls();
 			cacheStore.getGlobalMetadata().updateCrawlTime();
 			cacheStore.commit();
-			scheduleNextCrawl(10l);
+			scheduleNextCrawl(SCHEDULE_DELAY_SECONDS);
 			logger.info("There have been a total of " + cacheStore.getGlobalMetadata().getTotalCrawls() + " crawls");
 		}
 
