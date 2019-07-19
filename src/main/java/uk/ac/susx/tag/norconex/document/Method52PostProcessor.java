@@ -30,6 +30,8 @@ public class Method52PostProcessor implements IHttpDocumentProcessor  {
 	@Override
 	public void processDocument(HttpClient httpClient, HttpDocument doc) {
 
+		System.out.println("Queue size:" + queue.size());
+
 		if(isText(doc)) {
 
 			final String url = doc.getReference();

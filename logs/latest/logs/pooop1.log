@@ -1,0 +1,90 @@
+[non-job]: 2019-07-17 15:56:25 INFO - Starting execution.
+[non-job]: 2019-07-17 15:56:25 INFO - Version: "Collector" version is undefined.
+[non-job]: 2019-07-17 15:56:25 INFO - Version: Norconex Collector Core 1.9.1 (Norconex Inc.)
+[non-job]: 2019-07-17 15:56:25 INFO - Version: Norconex Importer 2.9.0 (Norconex Inc.)
+[non-job]: 2019-07-17 15:56:25 INFO - Version: Norconex JEF 4.1.0 (Norconex Inc.)
+[non-job]: 2019-07-17 15:56:25 INFO - Version: Norconex Committer Core 2.1.2 (Norconex Inc.)
+pooop1: 2019-07-17 15:56:25 INFO - Running pooop1: BEGIN (Wed Jul 17 15:56:25 BST 2019)
+pooop1: 2019-07-17 15:56:25 INFO - pooop1: RobotsTxt support: false
+pooop1: 2019-07-17 15:56:25 INFO - pooop1: RobotsMeta support: false
+pooop1: 2019-07-17 15:56:25 INFO - pooop1: Sitemap support: false
+pooop1: 2019-07-17 15:56:25 INFO - pooop1: Canonical links support: false
+pooop1: 2019-07-17 15:56:25 INFO - pooop1: User-Agent: m52
+pooop1: 2019-07-17 15:56:25 INFO - pooop1: Initializing sitemap store...
+pooop1: 2019-07-17 15:56:25 INFO - pooop1: Done initializing sitemap store.
+pooop1: 2019-07-17 15:56:25 INFO - 1 start URLs identified.
+pooop1: 2019-07-17 15:56:25 INFO -           CRAWLER_STARTED
+pooop1: 2019-07-17 15:56:25 INFO - pooop1: Crawling references...
+pooop1: 2019-07-17 15:56:26 INFO -          DOCUMENT_FETCHED: https://www.childline.org.uk/get-support/message-boards/boards/threads/thread/?messageid=164955
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/info-advice/your-feelings/mental-health/
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/get-support/contacting-childline/
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/login/?returnPath=/get-support/message-boards/boards/threads/thread/?messageid=164955
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/info-advice/bullying-abuse-safety/
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/Content/Images/CL-logo-black-02.png
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/info-advice/friends-relationships-sex/
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/globalassets/childline-avatars_1_default70.jpg?width=70&mode=max
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/login/
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/get-support/message-boards/
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/legal/cookies/
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/globalassets/get-support/ask-sam/ask-sam-spotlight.png?w=560&h=315&mode=max
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/toolbox/art-box/
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/toolbox/image-gallery/
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/login/?returnPath=/locker/
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/globalassets/avatars/website-avatars/sheep.jpg?width=50&mode=max
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/legal/privacy-policy/
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/about/confidentiality-promise/
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/locker/#journal
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/get-support/message-boards/boards/threads/thread/?page=4&messageid=164955
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/info-advice/bullying-abuse-safety/online-mobile-safety/cover-tracks/
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/system/session/keep-alive-image.png
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/info-advice/you-your-body/
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/get-support/ask-sam/
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/globalassets/avatars/website-avatars/headphones-2.jpg?width=50&mode=max
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/globalassets/info-and-advice/info-and-advice-meganav.png?w=560&h=315&mode=max
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/login/?returnPath=%2fget-support%2fmessage-boards%2fboards%2fthreads%2fthread%2f%3fmessageid%3d164955
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/Content/Images/CL-strapline-black-02.png
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/sitemap/
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/get-support/
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/globalassets/get-support/get-support_1.png?w=367
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/get-support/message-boards/boards/?boardid=83
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/get-support/message-boards/boards/threads/?roomid=257
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/get-support/message-boards/boards/threads/thread/#main
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/get-involved/childline-social-media/
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/toolbox/for-me/
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/info-advice/school-college-and-work/
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/about/about-childline/
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/info-advice/home-families/
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/globalassets/get-support/get-support-4.png?w=560&h=315&mode=max
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/globalassets/avatars/website-avatars/top-dog.jpg?width=50&mode=max
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/legal/terms-and-conditions/
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/get-support/1-2-1-counsellor-chat/chat-console/
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/registration/
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/globalassets/childline-avatars_1_default70.jpg?width=50&mode=max
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/get-support/message-boards/boards/threads/thread/#page-top
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/info-advice/your-feelings/
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/get-involved/
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/toolbox/
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/get-involved/real-life-stories/
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/info-advice/
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/get-support/1-2-1-counsellor-chat/
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/toolbox/videos/
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/get-support/message-boards/boards/threads/thread/?page=2&messageid=164955
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/get-support/message-boards/boards/threads/thread/#navigation
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/legal/accessibility/
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/globalassets/avatars/website-avatars/butterfly.jpg?width=50&mode=max
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/globalassets/avatars/website-avatars/spiralling.jpg?width=50&mode=max
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/globalassets/avatars/website-avatars/demolishing.jpg?width=50&mode=max
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/globalassets/generic-blocks/mood-tracker/spotlight_003.jpg?w=560&h=315&mode=max
+pooop1: 2019-07-17 15:56:26 INFO -         REJECTED_TOO_DEEP: https://www.childline.org.uk/toolbox/games/
+pooop1: 2019-07-17 15:56:26 INFO -            URLS_EXTRACTED: https://www.childline.org.uk/get-support/message-boards/boards/threads/thread/?messageid=164955
+pooop1: 2019-07-17 15:56:26 INFO -         DOCUMENT_IMPORTED: https://www.childline.org.uk/get-support/message-boards/boards/threads/thread/?messageid=164955
+pooop1: 2019-07-17 15:56:26 INFO -     DOCUMENT_POSTIMPORTED: https://www.childline.org.uk/get-support/message-boards/boards/threads/thread/?messageid=164955
+pooop1: 2019-07-17 15:56:26 INFO -    DOCUMENT_COMMITTED_ADD: https://www.childline.org.uk/get-support/message-boards/boards/threads/thread/?messageid=164955
+pooop1: 2019-07-17 15:56:26 INFO - pooop1: Reprocessing any cached/orphan references...
+pooop1: 2019-07-17 15:56:26 INFO - pooop1: 1 reference(s) processed.
+pooop1: 2019-07-17 15:56:26 INFO -          CRAWLER_FINISHED
+pooop1: 2019-07-17 15:56:26 INFO - pooop1: Crawler completed.
+pooop1: 2019-07-17 15:56:26 INFO - pooop1: Crawler executed in 1 second.
+pooop1: 2019-07-17 15:56:26 INFO - pooop1: Closing sitemap store...
+pooop1: 2019-07-17 15:56:26 INFO - Running pooop1: END (Wed Jul 17 15:56:25 BST 2019)

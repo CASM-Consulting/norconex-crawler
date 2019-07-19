@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.management.MemoryUsage;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.*;
@@ -233,6 +234,7 @@ public class ContinuousController {
 			ContinuousCollector collector = factory.createCollector();
 			collector.start(false);
 		}
+
 	}
 
 
@@ -268,6 +270,12 @@ public class ContinuousController {
 				getListener().restart();
 			}
 		}
+	}
+
+	public static void main(String[] args) {
+		ContinuousController cc = new ContinuousController("m52",new File("/Users/jp242/Documents/Projects/Crawler-Upgrade/testdb"),2, Arrays.asList(".*get-support/message-boards.*"),1,true,true,new ArrayBlockingQueue<>(10000),300,
+				"https://www.childline.org.uk/get-support/message-boards/boards/threads/thread/?messageid=164955");
+		cc.start();
 	}
 
 

@@ -3,7 +3,10 @@ package uk.ac.susx.tag.norconex.collector;
 // java imports
 import java.io.File;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.stream.Collectors;
 
@@ -23,6 +26,7 @@ import com.norconex.collector.http.delay.impl.GenericDelayResolver;
 import com.norconex.collector.http.url.impl.GenericLinkExtractor;
 import com.norconex.importer.ImporterConfig;
 
+import uk.ac.susx.tag.norconex.controller.ContinuousController;
 import uk.ac.susx.tag.norconex.document.Method52PostProcessor;
 
 /**
@@ -113,7 +117,22 @@ public class BasicCollector extends HttpCollector {
 		return config;
 
 	}
+
+	public static void main(String[] args) {
+
+		HttpCrawlerConfig hc = BasicCollector.crawlerConfig("m52",0,1,new File("Users/jp242/Documents/Projects/Crawler-Upgrade/testdb"),true,true,"pooop1",new ArrayList<>(),new ArrayBlockingQueue<>(10000),true,300);
+		HttpCollectorConfig hcc = new HttpCollectorConfig();
+		hc.setStartURLs("https://www.childline.org.uk/get-support/message-boards/boards/threads/thread/?messageid=164955");
+		hcc.setCrawlerConfigs(hc);
+		hcc.setId("pup");
+		BasicCollector cc = new BasicCollector(hcc);
+		cc.start(false);
+
+	}
+
 }
+
+
 
 
 //
