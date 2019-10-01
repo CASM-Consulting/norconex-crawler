@@ -4,6 +4,8 @@ package uk.ac.susx.tag.norconex.controller;
 import java.io.File;
 import java.io.IOException;
 import java.lang.management.MemoryUsage;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,6 +19,7 @@ import com.norconex.collector.http.crawler.HttpCrawlerConfig;
 import com.norconex.commons.lang.MemoryUtil;
 import com.norconex.importer.parser.GenericDocumentParserFactory;
 import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.validator.routines.UrlValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -74,8 +77,8 @@ public class ContinuousController {
 	private final BlockingQueue<String> outputQueue;
 
 	// collector id - remains static so that the cache is not lost between runs.
-	private static final String collectorId = "continuousCollector";
-	private static final String crawlerId = "continuousCrawler";
+	private final String collectorId;
+	private static final String CRAWLER_ID = "continuousCrawler";
 
 	// Scheduler for crawling delay
 	final ScheduledExecutorService scheduler;
@@ -92,9 +95,9 @@ public class ContinuousController {
 	// (e.g. if for a instance a page never seems to change we still want to check it once in a while or changes so frequently the crawler polls the server too often)
 	public enum Delay { DEFAULT, MINIMUM, MAXIMUM }
 	
-	public ContinuousController(String userAgent, File crawlStore, int depth, 
-			List<String> urlRegex, int threadsPerSeed, boolean ignoreRobots,
-			boolean ignoreSiteMap, BlockingQueue<String> queue, long politenesDelay, String... seeds) {
+	public ContinuousController(String userAgent, File crawlStore, String id,
+								int depth, List<String> urlRegex, int threadsPerSeed, boolean ignoreRobots,
+								boolean ignoreSiteMap, BlockingQueue<String> queue, long politenesDelay, String... seeds) {
 		
 		listener = new ContinuousListener();
 		storeLocation = new File(crawlStore,"conCache").getAbsolutePath();
@@ -103,6 +106,7 @@ public class ContinuousController {
 		this.crawlStore = crawlStore;
 		outputQueue = queue;
 		finished = false;
+		collectorId = id;
 
 		this.userAgent = userAgent;
 		this.threadsPerSeed = threadsPerSeed;
@@ -202,9 +206,26 @@ public class ContinuousController {
 
 			for(String seed : seeds) {
 
-				ContinuousCrawlerConfig config = new ContinuousCrawlerConfig(userAgent, depth, threadsPerSeed, crawlStore, ignoreRobots,
-						ignoreSiteMap, crawlerId + id, urlRegex, politeness, seed);
+				// First - level validate the URL
+				if(!UrlValidator.getInstance().isValid(seed)){
+					logger.warn("WARN: Skipped invalid seed URL: " + seed);
+					continue;
+				}
 
+				// Second - get the domain to use as crawler id
+				String domain;
+				try {
+					URI url = new URI(seed);
+					String host = url.getHost();
+					domain = (host.startsWith("www")) ? host.substring(4,host.length()) : host;
+				} catch (URISyntaxException e) {
+					logger.warn("WARN: Skipped invalid seed URL: " + seed);
+					continue;
+				}
+
+
+				ContinuousCrawlerConfig config = new ContinuousCrawlerConfig(userAgent, depth, threadsPerSeed, crawlStore, ignoreRobots,
+						ignoreSiteMap, domain + "_" + CRAWLER_ID + "_"+ id, urlRegex, politeness, seed);
 
 				if (ignoreSiteMap) {
 					ContinuousRecrawlableResolver crr = new ContinuousRecrawlableResolver(cacheStore);
@@ -275,12 +296,12 @@ public class ContinuousController {
 			}
 		}
 	}
-
-	public static void main(String[] args) {
-		ContinuousController cc = new ContinuousController("m52",new File("/Users/jp242/Documents/Projects/Crawler-Upgrade/testdb"),2, Arrays.asList(".*get-support/message-boards.*"),1,true,true,new ArrayBlockingQueue<>(10000),300,
-				"https://www.childline.org.uk/get-support/message-boards/boards/threads/thread/?messageid=164955");
-		cc.start();
-	}
+//
+//	public static void main(String[] args) {
+//		ContinuousController cc = new ContinuousController("m52",new File("/Users/jp242/Documents/Projects/Crawler-Upgrade/testdb"), "test",2,Arrays.asList(".*get-support/message-boards.*"),1,true,true,new ArrayBlockingQueue<>(10000),300,
+//				"https://www.childline.org.uk/get-support/message-boards/boards/threads/thread/?messageid=164955");
+//		cc.start();
+//	}
 
 
 }
