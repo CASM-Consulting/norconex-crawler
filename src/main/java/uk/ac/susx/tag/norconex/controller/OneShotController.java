@@ -293,11 +293,20 @@ public class OneShotController {
         }
     }
 
+    //Include JCommander interface for parsing the inputs!!!
 	public static void main(String[] args) {
 
+        String useragent = args[0];
+        String crawldb = args[1];
+        String id = args[2];
+        int depth = Integer.valueOf(args[3]).intValue();
+        int threadsPerSeed = Integer.valueOf(args[3]).intValue();
+        long polite = Long.valueOf(args[4]).longValue();
+        String seed = args[5];
+
 //        Arrays.asList(".*get-support/message-boards.*")
-        OneShotController cc = new OneShotController("m52",new File("/Users/jp242/Documents/Projects/Crawler-Upgrade/testdb"), "test",2,new ArrayList<>(),1,true,true,new ArrayBlockingQueue<>(10000),300,
-				"http://www.taglaboratory.org/");
+        OneShotController cc = new OneShotController(useragent,new File(crawldb), id,depth, new ArrayList<>(),threadsPerSeed,true,true,new ArrayBlockingQueue<>(10000),polite,
+				seed);
 		cc.start();
 
 	}
