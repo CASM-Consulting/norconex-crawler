@@ -1,8 +1,7 @@
 package uk.ac.susx.tag.norconex.controller;
 
 // java imports
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.lang.management.MemoryUsage;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -189,7 +188,6 @@ public class ContinuousController {
 			collectorConfig.setCrawlerConfigs(configFactory.createConfigurations());
 			collectorConfig.setProgressDir(new File(crawlStore,PROGRESS).getAbsolutePath());
 			collectorConfig.setLogsDir(new File(crawlStore,LOGS).getAbsolutePath());
-
 			return new ContinuousCollector(collectorConfig);
 		}
 	}
@@ -296,12 +294,33 @@ public class ContinuousController {
 			}
 		}
 	}
-//
+
 //	public static void main(String[] args) {
+//
 //		ContinuousController cc = new ContinuousController("m52",new File("/Users/jp242/Documents/Projects/Crawler-Upgrade/testdb"), "test",2,Arrays.asList(".*get-support/message-boards.*"),1,true,true,new ArrayBlockingQueue<>(10000),300,
 //				"https://www.childline.org.uk/get-support/message-boards/boards/threads/thread/?messageid=164955");
 //		cc.start();
+//
 //	}
+
+	public static void main(String[] args) {
+
+		List<String> seeds = new ArrayList<>();
+		try(BufferedReader br = new BufferedReader(new FileReader(args[0]))){
+			br.lines()
+					.filter(seed -> UrlValidator.getInstance().isValid(seed))
+					.collect(Collectors.toList());
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		ContinuousController cc = new ContinuousController("m52",new File("/Users/jp242/Documents/Projects/Crawler-Upgrade/testdb"), "test",2,Arrays.asList(".*get-support/message-boards.*"),1,true,true,new ArrayBlockingQueue<>(10000),300,
+				seeds.toArray(new String[seeds.size()]));
+		cc.start();
+
+	}
 
 
 }
