@@ -296,7 +296,7 @@ public class OneShotController {
 	public static void main(String[] args) {
 
         OneShotController cc = new OneShotController("m52",new File("/Users/jp242/Documents/Projects/Crawler-Upgrade/testdb"), "test",2,Arrays.asList(".*get-support/message-boards.*"),1,true,true,new ArrayBlockingQueue<>(10000),300,
-				"https://www.childline.org.uk/get-support/message-boards/boards/threads/thread/?messageid=164955");
+				"http://www.taglaboratory.org/");
 		cc.start();
 
 	}
