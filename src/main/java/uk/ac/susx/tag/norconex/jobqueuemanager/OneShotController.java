@@ -1,15 +1,15 @@
-package uk.ac.susx.tag.norconex.controller;
+package uk.ac.susx.tag.norconex.jobqueuemanager;
 
 // java imports
 import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.*;
 
 // logging imports
+import com.beust.jcommander.JCommander;
 import com.enioka.jqm.api.JobManager;
 import com.norconex.collector.http.crawler.HttpCrawlerConfig;
 import org.apache.commons.validator.routines.UrlValidator;
@@ -22,11 +22,11 @@ import com.norconex.collector.core.ICollectorLifeCycleListener;
 import com.norconex.collector.http.HttpCollectorConfig;
 
 import uk.ac.susx.tag.norconex.collector.ContinuousCollector;
+import uk.ac.susx.tag.norconex.controller.ContinuousController;
 import uk.ac.susx.tag.norconex.crawler.ContinuousCrawlerConfig;
 import uk.ac.susx.tag.norconex.crawler.ContinuousRecrawlableResolver;
 import uk.ac.susx.tag.norconex.crawlstore.ContinuousEstimatorStore;
 import uk.ac.susx.tag.norconex.document.ContinuousPostProcessor;
-import uk.ac.susx.tag.norconex.document.Method52PostProcessor;
 
 /**
  * The controlling class for the entire continuous crawl process
@@ -34,7 +34,7 @@ import uk.ac.susx.tag.norconex.document.Method52PostProcessor;
  */
 public class OneShotController {
 
-    private static JobManager manager;
+    private JobManager manager;
 
     protected static final Logger logger = LoggerFactory.getLogger(ContinuousController.class);
 
@@ -58,7 +58,7 @@ public class OneShotController {
     private final boolean ignoreRobots;
     private final int depth;
     private final List<String> urlRegex;
-    private final String[] seeds;
+    private final String seed;
     private final long politeness;
 
     // Collector components
@@ -67,7 +67,7 @@ public class OneShotController {
     private final ContinuousEstimatorStore cacheStore;	// The store that contains the needed meta-data for each urls recrawl strategy
 
     // Queue to send output
-    private final BlockingQueue<String> outputQueue;
+//    private final BlockingQueue<String> outputQueue;
 
     // collector id - remains static so that the cache is not lost between runs.
     private final String collectorId;
@@ -88,16 +88,16 @@ public class OneShotController {
     // (e.g. if for a instance a page never seems to change we still want to check it once in a while or changes so frequently the crawler polls the server too often)
     public enum Delay { DEFAULT, MINIMUM, MAXIMUM }
 
+    public enum Status { COMPLETE, FAILED }
+
     public OneShotController(String userAgent, File crawlStore, String id,
                                 int depth, List<String> urlRegex, int threadsPerSeed, boolean ignoreRobots,
-                                boolean ignoreSiteMap, BlockingQueue<String> queue, long politenesDelay, String... seeds) {
+                                boolean ignoreSiteMap, long politenesDelay, String seed) {
 
-//        listener = new ContinuousListener();
         storeLocation = new File(crawlStore,"conCache").getAbsolutePath();
         cacheStore = new ContinuousEstimatorStore(storeLocation);
         this.ignoreSiteMap = ignoreSiteMap;
         this.crawlStore = crawlStore;
-        outputQueue = queue;
         finished = false;
         collectorId = id;
 
@@ -106,7 +106,7 @@ public class OneShotController {
         this.ignoreRobots = ignoreRobots;
         this.depth = depth;
         this.urlRegex = urlRegex;
-        this.seeds = seeds;
+        this.seed = seed;
         this.politeness = politenesDelay;
 
         factory = new ContinuousCollectorFactory();
@@ -115,6 +115,9 @@ public class OneShotController {
         scheduler = Executors.newScheduledThreadPool(1);
 
     }
+
+
+
 
     public static long getDelay(Delay delay) {
         long d = 0;
@@ -149,7 +152,6 @@ public class OneShotController {
 
     private void scheduleNextCrawl(long delaySeconds) {
 
-
         scheduler.schedule(new SheduledCrawl(), delaySeconds, TimeUnit.SECONDS);
 
     }
@@ -165,10 +167,6 @@ public class OneShotController {
         cacheStore.close();
     }
 
-//    public ContinuousListener getListener() {
-//        return listener;
-//    }
-
     /**
      * Creates collectors for each continuous run of the crawler;
      * @author jp242
@@ -178,10 +176,13 @@ public class OneShotController {
         public ContinuousCollector createCollector() {
 
             ContinuousCollectorListener ccl = new ContinuousCollectorListener();
-//            HttpCollectorConfig collectorConfig = ContinuousCollector.createCollectorConfig(collectorId, ccl);
             HttpCollectorConfig collectorConfig = new HttpCollectorConfig();
             collectorConfig.setId(collectorId);
-            collectorConfig.setCrawlerConfigs(configFactory.createConfigurations());
+            try {
+                collectorConfig.setCrawlerConfigs(configFactory.createConfigurations());
+            } catch (URISyntaxException e) {
+                throw new RuntimeException("Seed URL is invalid");
+            }
             collectorConfig.setProgressDir(new File(crawlStore,PROGRESS).getAbsolutePath());
             collectorConfig.setLogsDir(new File(crawlStore,LOGS).getAbsolutePath());
             return new ContinuousCollector(collectorConfig);
@@ -189,51 +190,35 @@ public class OneShotController {
 
     }
 
-
-
     public class CollectorConfigurationFactory {
 
-        public HttpCrawlerConfig[] createConfigurations() {
+        public HttpCrawlerConfig[] createConfigurations() throws URISyntaxException {
 
             List<HttpCrawlerConfig> configs = new ArrayList<>();
 
-            int id = 0;
-
-            for(String seed : seeds) {
-
-                // First - level validate the URL
-                if(!UrlValidator.getInstance().isValid(seed)){
-                    logger.warn("WARN: Skipped invalid seed URL: " + seed);
-                    continue;
-                }
-
-                // Second - get the domain to use as crawler id
-                String domain;
-                try {
-                    URI url = new URI(seed);
-                    String host = url.getHost();
-                    domain = (host.startsWith("www")) ? host.substring(4,host.length()) : host;
-                } catch (URISyntaxException e) {
-                    logger.warn("WARN: Skipped invalid seed URL: " + seed);
-                    continue;
-                }
-
-
-                ContinuousCrawlerConfig config = new ContinuousCrawlerConfig(userAgent, depth, threadsPerSeed, crawlStore, ignoreRobots,
-                        ignoreSiteMap, domain + "_" + CRAWLER_ID + "_"+ id, urlRegex, politeness, seed);
-
-                if (ignoreSiteMap) {
-                    ContinuousRecrawlableResolver crr = new ContinuousRecrawlableResolver(cacheStore);
-                    config.setRecrawlableResolver(crr);
-                }
-
-                // custom fetcher or postimporter to send to M52 queue
-                config.setPostImportProcessors(new Method52PostProcessor(outputQueue), new ContinuousPostProcessor(cacheStore));
-
-                configs.add(config);
-
-                id++;
+            // First - level validate the URL
+            if(!UrlValidator.getInstance().isValid(seed)){
+                throw new URISyntaxException(seed,"Invalid URL composition");
             }
+
+            // Second - get the domain to use as crawler id
+            URI url = new URI(seed);
+            String host = url.getHost();
+            String domain = (host.startsWith("www")) ? host.substring(4,host.length()) : host;
+
+
+            ContinuousCrawlerConfig config = new ContinuousCrawlerConfig(userAgent, depth, threadsPerSeed, crawlStore, ignoreRobots,
+                    ignoreSiteMap, domain + "_" + CRAWLER_ID, urlRegex, politeness, seed);
+
+            if (ignoreSiteMap) {
+                ContinuousRecrawlableResolver crr = new ContinuousRecrawlableResolver(cacheStore);
+                config.setRecrawlableResolver(crr);
+            }
+
+            // custom fetcher or postimporter to send to M52 queue
+            config.setPostImportProcessors(new ContinuousPostProcessor(cacheStore));
+
+            configs.add(config);
 
             return configs.toArray(new HttpCrawlerConfig[configs.size()]);
 
@@ -257,25 +242,6 @@ public class OneShotController {
 
     }
 
-
-
-//    /**
-//     * Listener used to instruct the controller to restart the controller.
-//     * @author jp242
-//     */
-//    private class ContinuousListener {
-//
-//        public void restart() {
-//            logger.info("Restarting Collector.");
-//            cacheStore.getGlobalMetadata().incrementCrawls();
-//            cacheStore.getGlobalMetadata().updateCrawlTime();
-//            cacheStore.commit();
-//            scheduleNextCrawl(SCHEDULE_DELAY_SECONDS);
-//            logger.info("There have been a total of " + cacheStore.getGlobalMetadata().getTotalCrawls() + " crawls");
-//        }
-//
-//    }
-
     /**
      * Creates an infinite loop causing the crawler to continually start crawling again when finished.
      * This can only be interrupted by manually requesting the crawler to stop permanently.
@@ -286,49 +252,26 @@ public class OneShotController {
         public void onCollectorStart(ICollector collector) {}
 
         public void onCollectorFinish(ICollector collector) {
-//            if(!finished) {
-//                getListener().restart();
-//            }
-            manager.parentID();
+            manager.sendMsg(Status.COMPLETE.toString());
         }
     }
 
     //Include JCommander interface for parsing the inputs!!!
 	public static void main(String[] args) {
 
-        String useragent = args[0];
-        String crawldb = args[1];
-        String id = args[2];
-        int depth = Integer.valueOf(args[3]).intValue();
-        int threadsPerSeed = Integer.valueOf(args[3]).intValue();
-        long polite = Long.valueOf(args[4]).longValue();
-        String seed = args[5];
+        CrawlerArguments ca = new CrawlerArguments();
+        new JCommander().newBuilder()
+                .addObject(ca)
+                .build()
+                .parse(args);
 
-//        Arrays.asList(".*get-support/message-boards.*")
-        OneShotController cc = new OneShotController(useragent,new File(crawldb), id,depth, new ArrayList<>(),threadsPerSeed,true,true,new ArrayBlockingQueue<>(10000),polite,
-				seed);
+        OneShotController cc = new OneShotController(ca.userAgent,new File(ca.crawldb), ca.id,
+                ca.depth, ca.urlFilters,ca.threadsPerSeed,ca.ignoreRobots,
+                ca.ignoreSitemap, ca.polite,
+                ca.seeds.get(0));
+
 		cc.start();
 
 	}
-
-//    public static void main(String[] args) {
-//
-//        List<String> seeds = new ArrayList<>();
-//        try(BufferedReader br = new BufferedReader(new FileReader(args[0]))){
-//            br.lines()
-//                    .filter(seed -> UrlValidator.getInstance().isValid(seed))
-//                    .collect(Collectors.toList());
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        OneShotController cc = new OneShotController("m52",new File("/Users/jp242/Documents/Projects/Crawler-Upgrade/testdb"), "test",2,Arrays.asList(".*get-support/message-boards.*"),1,true,true,new ArrayBlockingQueue<>(10000),300,
-//                seeds.toArray(new String[seeds.size()]));
-//        cc.start();
-//
-//    }
-
 
 }
