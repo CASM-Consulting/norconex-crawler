@@ -40,7 +40,7 @@ public class SingleSeedCollector {
 
     protected static final Logger logger = LoggerFactory.getLogger(ContinuousController.class);
 
-    private JobManager manager;
+    private JobManager jm;
 
     public static final String USERAGENT = "casm.jqm.polling.agent";
     public static final String FILTER = "casm.jqm.polling.filter";
@@ -101,8 +101,6 @@ public class SingleSeedCollector {
 
     public enum Status { START, COMPLETE, FAILED }
 
-    public SingleSeedCollector(){ }
-
     public SingleSeedCollector(String userAgent, File crawlStore, String id,
                                int depth, String urlRegex, int threadsPerSeed, boolean ignoreRobots,
                                boolean ignoreSiteMap, long politenesDelay, String seed) {
@@ -151,7 +149,7 @@ public class SingleSeedCollector {
     public void start() throws RuntimeException {
         logger.info("Running crawl for seed: " + seed);
         HttpCollector collector = factory.createCollector();
-        collector.start(true);
+        collector.start(false);
     }
 
 
@@ -232,11 +230,11 @@ public class SingleSeedCollector {
     public class SingleSeedCollectorListener implements ICollectorLifeCycleListener {
 
         public void onCollectorStart(ICollector collector) {
-            manager.sendMsg(seed + "_" + Status.START.toString());
+            jm.sendMsg(seed + "_" + Status.START.toString());
         }
 
         public void onCollectorFinish(ICollector collector) {
-            manager.sendMsg(seed + "_" + Status.COMPLETE.toString());
+            jm.sendMsg(seed + "_" + Status.COMPLETE.toString());
         }
 
     }
