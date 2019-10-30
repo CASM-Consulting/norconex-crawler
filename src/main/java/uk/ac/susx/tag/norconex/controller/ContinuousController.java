@@ -223,7 +223,7 @@ public class ContinuousController {
 
 
 				ContinuousCrawlerConfig config = new ContinuousCrawlerConfig(userAgent, depth, threadsPerSeed, crawlStore, ignoreRobots,
-						ignoreSiteMap, domain + "_" + CRAWLER_ID + "_"+ id, urlRegex, politeness, seed);
+						ignoreSiteMap, domain + "_" + CRAWLER_ID + "_"+ id, urlRegex.get(0), politeness, seed);
 
 				if (ignoreSiteMap) {
 					ContinuousRecrawlableResolver crr = new ContinuousRecrawlableResolver(cacheStore);

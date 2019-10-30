@@ -1,5 +1,7 @@
 /target/
+/tests/
 .idea
 .settings
 .classpath
 .project
+

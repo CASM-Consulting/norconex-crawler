@@ -11,6 +11,10 @@ import java.util.concurrent.*;
 // logging imports
 import com.beust.jcommander.JCommander;
 import com.enioka.jqm.api.JobManager;
+import com.norconex.collector.core.crawler.ICrawler;
+import com.norconex.collector.core.crawler.event.CrawlerEvent;
+import com.norconex.collector.core.crawler.event.ICrawlerEventListener;
+import com.norconex.collector.http.HttpCollector;
 import com.norconex.collector.http.crawler.HttpCrawlerConfig;
 import org.apache.commons.validator.routines.UrlValidator;
 import org.slf4j.Logger;
@@ -32,11 +36,22 @@ import uk.ac.susx.tag.norconex.document.ContinuousPostProcessor;
  * The controlling class for the entire continuous crawl process
  * @author jp242
  */
-public class OneShotController {
+public class SingleSeedCollector {
+
+    protected static final Logger logger = LoggerFactory.getLogger(ContinuousController.class);
 
     private JobManager manager;
 
-    protected static final Logger logger = LoggerFactory.getLogger(ContinuousController.class);
+    public static final String USERAGENT = "casm.jqm.polling.agent";
+    public static final String FILTER = "casm.jqm.polling.filter";
+    public static final String CRAWLB = "casm.jqm.polling.crawldb";
+    public static final String DEPTH = "casm.jqm.polling.depth";
+    public static final String POLITENESS = "casm.jqm.polling.politeness";
+    public static final String SITEMAP = "casm.jqm.polling.sitemap";
+    public static final String ROBOTS = "casm.jqm.polling.robots";
+    public static final String ID = "casm.jqm.polling.id";
+    public static final String THREADS = "casm.jqm.polling.threads";
+    public static final String SEED = "casm.jqm.polling.seed";
 
     public static final int BURNIN_CRAWLS = 20; 					// Number of crawls to perform before calculating custom page delays
 
@@ -57,21 +72,17 @@ public class OneShotController {
     private final int threadsPerSeed;
     private final boolean ignoreRobots;
     private final int depth;
-    private final List<String> urlRegex;
+    private final String urlRegex;
     private final String seed;
     private final long politeness;
 
     // Collector components
-    private final ContinuousCollectorFactory factory; 	// Factory that produces consistently configured crawlers for continuous running
-//    private final ContinuousListener listener;		 	// Listens for the end of each crawl and restarts unless stop instruction given
+    private final SingleSeedCollectorFactory factory; 	// Factory that produces consistently configured crawlers for continuous running
     private final ContinuousEstimatorStore cacheStore;	// The store that contains the needed meta-data for each urls recrawl strategy
-
-    // Queue to send output
-//    private final BlockingQueue<String> outputQueue;
 
     // collector id - remains static so that the cache is not lost between runs.
     private final String collectorId;
-    private static final String CRAWLER_ID = "continuousCrawler";
+    private static final String CRAWLER_ID = "singleSeedCollector";
 
     // Scheduler for crawling delay
     final ScheduledExecutorService scheduler;
@@ -84,15 +95,15 @@ public class OneShotController {
     private boolean finished;
 
 
-    // Used to create upper and lower bounds on crawl delays to prevent the statistics running out of control
-    // (e.g. if for a instance a page never seems to change we still want to check it once in a while or changes so frequently the crawler polls the server too often)
+//    // Used to create upper and lower bounds on crawl delays to prevent the statistics running out of control
+//    // (e.g. if for a instance a page never seems to change we still want to check it once in a while or changes so frequently the crawler polls the server too often)
     public enum Delay { DEFAULT, MINIMUM, MAXIMUM }
 
-    public enum Status { COMPLETE, FAILED }
+    public enum Status { START, COMPLETE, FAILED }
 
-    public OneShotController(String userAgent, File crawlStore, String id,
-                                int depth, List<String> urlRegex, int threadsPerSeed, boolean ignoreRobots,
-                                boolean ignoreSiteMap, long politenesDelay, String seed) {
+    public SingleSeedCollector(String userAgent, File crawlStore, String id,
+                               int depth, String urlRegex, int threadsPerSeed, boolean ignoreRobots,
+                               boolean ignoreSiteMap, long politenesDelay, String seed) {
 
         storeLocation = new File(crawlStore,"conCache").getAbsolutePath();
         cacheStore = new ContinuousEstimatorStore(storeLocation);
@@ -109,15 +120,12 @@ public class OneShotController {
         this.seed = seed;
         this.politeness = politenesDelay;
 
-        factory = new ContinuousCollectorFactory();
+        factory = new SingleSeedCollectorFactory();
         configFactory = new CollectorConfigurationFactory();
 
         scheduler = Executors.newScheduledThreadPool(1);
 
     }
-
-
-
 
     public static long getDelay(Delay delay) {
         long d = 0;
@@ -139,21 +147,9 @@ public class OneShotController {
      * Start a continuous crawl
      */
     public void start() throws RuntimeException {
-        logger.info("Sheduling first crawl");
-        try {
-            scheduleNextCrawl(1);
-            scheduler.awaitTermination(Long.MAX_VALUE,TimeUnit.HOURS);
-        }
-        catch (Exception e){
-            throw new RuntimeException("Failed when attempting to shedule a crawl");
-        }
-
-    }
-
-    private void scheduleNextCrawl(long delaySeconds) {
-
-        scheduler.schedule(new SheduledCrawl(), delaySeconds, TimeUnit.SECONDS);
-
+        logger.info("Running crawl for seed: " + seed);
+        HttpCollector collector = factory.createCollector();
+        collector.start(true);
     }
 
 
@@ -161,7 +157,7 @@ public class OneShotController {
      * Permanently shuts down the entire process.
      */
     public void shutdown() throws InterruptedException {
-        logger.info("Shutting down continuous crawl");
+        logger.info("Shutting down crawler");
         finished = true;
         scheduler.shutdown();
         cacheStore.close();
@@ -171,15 +167,15 @@ public class OneShotController {
      * Creates collectors for each continuous run of the crawler;
      * @author jp242
      */
-    public class ContinuousCollectorFactory {
+    public class SingleSeedCollectorFactory {
 
         public ContinuousCollector createCollector() {
 
-            ContinuousCollectorListener ccl = new ContinuousCollectorListener();
+            SingleSeedCollectorListener ccl = new SingleSeedCollectorListener();
             HttpCollectorConfig collectorConfig = new HttpCollectorConfig();
             collectorConfig.setId(collectorId);
             try {
-                collectorConfig.setCrawlerConfigs(configFactory.createConfigurations());
+                collectorConfig.setCrawlerConfigs(configFactory.createConfiguration());
             } catch (URISyntaxException e) {
                 throw new RuntimeException("Seed URL is invalid");
             }
@@ -192,7 +188,7 @@ public class OneShotController {
 
     public class CollectorConfigurationFactory {
 
-        public HttpCrawlerConfig[] createConfigurations() throws URISyntaxException {
+        public HttpCrawlerConfig[] createConfiguration() throws URISyntaxException {
 
             List<HttpCrawlerConfig> configs = new ArrayList<>();
 
@@ -216,6 +212,7 @@ public class OneShotController {
             }
 
             // custom fetcher or postimporter to send to M52 queue
+            // TODO: Need to implement postGres commiter
             config.setPostImportProcessors(new ContinuousPostProcessor(cacheStore));
 
             configs.add(config);
@@ -226,34 +223,20 @@ public class OneShotController {
 
     }
 
-
-
     /**
-     * A simple runnable that
-     */
-    public class SheduledCrawl implements Runnable {
-
-        @Override
-        public void run() {
-            // setup the collector config
-            ContinuousCollector collector = factory.createCollector();
-            collector.start(false);
-        }
-
-    }
-
-    /**
-     * Creates an infinite loop causing the crawler to continually start crawling again when finished.
-     * This can only be interrupted by manually requesting the crawler to stop permanently.
+     * Sends a message via the JobManager to communicate upstream
      * @author jp242
      */
-    public class ContinuousCollectorListener implements ICollectorLifeCycleListener {
+    public class SingleSeedCollectorListener implements ICollectorLifeCycleListener {
 
-        public void onCollectorStart(ICollector collector) {}
+        public void onCollectorStart(ICollector collector) {
+            manager.sendMsg(seed + "_" + Status.START.toString());
+        }
 
         public void onCollectorFinish(ICollector collector) {
-            manager.sendMsg(Status.COMPLETE.toString());
+            manager.sendMsg(seed + "_" + Status.COMPLETE.toString());
         }
+
     }
 
     //Include JCommander interface for parsing the inputs!!!
@@ -265,8 +248,8 @@ public class OneShotController {
                 .build()
                 .parse(args);
 
-        OneShotController cc = new OneShotController(ca.userAgent,new File(ca.crawldb), ca.id,
-                ca.depth, ca.urlFilters,ca.threadsPerSeed,ca.ignoreRobots,
+        SingleSeedCollector cc = new SingleSeedCollector(ca.userAgent,new File(ca.crawldb), ca.id,
+                ca.depth, ca.urlFilter,ca.threadsPerSeed,ca.ignoreRobots,
                 ca.ignoreSitemap, ca.polite,
                 ca.seeds.get(0));
 

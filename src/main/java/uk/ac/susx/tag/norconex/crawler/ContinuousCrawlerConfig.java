@@ -40,7 +40,7 @@ public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 
 	public ContinuousCrawlerConfig(String userAgent, int depth, int crawlers, File crawlStore,
 								   boolean ignoreRobots, boolean ignoreSiteMap, String id,
-								   List<String> regxFiltPatterns, long politeness,
+								   String regxFiltPatterns, long politeness,
 								   String... seeds) {
 		
 		// Basic crawler config
@@ -107,9 +107,9 @@ public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 		// create the url filters - e.g. regex filters
 		// url regex match
 		// parent link prevention
-		RegexReferenceFilter[] referenceFilters = regxFiltPatterns.stream()
-			.map(regex -> new RegexReferenceFilter(regex))
-			.collect(Collectors.toList()).toArray(new RegexReferenceFilter[regxFiltPatterns.size()]);
+		RegexReferenceFilter[] referenceFilters = new RegexReferenceFilter[]{new RegexReferenceFilter(regxFiltPatterns)};
+//			.map(regex -> new RegexReferenceFilter(regex))
+//			.collect(Collectors.toList()).toArray(new RegexReferenceFilter[regxFiltPatterns.size()]);
 		setReferenceFilters(referenceFilters);
 
 	}	
