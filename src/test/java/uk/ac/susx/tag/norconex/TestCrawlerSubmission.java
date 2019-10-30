@@ -22,7 +22,7 @@ public class TestCrawlerSubmission {
         String seed = "http://www.taglaboratory.org/";
 
         jobRequest.addParameter(SingleSeedCollector.SEED,seed);
-        jobRequest.addParameter(SingleSeedCollector.CRAWLB,"/tests/crawldb");
+        jobRequest.addParameter(SingleSeedCollector.CRAWLB,"tests/crawldb");
         jobRequest.addParameter(SingleSeedCollector.DEPTH,"0");
         jobRequest.addParameter(SingleSeedCollector.POLITENESS,"3000");
         jobRequest.addParameter(SingleSeedCollector.ID,"test-incremental");
