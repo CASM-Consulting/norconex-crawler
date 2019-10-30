@@ -30,11 +30,11 @@ public class CrawlerArguments {
     public int threadsPerSeed;
 
     @Parameter(names = {SingleSeedCollector.ROBOTS,"--ignore-robots"}, description = "Whether or not to ignore robots instructions.",
-            required = true)
+            arity = 1)
     public boolean ignoreRobots;
 
     @Parameter(names = {SingleSeedCollector.SITEMAP,"--ignore-sitemap"}, description = "Whether or not to ignore sitemap instructions.",
-            required = true)
+            arity = 1)
     public boolean ignoreSitemap;
 
     @Parameter(names = {SingleSeedCollector.POLITENESS,"--politeness-delay"}, description = "The politness delay between calls to a site",
