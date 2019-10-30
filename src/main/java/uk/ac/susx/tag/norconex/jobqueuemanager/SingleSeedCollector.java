@@ -66,30 +66,30 @@ public class SingleSeedCollector {
     private static final String LOGS = "logs";
 
     // parent directory for all crawl-store info.
-    private final File crawlStore;
-    private final CollectorConfigurationFactory configFactory;
-    private final String userAgent;
-    private final int threadsPerSeed;
-    private final boolean ignoreRobots;
-    private final int depth;
-    private final String urlRegex;
-    private final String seed;
-    private final long politeness;
+    private  File crawlStore;
+    private  CollectorConfigurationFactory configFactory;
+    private  String userAgent;
+    private  int threadsPerSeed;
+    private  boolean ignoreRobots;
+    private  int depth;
+    private  String urlRegex;
+    private  String seed;
+    private  long politeness;
 
     // Collector components
-    private final SingleSeedCollectorFactory factory; 	// Factory that produces consistently configured crawlers for continuous running
-    private final ContinuousEstimatorStore cacheStore;	// The store that contains the needed meta-data for each urls recrawl strategy
+    private SingleSeedCollectorFactory factory; 	// Factory that produces consistently configured crawlers for continuous running
+    private ContinuousEstimatorStore cacheStore;	// The store that contains the needed meta-data for each urls recrawl strategy
 
     // collector id - remains static so that the cache is not lost between runs.
-    private final String collectorId;
+    private  String collectorId;
     private static final String CRAWLER_ID = "singleSeedCollector";
 
     // Scheduler for crawling delay
-    final ScheduledExecutorService scheduler;
+    private ScheduledExecutorService scheduler;
 
     // standard params
     private boolean ignoreSiteMap;
-    private final String storeLocation;
+    private String storeLocation;
 
     // Has the crawler been requested to shutdown the crawl permanently?
     private boolean finished;
@@ -100,6 +100,8 @@ public class SingleSeedCollector {
     public enum Delay { DEFAULT, MINIMUM, MAXIMUM }
 
     public enum Status { START, COMPLETE, FAILED }
+
+    public SingleSeedCollector(){ }
 
     public SingleSeedCollector(String userAgent, File crawlStore, String id,
                                int depth, String urlRegex, int threadsPerSeed, boolean ignoreRobots,
