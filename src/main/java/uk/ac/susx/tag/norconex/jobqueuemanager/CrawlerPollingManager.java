@@ -1,6 +1,7 @@
 package uk.ac.susx.tag.norconex.jobqueuemanager;
 
 // jqm imports
+import com.beust.jcommander.JCommander;
 import com.enioka.jqm.api.JobRequest;
 
 // logging imports
@@ -11,6 +12,10 @@ import org.slf4j.LoggerFactory;
 import uk.ac.casm.jqm.manager.PollingManager;
 
 // java imports
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
@@ -81,5 +86,29 @@ public class CrawlerPollingManager extends PollingManager {
 
     @Override
     public void report() { // Not needed for this implementation.
+    }
+
+    public static void main(String[] args){
+
+        CLIArguments cli = new CLIArguments();
+        new JCommander().newBuilder()
+                .addObject(cli)
+                .build()
+                .parse(args);
+
+        Properties props = new Properties();
+        try(BufferedReader reader = new BufferedReader(new FileReader(cli.properties))) {
+            props.load(reader);
+        } catch (FileNotFoundException e) {
+            new RuntimeException("Failed when attempting to load props file at: " + cli.properties);
+        } catch (IOException e) {
+            new RuntimeException("Failed when attempting to load props file at: " + cli.properties);
+        }
+        props.put(CACHE,cli.cache);
+
+        CrawlerPollingManager cpm = new CrawlerPollingManager(props,cli.restart);
+        cpm.start();
+
+
     }
 }

@@ -20,6 +20,7 @@ public class TestCrawlerSubmission {
         JobRequest jobRequest = JobRequest.create("CrawlerDef","jp242");
 
         String seed = "http://www.taglaboratory.org/";
+        jobRequest.setKeyword1(seed);
 
         jobRequest.addParameter(SingleSeedCollector.SEED, seed);
         jobRequest.addParameter(SingleSeedCollector.CRAWLB,"tests/crawldb");
@@ -28,6 +29,7 @@ public class TestCrawlerSubmission {
         jobRequest.addParameter(SingleSeedCollector.ID,"test-incremental");
         jobRequest.addParameter(SingleSeedCollector.THREADS,"2");
         jobRequest.addParameter(SingleSeedCollector.USERAGENT,"m52");
+        jobRequest.addParameter(SingleSeedCollector.FILTER,"*");
 
         Assert.assertTrue("Job submission test failed", Integer.valueOf(ss.submitJobRequest(jobRequest)) instanceof Integer);
 

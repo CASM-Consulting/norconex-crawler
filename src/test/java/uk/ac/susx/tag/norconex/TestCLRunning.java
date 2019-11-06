@@ -1,11 +1,13 @@
 package uk.ac.susx.tag.norconex;
 
 import com.beust.jcommander.JCommander;
+import org.junit.Assert;
 import org.junit.Test;
 import uk.ac.susx.tag.norconex.jobqueuemanager.CrawlerArguments;
 import uk.ac.susx.tag.norconex.jobqueuemanager.SingleSeedCollector;
 
 import java.io.File;
+import java.net.URISyntaxException;
 
 public class TestCLRunning {
 
@@ -26,6 +28,10 @@ public class TestCLRunning {
                 ca.depth,ca.urlFilter,ca.threadsPerSeed,
                 ca.ignoreRobots,ca.ignoreSitemap,ca.polite,ca.seeds.get(0));
 
-        ssc.start();
+        try {
+            ssc.start();
+        } catch (URISyntaxException e) {
+            Assert.fail();
+        }
     }
 }

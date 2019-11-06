@@ -146,7 +146,7 @@ public class SingleSeedCollector {
     /**
      * Start a continuous crawl
      */
-    public void start() throws RuntimeException {
+    public void start() throws RuntimeException, URISyntaxException {
         logger.info("Running crawl for seed: " + seed);
         HttpCollector collector = factory.createCollector();
         collector.start(false);
@@ -169,16 +169,14 @@ public class SingleSeedCollector {
      */
     public class SingleSeedCollectorFactory {
 
-        public ContinuousCollector createCollector() {
+        public ContinuousCollector createCollector() throws URISyntaxException {
 
             SingleSeedCollectorListener ccl = new SingleSeedCollectorListener();
             HttpCollectorConfig collectorConfig = new HttpCollectorConfig();
             collectorConfig.setId(collectorId);
-            try {
-                collectorConfig.setCrawlerConfigs(configFactory.createConfiguration());
-            } catch (URISyntaxException e) {
-                throw new RuntimeException("Seed URL is invalid");
-            }
+
+            collectorConfig.setCrawlerConfigs(configFactory.createConfiguration());
+
             collectorConfig.setProgressDir(new File(crawlStore,PROGRESS).getAbsolutePath());
             collectorConfig.setLogsDir(new File(crawlStore,LOGS).getAbsolutePath());
             return new ContinuousCollector(collectorConfig);
@@ -253,8 +251,12 @@ public class SingleSeedCollector {
                 ca.ignoreSitemap, ca.polite,
                 ca.seeds.get(0));
 
-		cc.start();
+        try {
+            cc.start();
+        } catch (URISyntaxException e) {
+            throw new RuntimeException("The provided URL was invalid");
+        }
 
-	}
+    }
 
 }
