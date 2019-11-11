@@ -14,6 +14,9 @@ public class CrawlerArguments {
             required = true)
     public String crawldb;
 
+    public static final String SCRAPERS = "casm.jqm.scraping.scrapers";
+    @Parameter(names = {SCRAPERS, "--scrapers"}, description = "The location of the json scraper rulesets")
+    public String scrapers;
 
     @Parameter(names = {SingleSeedCollector.ID,"--collectorId"}, description = "The id of the collector instance.",
             required = true)

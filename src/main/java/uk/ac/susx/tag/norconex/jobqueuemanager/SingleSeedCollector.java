@@ -5,15 +5,12 @@ import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.*;
 
 // logging imports
 import com.beust.jcommander.JCommander;
-import com.enioka.jqm.api.JobManager;
-import com.norconex.collector.core.crawler.ICrawler;
-import com.norconex.collector.core.crawler.event.CrawlerEvent;
-import com.norconex.collector.core.crawler.event.ICrawlerEventListener;
 import com.norconex.collector.http.HttpCollector;
 import com.norconex.collector.http.crawler.HttpCrawlerConfig;
 import org.apache.commons.validator.routines.UrlValidator;
@@ -28,9 +25,6 @@ import com.norconex.collector.http.HttpCollectorConfig;
 import uk.ac.susx.tag.norconex.collector.ContinuousCollector;
 import uk.ac.susx.tag.norconex.controller.ContinuousController;
 import uk.ac.susx.tag.norconex.crawler.ContinuousCrawlerConfig;
-import uk.ac.susx.tag.norconex.crawler.ContinuousRecrawlableResolver;
-import uk.ac.susx.tag.norconex.crawlstore.ContinuousEstimatorStore;
-import uk.ac.susx.tag.norconex.document.ContinuousPostProcessor;
 
 /**
  * The controlling class for the entire continuous crawl process
@@ -39,8 +33,6 @@ import uk.ac.susx.tag.norconex.document.ContinuousPostProcessor;
 public class SingleSeedCollector {
 
     protected static final Logger logger = LoggerFactory.getLogger(ContinuousController.class);
-
-    private JobManager jm;
 
     public static final String USERAGENT = "casm.jqm.polling.agent";
     public static final String FILTER = "casm.jqm.polling.filter";
@@ -53,13 +45,13 @@ public class SingleSeedCollector {
     public static final String THREADS = "casm.jqm.polling.threads";
     public static final String SEED = "casm.jqm.polling.seed";
 
-    public static final int BURNIN_CRAWLS = 20; 					// Number of crawls to perform before calculating custom page delays
+//    public static final int BURNIN_CRAWLS = 20; 					// Number of crawls to perform before calculating custom page delays
 
     public static final long DEFAULT_MIN_RECRAWL_DELAY  = 6;  		// The default recrawl delays in hours.
     public static final long DEFAULT_MAX_RECRAWL_DELAY  = 730;
     public static final long DEFAULT_DELAY 				= 12;
 
-    public static final long SCHEDULE_DELAY_SECONDS = 10;			// The delay between each scehduled recrawl
+//    public static final long SCHEDULE_DELAY_SECONDS = 10;			// The delay between each scehduled recrawl
 
     // crawl-store suffixes
     private static final String PROGRESS = "progress";
@@ -75,17 +67,15 @@ public class SingleSeedCollector {
     private  String urlRegex;
     private  String seed;
     private  long politeness;
+    private  HttpCrawlerConfig config;
 
     // Collector components
     private SingleSeedCollectorFactory factory; 	// Factory that produces consistently configured crawlers for continuous running
-    private ContinuousEstimatorStore cacheStore;	// The store that contains the needed meta-data for each urls recrawl strategy
+//    private ContinuousEstimatorStore cacheStore;	// The store that contains the needed meta-data for each urls recrawl strategy
 
     // collector id - remains static so that the cache is not lost between runs.
     private  String collectorId;
     private static final String CRAWLER_ID = "singleSeedCollector";
-
-    // Scheduler for crawling delay
-    private ScheduledExecutorService scheduler;
 
     // standard params
     private boolean ignoreSiteMap;
@@ -106,7 +96,7 @@ public class SingleSeedCollector {
                                boolean ignoreSiteMap, long politenesDelay, String seed) {
 
         storeLocation = new File(crawlStore,"conCache").getAbsolutePath();
-        cacheStore = new ContinuousEstimatorStore(storeLocation);
+//        cacheStore = new ContinuousEstimatorStore(storeLocation);
         this.ignoreSiteMap = ignoreSiteMap;
         this.crawlStore = crawlStore;
         finished = false;
@@ -123,8 +113,20 @@ public class SingleSeedCollector {
         factory = new SingleSeedCollectorFactory();
         configFactory = new CollectorConfigurationFactory();
 
-        scheduler = Executors.newScheduledThreadPool(1);
+        try {
+            config = configFactory.createConfiguration();
+        } catch (URISyntaxException e) {
+            //TODO:error handling
+        }
 
+    }
+
+    public HttpCrawlerConfig getConfiguration() {
+        return config;
+    }
+
+    public void setConfiguration(HttpCrawlerConfig config) {
+        this.config = config;
     }
 
     public static long getDelay(Delay delay) {
@@ -159,8 +161,7 @@ public class SingleSeedCollector {
     public void shutdown() throws InterruptedException {
         logger.info("Shutting down crawler");
         finished = true;
-        scheduler.shutdown();
-        cacheStore.close();
+//        cacheStore.close();
     }
 
     /**
@@ -171,24 +172,24 @@ public class SingleSeedCollector {
 
         public ContinuousCollector createCollector() throws URISyntaxException {
 
-            SingleSeedCollectorListener ccl = new SingleSeedCollectorListener();
             HttpCollectorConfig collectorConfig = new HttpCollectorConfig();
             collectorConfig.setId(collectorId);
 
-            collectorConfig.setCrawlerConfigs(configFactory.createConfiguration());
+            collectorConfig.setCrawlerConfigs(config);
 
             collectorConfig.setProgressDir(new File(crawlStore,PROGRESS).getAbsolutePath());
             collectorConfig.setLogsDir(new File(crawlStore,LOGS).getAbsolutePath());
             return new ContinuousCollector(collectorConfig);
+
         }
 
     }
 
     public class CollectorConfigurationFactory {
 
-        public HttpCrawlerConfig[] createConfiguration() throws URISyntaxException {
+        public HttpCrawlerConfig createConfiguration() throws URISyntaxException {
 
-            List<HttpCrawlerConfig> configs = new ArrayList<>();
+//            List<HttpCrawlerConfig> configs = new ArrayList<>();
 
             // First - level validate the URL
             if(!UrlValidator.getInstance().isValid(seed)){
@@ -204,18 +205,17 @@ public class SingleSeedCollector {
             ContinuousCrawlerConfig config = new ContinuousCrawlerConfig(userAgent, depth, threadsPerSeed, crawlStore, ignoreRobots,
                     ignoreSiteMap, domain + "_" + CRAWLER_ID, urlRegex, politeness, seed);
 
-            if (ignoreSiteMap) {
-                ContinuousRecrawlableResolver crr = new ContinuousRecrawlableResolver(cacheStore);
-                config.setRecrawlableResolver(crr);
-            }
+//            if (ignoreSiteMap) {
+//                ContinuousRecrawlableResolver crr = new ContinuousRecrawlableResolver(cacheStore);
+//                config.setRecrawlableResolver(crr);
+//            }
 
             // custom fetcher or postimporter to send to M52 queue
-            // TODO: Need to implement postGres commiter
-            config.setPostImportProcessors(new ContinuousPostProcessor(cacheStore));
+//            config.setPostImportProcessors(new ContinuousPostProcessor(cacheStore));
 
-            configs.add(config);
+//            configs.add(config);
 
-            return configs.toArray(new HttpCrawlerConfig[configs.size()]);
+            return config;
 
         }
 
@@ -228,23 +228,36 @@ public class SingleSeedCollector {
     public class SingleSeedCollectorListener implements ICollectorLifeCycleListener {
 
         public void onCollectorStart(ICollector collector) {
-            jm.sendMsg(seed + "_" + Status.START.toString());
+//            jm.sendMsg(seed + "_" + Status.START.toString());
         }
 
         public void onCollectorFinish(ICollector collector) {
-            jm.sendMsg(seed + "_" + Status.COMPLETE.toString());
+//            jm.sendMsg(seed + "_" + Status.COMPLETE.toString());
+//            cacheStore.getGlobalMetadata().incrementCrawls();
+//            cacheStore.getGlobalMetadata().updateCrawlTime();
+//            cacheStore.commit();
+//            cacheStore.close();
         }
 
     }
 
-    //Include JCommander interface for parsing the inputs!!!
+
 	public static void main(String[] args) {
 
+        for(String arg : args) {
+            logger.error(arg + " ");
+        }
+
+        List<String> splitArgs = new ArrayList<>();
+        for(String arg : args){
+            splitArgs.addAll(Arrays.asList(arg.split("\\s+")));
+        }
+        String[] corrArgs = splitArgs.toArray(new String[splitArgs.size()]);
         CrawlerArguments ca = new CrawlerArguments();
         new JCommander().newBuilder()
                 .addObject(ca)
                 .build()
-                .parse(args);
+                .parse(corrArgs);
 
         SingleSeedCollector cc = new SingleSeedCollector(ca.userAgent,new File(ca.crawldb), ca.id,
                 ca.depth, ca.urlFilter,ca.threadsPerSeed,ca.ignoreRobots,
@@ -254,6 +267,7 @@ public class SingleSeedCollector {
         try {
             cc.start();
         } catch (URISyntaxException e) {
+            logger.error("Error attempting to start crawler");
             throw new RuntimeException("The provided URL was invalid");
         }
 

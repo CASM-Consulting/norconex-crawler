@@ -13,9 +13,11 @@ public class JQMConnection {
     @Test
     public void testJQMConnection() {
         Properties props = new Properties();
-        props.put("com.enioka.jqm.ws.url", "http://localhost:10010/ws/client");
+
+        props.put("com.enioka.jqm.ws.url", "http://localhost:49910/ws/client");
         JqmClientFactory.setProperties(props);
         List<JobInstance> jobs = JqmClientFactory.getClient().getJobs();
+        System.out.println(jobs.size());
         Assert.assertTrue("Test failed when attempting to connect to service",jobs.size() >= 0);
     }
 

@@ -1,10 +1,14 @@
 package uk.ac.susx.tag.norconex;
 
 import com.enioka.jqm.api.JobRequest;
+//import com.enioka.jqm.api.JqmClientFactory;
+
+import com.enioka.jqm.api.JqmClientFactory;
 import org.junit.Assert;
 import org.junit.Test;
+import uk.ac.casm.jqm.manager.IndependentPollingManager;
 import uk.ac.casm.jqm.manager.SubmissionService;
-import uk.ac.susx.tag.norconex.jobqueuemanager.SingleSeedCollector;
+import uk.ac.susx.tag.norconex.jobqueuemanager.CrawlerPollingManager;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -14,17 +18,13 @@ import java.util.Properties;
 
 public class PollingManagerSubmissionTest {
 
-
-
     @Test
     public void pollingManagerSubmissionTest() {
 
-
-        String propsLoc = "tests/sumbission-props";
-
+        String propsLoc = "/Users/jp242/Documents/Projects/JQM-Crawling/jqm_root/conf/crawlmanager.properties";
 
         Properties props = new Properties();
-        props.put("com.enioka.jqm.ws.url", "http://localhost:56379/ws/client");
+        props.put("com.enioka.jqm.ws.url", "http://localhost:49910/ws/client");
 
         try(BufferedReader reader = new BufferedReader(new FileReader(propsLoc))) {
             props.load(reader);
@@ -35,12 +35,26 @@ public class PollingManagerSubmissionTest {
         }
         SubmissionService ss = new SubmissionService(props);
         JobRequest jobRequest = JobRequest.create("CrawlerManager","jp242");
-
-        String seed = "http://www.taglaboratory.org/";
-
+        JqmClientFactory.setProperties(props);
 
 
-        Assert.assertTrue("Job submission test failed", Integer.valueOf(ss.submitJobRequest(jobRequest)) instanceof Integer);
+        jobRequest.addParameter(IndependentPollingManager.CACHE, IndependentPollingManager.CACHE + " " + props.getProperty(IndependentPollingManager.CACHE));
+        jobRequest.addParameter(IndependentPollingManager.PROPS, IndependentPollingManager.PROPS + " " + propsLoc);
+
+//        jobRequest.addParameter(IndependentPollingManager.JOBRESTART, IndependentPollingManager.JOBRESTART + "")
+//        jobRequest.addParameter(IndependentPollingManager.)
+
+        JobRequest crawler = TestCrawlerSubmission.createJobRequest();
+
+//        JqmClientFactory.getClient().enqueue(jobRequest);
+//        ss.submitJobRequest(jobRequest);
+        ss.submitJobRequest(crawler);
+
+        CrawlerPollingManager cpm = new CrawlerPollingManager(props,true);
+        cpm.start(10);
+//
+
+//        Assert.assertTrue("Job submission test failed", Integer.valueOf(ss.submitJobRequest(jobRequest)) instanceof Integer);
 
 
     }

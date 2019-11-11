@@ -9,7 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 // queue manager imports
-import uk.ac.casm.jqm.manager.PollingManager;
+import uk.ac.casm.jqm.manager.CLIArguments;
+import uk.ac.casm.jqm.manager.IndependentPollingManager;
 
 // java imports
 import java.io.BufferedReader;
@@ -17,11 +18,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
-public class CrawlerPollingManager extends PollingManager {
+public class CrawlerPollingManager extends IndependentPollingManager {
 
     protected static final Logger logger = LoggerFactory.getLogger(CrawlerPollingManager.class);
 
@@ -40,21 +39,6 @@ public class CrawlerPollingManager extends PollingManager {
     }
 
     @Override
-    public Map<String,String> buildParameters() {
-        Map<String,String> enqueueParams = new HashMap<>();
-        enqueueParams.put(SingleSeedCollector.USERAGENT,properties.getProperty(SingleSeedCollector.USERAGENT));
-        enqueueParams.put(SingleSeedCollector.CRAWLB, properties.getProperty(SingleSeedCollector.CRAWLB));
-        enqueueParams.put(SingleSeedCollector.DEPTH,properties.getProperty(SingleSeedCollector.DEPTH));
-        enqueueParams.put(SingleSeedCollector.POLITENESS,properties.getProperty(SingleSeedCollector.POLITENESS));
-        enqueueParams.put(SingleSeedCollector.SITEMAP, properties.getProperty(SingleSeedCollector.SITEMAP));
-        enqueueParams.put(SingleSeedCollector.ROBOTS,properties.getProperty(SingleSeedCollector.ROBOTS));
-        enqueueParams.put(SingleSeedCollector.ID, properties.getProperty(SingleSeedCollector.ID));
-        enqueueParams.put(SingleSeedCollector.FILTER,properties.getProperty(SingleSeedCollector.FILTER));
-        enqueueParams.put(SingleSeedCollector.THREADS,properties.getProperty(SingleSeedCollector.THREADS));
-        return enqueueParams;
-    }
-
-    @Override
     public Map<String, Integer> getRegister(Path path) {
         try {
             return loadJobQueue(path);
@@ -66,35 +50,34 @@ public class CrawlerPollingManager extends PollingManager {
 
     @Override
     public String getAppName() {
-        return "incremental-crawling";
+        return "CrawlerDef";
     }
 
     @Override
-    public String userName() {
-        return "crawler-manager";
+    public String getUserName() { return "crawler-manager";}
+
+    @Override
+    public void restart() {
+        // Not needed for this implementation.
     }
 
     @Override
-    public String createKeyword() {
-        // Not needed for this implementation
-        return null;
-    }
-
-    @Override
-    public void restart() { // Not needed for this implementation.
-    }
-
-    @Override
-    public void report() { // Not needed for this implementation.
+    public void report() {
+        // Not needed for this implementation.
     }
 
     public static void main(String[] args){
+
+        List<String> splitArgs = new ArrayList<>();
+        for(String arg : args) {
+            splitArgs.addAll(Arrays.asList(arg.split("\\s+")));
+        }
 
         CLIArguments cli = new CLIArguments();
         new JCommander().newBuilder()
                 .addObject(cli)
                 .build()
-                .parse(args);
+                .parse(splitArgs.toArray(new String[splitArgs.size()]));
 
         Properties props = new Properties();
         try(BufferedReader reader = new BufferedReader(new FileReader(cli.properties))) {
@@ -104,11 +87,35 @@ public class CrawlerPollingManager extends PollingManager {
         } catch (IOException e) {
             new RuntimeException("Failed when attempting to load props file at: " + cli.properties);
         }
-        props.put(CACHE,cli.cache);
 
-        CrawlerPollingManager cpm = new CrawlerPollingManager(props,cli.restart);
-        cpm.start();
+
+        CrawlerPollingManager cpm = new CrawlerPollingManager(props,false);
+        cpm.start(Long.valueOf(props.getProperty(IndependentPollingManager.POLLTIME)));
 
 
     }
+
+
+
+//    @Override
+//    public String createKeyword() {
+//        // Not needed for this implementation
+//        return null;
+//    }
+
+
+    //    @Override
+//    public Map<String,String> buildParameters() {
+//        Map<String,String> enqueueParams = new HashMap<>();
+//        enqueueParams.put(SingleSeedCollector.USERAGENT,properties.getProperty(SingleSeedCollector.USERAGENT));
+//        enqueueParams.put(SingleSeedCollector.CRAWLB, properties.getProperty(SingleSeedCollector.CRAWLB));
+//        enqueueParams.put(SingleSeedCollector.DEPTH,properties.getProperty(SingleSeedCollector.DEPTH));
+//        enqueueParams.put(SingleSeedCollector.POLITENESS,properties.getProperty(SingleSeedCollector.POLITENESS));
+//        enqueueParams.put(SingleSeedCollector.SITEMAP, properties.getProperty(SingleSeedCollector.SITEMAP));
+//        enqueueParams.put(SingleSeedCollector.ROBOTS,properties.getProperty(SingleSeedCollector.ROBOTS));
+//        enqueueParams.put(SingleSeedCollector.ID, properties.getProperty(SingleSeedCollector.ID));
+//        enqueueParams.put(SingleSeedCollector.FILTER,properties.getProperty(SingleSeedCollector.FILTER));
+//        enqueueParams.put(SingleSeedCollector.THREADS,properties.getProperty(SingleSeedCollector.THREADS));
+//        return enqueueParams;
+//    }
 }

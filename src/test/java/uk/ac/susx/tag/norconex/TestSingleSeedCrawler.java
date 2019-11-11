@@ -12,7 +12,6 @@ public class TestSingleSeedCrawler {
 
     @Test
     public void testSingleSeedCrawler() {
-        CrawlerArguments ca = new CrawlerArguments();
         String seed = "http://www.taglaboratory.org/";
         SingleSeedCollector ssc = new SingleSeedCollector("m5", new File("tests/crawldb"),"singleseed",0,null,2,false,false,300,seed);
         try {
