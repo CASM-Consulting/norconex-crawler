@@ -19,7 +19,7 @@ public class CrawlerArguments {
     public String scrapers;
 
     @Parameter(names = {SingleSeedCollector.ID,"--collectorId"}, description = "The id of the collector instance.",
-            required = true)
+            required = false)
     public String id;
 
     @Parameter(names = {SingleSeedCollector.DEPTH,"--depth"}, description = "The depth of the crawl.",

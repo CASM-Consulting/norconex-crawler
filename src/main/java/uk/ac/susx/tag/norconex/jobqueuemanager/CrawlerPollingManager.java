@@ -50,7 +50,7 @@ public class CrawlerPollingManager extends IndependentPollingManager {
 
     @Override
     public String getAppName() {
-        return "CrawlerDef";
+        return "SpringCrawler";
     }
 
     @Override
