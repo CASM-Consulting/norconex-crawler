@@ -24,7 +24,7 @@ public class PollingManagerSubmissionTest {
         String propsLoc = "/Users/jp242/Documents/Projects/JQM-Crawling/jqm_root/conf/crawlmanager.properties";
 
         Properties props = new Properties();
-        props.put("com.enioka.jqm.ws.url", "http://localhost:49910/ws/client");
+        props.put("com.enioka.jqm.ws.url", "http://jqm....:36792/ws/client");
 
         try(BufferedReader reader = new BufferedReader(new FileReader(propsLoc))) {
             props.load(reader);
