@@ -17,6 +17,7 @@ public class TestCrawlerSubmission {
 
         Properties props = new Properties();
         props.put("com.enioka.jqm.ws.url", "http://localhost:49910/ws/client");
+//        props.put("com.enioka.jqm.ws.url", "https://jqm.casmconsulting.co.uk/ws/client");
 
         SubmissionService ss = new SubmissionService(props);
 
@@ -33,7 +34,7 @@ public class TestCrawlerSubmission {
 
         JobRequest jobRequest = JobRequest.create("CrawlerDef","jp242");
 
-        String seed = "https://www.ebay.co.uk/";
+        String seed = "http://www.taglaboratory.org/";
         jobRequest.setKeyword1(seed);
 
         String domain = "test-host";

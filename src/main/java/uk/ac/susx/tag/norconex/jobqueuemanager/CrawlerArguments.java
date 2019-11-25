@@ -48,4 +48,7 @@ public class CrawlerArguments {
             required = true)
     public List<String> seeds;
 
+    @Parameter(names = SingleSeedCollector.INDEXONLY, description = "Specifies whether to only index the site or process the send the output to disc.")
+    public boolean index = false;
+
 }

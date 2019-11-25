@@ -44,6 +44,7 @@ public class SingleSeedCollector {
     public static final String ID = "casm.jqm.polling.id";
     public static final String THREADS = "casm.jqm.polling.threads";
     public static final String SEED = "casm.jqm.polling.seed";
+    public static final String INDEXONLY = "casm.jqm.crawling.index";
 
 //    public static final int BURNIN_CRAWLS = 20; 					// Number of crawls to perform before calculating custom page delays
 
@@ -151,7 +152,7 @@ public class SingleSeedCollector {
     public void start() throws RuntimeException, URISyntaxException {
         logger.info("Running crawl for seed: " + seed);
         HttpCollector collector = factory.createCollector();
-        collector.start(false);
+        collector.start(true);
     }
 
 
