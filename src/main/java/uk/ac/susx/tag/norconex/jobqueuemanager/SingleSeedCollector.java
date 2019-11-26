@@ -2,8 +2,10 @@ package uk.ac.susx.tag.norconex.jobqueuemanager;
 
 // java imports
 import java.io.*;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -99,7 +101,14 @@ public class SingleSeedCollector {
         storeLocation = new File(crawlStore,"conCache").getAbsolutePath();
 //        cacheStore = new ContinuousEstimatorStore(storeLocation);
         this.ignoreSiteMap = ignoreSiteMap;
-        this.crawlStore = crawlStore;
+        URL url = null;
+        try {
+            url = new URL(seed);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        String domain =  (url.getHost().startsWith("www")) ? url.getHost().substring(4) : url.getHost();
+        this.crawlStore = new File(crawlStore,domain);
         finished = false;
         collectorId = id;
 

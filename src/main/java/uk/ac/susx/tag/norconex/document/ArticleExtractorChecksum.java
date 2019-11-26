@@ -26,7 +26,7 @@ import org.apache.commons.io.IOUtils;
 public class ArticleExtractorChecksum extends AbstractDocumentChecksummer {
 
     protected static final Logger logger = LoggerFactory.getLogger(ArticleExtractorChecksum.class);
-
+    public static final String CHECKSUM = "casm.co.uk.checkum";
 
     @Override
     protected String doCreateDocumentChecksum(ImporterDocument document) {
@@ -47,7 +47,9 @@ public class ArticleExtractorChecksum extends AbstractDocumentChecksummer {
 
         try {
             final String article = CommonExtractors.ARTICLE_EXTRACTOR.getText(html);
-            return ChecksumUtil.checksumMD5(article);
+            String checksum = ChecksumUtil.checksumMD5(article);
+            //TODO: add the checkum tp metadata for update change
+            return checksum;
 
         } catch (BoilerpipeProcessingException e) {
             throw new RuntimeException("ERROR: Failed to extract article from url: " + document.getReference());

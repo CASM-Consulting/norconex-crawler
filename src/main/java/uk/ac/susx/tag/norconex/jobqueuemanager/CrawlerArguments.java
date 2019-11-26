@@ -15,8 +15,16 @@ public class CrawlerArguments {
     public String crawldb;
 
     public static final String SCRAPERS = "casm.jqm.scraping.scrapers";
-    @Parameter(names = {SCRAPERS, "--scrapers"}, description = "The location of the json scraper rulesets")
+    @Parameter(names = {SCRAPERS, "--scrapers"}, description = "The location of the json scraper rulesets.")
     public String scrapers;
+
+    public static final String SOURCENAME = "casm.jqm.source.name";
+    @Parameter(names = {SOURCENAME, "--source-name"}, description = "The name of the source being crawled.")
+    public String source;
+
+    public static final String COUNTRIES = "casm.jqm.countries";
+    @Parameter(names = {COUNTRIES, "--countries"}, description = "The countries the source covers.")
+    public String countries;
 
     @Parameter(names = {SingleSeedCollector.ID,"--collectorId"}, description = "The id of the collector instance.",
             required = false)
