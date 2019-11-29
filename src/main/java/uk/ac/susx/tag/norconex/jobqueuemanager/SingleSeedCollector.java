@@ -161,7 +161,7 @@ public class SingleSeedCollector {
     public void start() throws RuntimeException, URISyntaxException {
         logger.info("Running crawl for seed: " + seed);
         HttpCollector collector = factory.createCollector();
-        collector.start(true);
+        collector.start(false);
     }
 
 

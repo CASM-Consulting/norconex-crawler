@@ -17,6 +17,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import uk.ac.casm.jqm.manager.IndependentPollingManager;
 import uk.ac.casm.jqm.manager.SubmissionService;
@@ -32,6 +33,10 @@ public class CrawlerSubmissionService extends SubmissionService {
 
     public static final String CRAWLERJOB = "SpringCollector";
     public static final String USER       = "crawler-submission-service";
+
+    public CrawlerSubmissionService(Properties props) {
+        super(props);
+    }
 
     public static JSONArray loadSeeds(Path location) throws IOException {
         String json = Files.toString(location.toFile(), Charset.defaultCharset());
@@ -58,13 +63,15 @@ public class CrawlerSubmissionService extends SubmissionService {
         JobRequest jr = JobRequest.create(CRAWLERJOB, USER);
         jr.addParameter(SingleSeedCollector.SEED, SingleSeedCollector.SEED + " " + seed.get(LINK));
         jr.addParameter(SingleSeedCollector.ID, SingleSeedCollector.ID + " " + seed.get(LINK));
+        jr.setKeyword1(seed.get(LINK));
         this.submitJobRequest(jr);
 
     }
 
     public static void main(String[] args) {
         Path links = Paths.get(args[0]);
-        CrawlerSubmissionService css = new CrawlerSubmissionService();
+        Properties props = CrawlerSubmissionService.getProperties(args[1]);
+        CrawlerSubmissionService css = new CrawlerSubmissionService(props);
         try {
             css.submitSeeds(CrawlerSubmissionService.loadSeeds(links));
         } catch (IOException e) {

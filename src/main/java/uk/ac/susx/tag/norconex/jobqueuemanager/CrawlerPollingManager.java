@@ -90,8 +90,12 @@ public class CrawlerPollingManager extends IndependentPollingManager {
 
 
         CrawlerPollingManager cpm = new CrawlerPollingManager(props,false);
-        cpm.start(Long.valueOf(props.getProperty(IndependentPollingManager.POLLTIME)));
 
+        if(cli.kill){
+            cpm.killAll();
+        } else {
+            cpm.start(Long.valueOf(props.getProperty(IndependentPollingManager.POLLTIME)));
+        }
 
     }
 
