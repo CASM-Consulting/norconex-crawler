@@ -18,6 +18,7 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 import uk.ac.casm.jqm.manager.IndependentPollingManager;
 import uk.ac.casm.jqm.manager.SubmissionService;
@@ -48,9 +49,21 @@ public class CrawlerSubmissionService extends SubmissionService {
      *              with seed and metadata. See @submitSeed
      * @throws IOException
      */
-    public void submitSeeds(JSONArray seeds) throws IOException {
+    public void submitSeeds(JSONArray seeds) {
+        System.out.println(seeds.length());
         for(int i = 0; i < seeds.length(); i++) {
-            submitSeed((HashMap<String,String>) new ObjectMapper().readValue(seeds.getJSONObject(i).getJSONObject(SEED).toString(),HashMap.class));
+            try {
+                submitSeed((HashMap<String,String>) new ObjectMapper().readValue(seeds.getJSONObject(i).getJSONObject(SEED).toString(),HashMap.class));
+                TimeUnit.MILLISECONDS.sleep(200);
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println(seeds.getJSONObject(i).getJSONObject(SEED).toString());
+                continue;
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println(seeds.getJSONObject(i).getJSONObject(SEED).toString());
+                continue;
+            }
             System.out.println(i);
         }
     }
