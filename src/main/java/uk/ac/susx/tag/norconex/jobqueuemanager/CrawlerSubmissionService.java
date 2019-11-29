@@ -51,6 +51,7 @@ public class CrawlerSubmissionService extends SubmissionService {
     public void submitSeeds(JSONArray seeds) throws IOException {
         for(int i = 0; i < seeds.length(); i++) {
             submitSeed((HashMap<String,String>) new ObjectMapper().readValue(seeds.getJSONObject(i).getJSONObject(SEED).toString(),HashMap.class));
+            System.out.println(i);
         }
     }
 
