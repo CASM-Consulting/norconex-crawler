@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import com.norconex.collector.core.checksum.impl.GenericMetadataChecksummer;
 import com.norconex.collector.core.doc.CollectorMetadata;
 import com.norconex.collector.http.fetch.impl.GenericMetadataFetcher;
+import com.norconex.collector.http.recrawl.impl.GenericRecrawlableResolver;
 import com.norconex.importer.parser.GenericDocumentParserFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,8 +70,11 @@ public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 		URLCrawlScopeStrategy ucs = new URLCrawlScopeStrategy();
 		ucs.setStayOnDomain(true);
 		ucs.setStayOnPort(false);
-		ucs.setStayOnProtocol(false);
+		ucs.setStayOnProtocol(true);
 		setUrlCrawlScopeStrategy(ucs);
+
+//		GenericRecrawlableResolver grr = new GenericRecrawlableResolver();
+//		this.setRecrawlableResolver();
 				
 		// set to false so crawl cache is only those of interest
 		setKeepOutOfScopeLinks(false);
