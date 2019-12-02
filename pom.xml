@@ -111,7 +111,7 @@
       <dependency>
           <groupId>uk.ac.susx.casm.crawlpoll</groupId>
           <artifactId>crawl-polling-service</artifactId>
-          <version>0.0.4</version>
+          <version>0.0.5</version>
       </dependency>
 
       <!-- https://mvnrepository.com/artifact/com.enioka.jqm/jqm-client -->
