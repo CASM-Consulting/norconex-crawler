@@ -73,8 +73,9 @@ public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 		ucs.setStayOnProtocol(true);
 		setUrlCrawlScopeStrategy(ucs);
 
-//		GenericRecrawlableResolver grr = new GenericRecrawlableResolver();
-//		this.setRecrawlableResolver();
+		GenericRecrawlableResolver grr = new GenericRecrawlableResolver();
+		grr.setMinFrequencies();
+		this.setRecrawlableResolver(grr);
 				
 		// set to false so crawl cache is only those of interest
 		setKeepOutOfScopeLinks(false);

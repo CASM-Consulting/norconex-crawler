@@ -10,11 +10,10 @@ import java.util.Properties;
 
 public class TestSubmissionService {
 
-
     @Test
     public void testSubmissionService(){
         String properties = "/Users/jp242/Documents/Projects/JQM-Crawling/jqm_root/conf/acled-crawlmanager.properties";
-        String links = "/Users/jp242/Documents/Projects/ACLED/final-url-list/sample-seed-list.json";
+        String links = "/Users/jp242/Documents/Projects/ACLED/ManualScrapers/demo-seed-list.json";
 
         Path linkPath = Paths.get(links);
         Properties props = CrawlerSubmissionService.getProperties(properties);
