@@ -54,7 +54,7 @@ public class CrawlerSubmissionService extends SubmissionService {
         for(int i = 0; i < seeds.length(); i++) {
             try {
                 submitSeed((HashMap<String,String>) new ObjectMapper().readValue(seeds.getJSONObject(i).getJSONObject(SEED).toString(),HashMap.class));
-                TimeUnit.MILLISECONDS.sleep(200);
+                TimeUnit.MILLISECONDS.sleep(100);
             } catch (IOException e) {
                 e.printStackTrace();
                 System.out.println(seeds.getJSONObject(i).getJSONObject(SEED).toString());
