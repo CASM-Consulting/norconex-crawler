@@ -15,6 +15,7 @@ import java.util.concurrent.*;
 import com.beust.jcommander.JCommander;
 import com.norconex.collector.http.HttpCollector;
 import com.norconex.collector.http.crawler.HttpCrawlerConfig;
+import com.norconex.collector.http.recrawl.impl.GenericRecrawlableResolver;
 import org.apache.commons.validator.routines.UrlValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,14 +49,6 @@ public class SingleSeedCollector {
     public static final String SEED = "casm.jqm.polling.seed";
     public static final String INDEXONLY = "casm.jqm.crawling.index";
 
-//    public static final int BURNIN_CRAWLS = 20; 					// Number of crawls to perform before calculating custom page delays
-
-    public static final long DEFAULT_MIN_RECRAWL_DELAY  = 6;  		// The default recrawl delays in hours.
-    public static final long DEFAULT_MAX_RECRAWL_DELAY  = 730;
-    public static final long DEFAULT_DELAY 				= 12;
-
-//    public static final long SCHEDULE_DELAY_SECONDS = 10;			// The delay between each scehduled recrawl
-
     // crawl-store suffixes
     private static final String PROGRESS = "progress";
     private static final String LOGS = "logs";
@@ -74,7 +67,6 @@ public class SingleSeedCollector {
 
     // Collector components
     private SingleSeedCollectorFactory factory; 	// Factory that produces consistently configured crawlers for continuous running
-//    private ContinuousEstimatorStore cacheStore;	// The store that contains the needed meta-data for each urls recrawl strategy
 
     // collector id - remains static so that the cache is not lost between runs.
     private  String collectorId;
@@ -82,24 +74,14 @@ public class SingleSeedCollector {
 
     // standard params
     private boolean ignoreSiteMap;
-    private String storeLocation;
 
     // Has the crawler been requested to shutdown the crawl permanently?
     private boolean finished;
-
-
-//    // Used to create upper and lower bounds on crawl delays to prevent the statistics running out of control
-//    // (e.g. if for a instance a page never seems to change we still want to check it once in a while or changes so frequently the crawler polls the server too often)
-    public enum Delay { DEFAULT, MINIMUM, MAXIMUM }
-
-    public enum Status { START, COMPLETE, FAILED }
 
     public SingleSeedCollector(String userAgent, File crawlStore, String id,
                                int depth, String urlRegex, int threadsPerSeed, boolean ignoreRobots,
                                boolean ignoreSiteMap, long politenesDelay, String seed) {
 
-        storeLocation = new File(crawlStore,"conCache").getAbsolutePath();
-//        cacheStore = new ContinuousEstimatorStore(storeLocation);
         this.ignoreSiteMap = ignoreSiteMap;
         URL url = null;
         try {
@@ -126,11 +108,12 @@ public class SingleSeedCollector {
         try {
             config = configFactory.createConfiguration();
         } catch (URISyntaxException e) {
-            //TODO:error handling
+            throw new RuntimeException("");
         }
 
     }
 
+    // returns the crawler configuration file
     public HttpCrawlerConfig getConfiguration() {
         return config;
     }
@@ -139,31 +122,15 @@ public class SingleSeedCollector {
         this.config = config;
     }
 
-    public static long getDelay(Delay delay) {
-        long d = 0;
-        switch(delay) {
-            case DEFAULT:
-                d = TimeUnit.HOURS.toMillis(DEFAULT_DELAY);
-                break;
-            case MINIMUM:
-                d = TimeUnit.HOURS.toMillis(DEFAULT_MAX_RECRAWL_DELAY);
-                break;
-            case MAXIMUM:
-                d = TimeUnit.HOURS.toMillis(DEFAULT_MIN_RECRAWL_DELAY);
-                break;
-        }
-        return d;
-    }
-
     /**
-     * Start a continuous crawl
+     * Creates and starts the crawler
+     * This crawler can be restarted if it fails.
      */
     public void start() throws RuntimeException, URISyntaxException {
         logger.info("Running crawl for seed: " + seed);
         HttpCollector collector = factory.createCollector();
-        collector.start(false);
+        collector.start(true);
     }
-
 
     /**
      * Permanently shuts down the entire process.
@@ -171,7 +138,6 @@ public class SingleSeedCollector {
     public void shutdown() throws InterruptedException {
         logger.info("Shutting down crawler");
         finished = true;
-//        cacheStore.close();
     }
 
     /**
@@ -199,8 +165,6 @@ public class SingleSeedCollector {
 
         public HttpCrawlerConfig createConfiguration() throws URISyntaxException {
 
-//            List<HttpCrawlerConfig> configs = new ArrayList<>();
-
             // First - level validate the URL
             if(!UrlValidator.getInstance().isValid(seed)){
                 throw new URISyntaxException(seed,"Invalid URL composition");
@@ -209,48 +173,16 @@ public class SingleSeedCollector {
             // Second - get the domain to use as crawler id
             URI url = new URI(seed);
             String host = url.getHost();
-            String domain = (host.startsWith("www")) ? host.substring(4,host.length()) : host;
+            String domain = (host.startsWith("www")) ? host.substring(4) : host;
 
 
             ContinuousCrawlerConfig config = new ContinuousCrawlerConfig(userAgent, depth, threadsPerSeed, crawlStore, ignoreRobots,
                     ignoreSiteMap, domain + "_" + CRAWLER_ID, urlRegex, politeness, seed);
 
-//            if (ignoreSiteMap) {
-//                ContinuousRecrawlableResolver crr = new ContinuousRecrawlableResolver(cacheStore);
-//                config.setRecrawlableResolver(crr);
-//            }
-
-            // custom fetcher or postimporter to send to M52 queue
-//            config.setPostImportProcessors(new ContinuousPostProcessor(cacheStore));
-
-//            configs.add(config);
-
             return config;
-
         }
 
     }
-
-    /**
-     * Sends a message via the JobManager to communicate upstream
-     * @author jp242
-     */
-    public class SingleSeedCollectorListener implements ICollectorLifeCycleListener {
-
-        public void onCollectorStart(ICollector collector) {
-//            jm.sendMsg(seed + "_" + Status.START.toString());
-        }
-
-        public void onCollectorFinish(ICollector collector) {
-//            jm.sendMsg(seed + "_" + Status.COMPLETE.toString());
-//            cacheStore.getGlobalMetadata().incrementCrawls();
-//            cacheStore.getGlobalMetadata().updateCrawlTime();
-//            cacheStore.commit();
-//            cacheStore.close();
-        }
-
-    }
-
 
 	public static void main(String[] args) {
 

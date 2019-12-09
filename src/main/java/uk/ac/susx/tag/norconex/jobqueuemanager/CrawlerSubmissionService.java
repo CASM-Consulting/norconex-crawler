@@ -2,7 +2,6 @@ package uk.ac.susx.tag.norconex.jobqueuemanager;
 
 // google imports
 import com.enioka.jqm.api.JobRequest;
-import com.enioka.jqm.api.JqmClientFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.io.Files;
 
@@ -20,7 +19,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-import uk.ac.casm.jqm.manager.IndependentPollingManager;
 import uk.ac.casm.jqm.manager.SubmissionService;
 
 public class CrawlerSubmissionService extends SubmissionService {
