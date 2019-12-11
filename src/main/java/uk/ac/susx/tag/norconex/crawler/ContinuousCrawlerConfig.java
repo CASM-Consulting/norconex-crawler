@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 // logging imports
 import com.norconex.collector.core.checksum.impl.GenericMetadataChecksummer;
+import com.norconex.collector.core.data.store.impl.mvstore.MVStoreCrawlDataStoreFactory;
 import com.norconex.collector.core.doc.CollectorMetadata;
 import com.norconex.collector.http.fetch.impl.GenericMetadataFetcher;
 import com.norconex.collector.http.recrawl.impl.GenericRecrawlableResolver;
@@ -52,6 +53,9 @@ public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 		setIgnoreCanonicalLinks(true);
 		setDocumentChecksummer(new ArticleExtractorChecksum());
 		setIgnoreSitemap(ignoreSiteMap);
+
+
+		setCrawlDataStoreFactory(new MVStoreCrawlDataStoreFactory());
 
 		// Control the threadpool size for each crawler
 		setNumThreads(crawlers);

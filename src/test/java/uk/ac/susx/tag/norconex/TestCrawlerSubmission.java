@@ -34,7 +34,7 @@ public class TestCrawlerSubmission {
 
         JobRequest jobRequest = JobRequest.create("CrawlerDef","jp242");
 
-        String seed = "http://www.taglaboratory.org/";
+        String seed = "https://www.greaterkashmir.com/";
         jobRequest.setKeyword1(seed);
 
         String domain = "test-host";
@@ -48,7 +48,7 @@ public class TestCrawlerSubmission {
 
         jobRequest.addParameter(SingleSeedCollector.SEED, SingleSeedCollector.SEED + " " + seed);
 
-        jobRequest.addParameter(SingleSeedCollector.CRAWLB, SingleSeedCollector.CRAWLB + " " + "tests/crawldb");
+        jobRequest.addParameter(SingleSeedCollector.CRAWLB, SingleSeedCollector.CRAWLB + " " + "/Users/jp242/Documents/Projects/JQM-Crawling/crawl-databases/greaterkashmir.com");
 
         jobRequest.addParameter(SingleSeedCollector.DEPTH, SingleSeedCollector.DEPTH + " " + "1");
 
