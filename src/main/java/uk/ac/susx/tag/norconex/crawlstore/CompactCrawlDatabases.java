@@ -44,7 +44,6 @@ public class CompactCrawlDatabases {
 
     }
 
-
     public static void main(String[] args) {
         CompactCrawlDatabases ccd = new CompactCrawlDatabases();
         ccd.walkAndCompactDatabases(Paths.get(args[0]));
