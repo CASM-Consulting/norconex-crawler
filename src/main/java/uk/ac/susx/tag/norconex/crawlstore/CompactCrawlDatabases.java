@@ -29,15 +29,15 @@ public class CompactCrawlDatabases {
                 .fileName(path.toString())
                 .open();
 
+        // compact the db
+        boolean success = mv.compactMoveChunks();
+
         // Remove superfluous referral information
         final MVMap<String, ICrawlData> mapCached = mv.openMap("processedValid");
         final MVMap<String, ICrawlData> mapInCached = mv.openMap("processedInvalid");
         removeReferrals(mapCached);
         removeReferrals(mapInCached);
         mv.commit();
-
-        // compact the db
-        boolean success = mv.compactMoveChunks();
 
         mv.close();
         return success;
