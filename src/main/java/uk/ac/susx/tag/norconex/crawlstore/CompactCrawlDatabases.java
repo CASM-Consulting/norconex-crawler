@@ -41,6 +41,7 @@ public class CompactCrawlDatabases {
 
             mv.close();
         } catch (Exception e) {
+            logger.error("ERROR: Failed - " + path.toString());
             return false;
         }
 
