@@ -28,19 +28,24 @@ public class CompactCrawlDatabases {
         MVStore mv = new MVStore.Builder()
                 .fileName(path.toString())
                 .open();
+        try {
+            // compact the db
+            mv.compactMoveChunks();
 
-        // compact the db
-        boolean success = mv.compactMoveChunks();
+            // Remove superfluous referral information
+            final MVMap<String, ICrawlData> mapCached = mv.openMap("processedValid");
+            final MVMap<String, ICrawlData> mapInCached = mv.openMap("processedInvalid");
+            removeReferrals(mapCached);
+            removeReferrals(mapInCached);
+            mv.commit();
 
-        // Remove superfluous referral information
-        final MVMap<String, ICrawlData> mapCached = mv.openMap("processedValid");
-        final MVMap<String, ICrawlData> mapInCached = mv.openMap("processedInvalid");
-        removeReferrals(mapCached);
-        removeReferrals(mapInCached);
-        mv.commit();
+            mv.close();
+        } catch (Exception e) {
+            return false;
+        }
 
-        mv.close();
-        return success;
+
+        return true;
 
     }
 
