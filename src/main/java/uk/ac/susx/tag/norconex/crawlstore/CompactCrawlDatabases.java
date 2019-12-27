@@ -25,10 +25,13 @@ public class CompactCrawlDatabases {
     public boolean compactChunks(Path path) {
 
 //        String mvstore = "tests/crawldb/taglaboratory.org/crawlstore/mvstore/taglaboratory.org_95_singleSeedCollector/mvstore";
-        MVStore mv = new MVStore.Builder()
-                .fileName(path.toString())
-                .open();
+
         try {
+
+            MVStore mv = new MVStore.Builder()
+                    .fileName(path.toString())
+                    .open();
+            
             // compact the db
             mv.compactMoveChunks();
 
