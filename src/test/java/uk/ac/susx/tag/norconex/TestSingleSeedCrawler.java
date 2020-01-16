@@ -12,8 +12,8 @@ public class TestSingleSeedCrawler {
 
     @Test
     public void testSingleSeedCrawler() {
-        String seed = "https://crawler-test.com/";
-        SingleSeedCollector ssc = new SingleSeedCollector("m5", new File("tests/crawldb"),"singleseed",3,null,2,false,false,300,seed);
+        String seed = "https://www.mehrnews.com/";
+        SingleSeedCollector ssc = new SingleSeedCollector("m5", new File("tests/crawldb"),"singleseed",1,null,2,false,false,300,seed);
         try {
             ssc.start();
         } catch (URISyntaxException e) {

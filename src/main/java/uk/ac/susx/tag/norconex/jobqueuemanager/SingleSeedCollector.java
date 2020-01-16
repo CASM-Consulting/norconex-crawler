@@ -94,7 +94,7 @@ public class SingleSeedCollector {
         } catch (MalformedURLException e) {
             throw new RuntimeException("Failed due to malformed URL: " + seed);
         }
-        
+
         String domain =  (url.getHost().startsWith("www")) ? url.getHost().substring(4) : url.getHost();
         this.crawlStore = new File(crawlStore,domain);
         finished = false;

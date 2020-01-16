@@ -34,7 +34,7 @@ public class TestCrawlerSubmission {
 
         JobRequest jobRequest = JobRequest.create("SpringCollector","jp242");
 
-        String seed = "http://www.bahrainrights.org/";
+        String seed = "https://www.mehrnews.com/";
         jobRequest.setKeyword1(seed);
 
         String domain = "test-host";
@@ -48,7 +48,7 @@ public class TestCrawlerSubmission {
 
         jobRequest.addParameter(SingleSeedCollector.SEED, SingleSeedCollector.SEED + " " + seed);
 
-        jobRequest.addParameter(SingleSeedCollector.CRAWLB, SingleSeedCollector.CRAWLB + " " + "/Users/jp242/Documents/Projects/JQM-Crawling/crawl-databases/bahrainrights");
+        jobRequest.addParameter(SingleSeedCollector.CRAWLB, SingleSeedCollector.CRAWLB + " " + "/Users/jp242/Documents/Projects/JQM-Crawling/crawl-databases/mehrnews");
 
         jobRequest.addParameter(SingleSeedCollector.DEPTH, SingleSeedCollector.DEPTH + " " + "2");
 
@@ -63,6 +63,8 @@ public class TestCrawlerSubmission {
         jobRequest.addParameter(SingleSeedCollector.SITEMAP,SingleSeedCollector.SITEMAP + " true");
 
         jobRequest.addParameter(SingleSeedCollector.ROBOTS,SingleSeedCollector.ROBOTS + " true");
+
+        jobRequest.addParameter(SingleSeedCollector.INDEXONLY, SingleSeedCollector.INDEXONLY);
 
         return jobRequest;
 
