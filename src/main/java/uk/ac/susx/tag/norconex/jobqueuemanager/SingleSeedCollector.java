@@ -6,10 +6,14 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.*;
+import java.util.stream.Stream;
 
 // logging imports
 import com.beust.jcommander.JCommander;
@@ -28,6 +32,7 @@ import com.norconex.collector.http.HttpCollectorConfig;
 import uk.ac.susx.tag.norconex.collector.ContinuousCollector;
 import uk.ac.susx.tag.norconex.controller.ContinuousController;
 import uk.ac.susx.tag.norconex.crawler.ContinuousCrawlerConfig;
+import uk.ac.susx.tag.norconex.crawlstore.CompactCrawlDatabases;
 
 /**
  * The controlling class for the entire continuous crawl process
@@ -152,6 +157,7 @@ public class SingleSeedCollector {
             collectorConfig.setId(collectorId);
 
             collectorConfig.setCrawlerConfigs(config);
+            collectorConfig.setCollectorListeners(new CleanUpCollector());
 
             collectorConfig.setProgressDir(new File(crawlStore,PROGRESS).getAbsolutePath());
             collectorConfig.setLogsDir(new File(crawlStore,LOGS).getAbsolutePath());
@@ -182,6 +188,41 @@ public class SingleSeedCollector {
             return config;
         }
 
+    }
+
+    public class CleanUpCollector implements ICollectorLifeCycleListener {
+
+        @Override
+        public void onCollectorStart(ICollector collector) {
+            // not needed.
+        }
+
+        @Override
+        public void onCollectorFinish(ICollector collector) {
+            logger.error("Deleting logs and compacting databases.");
+            String logLocation = new File(crawlStore,LOGS).getAbsolutePath();
+            try {
+                deleteLogs(Paths.get(logLocation));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            CompactCrawlDatabases ccd = new CompactCrawlDatabases();
+            ccd.walkAndCompactDatabases(crawlStore.toPath());
+            logger.error("Log deletiong and crawldb compact complete.");
+        }
+    }
+
+    public static void deleteLogs(Path logDir) throws IOException {
+        try(Stream<Path> walk = Files.walk(logDir)) {
+            walk.filter(path -> path.endsWith(".log"))
+                    .forEach(path1 -> {
+                        try {
+                            Files.delete(path1);
+                        } catch (IOException e) {
+                            logger.error(e.getMessage());
+                        }
+                    });
+        }
     }
 
 	public static void main(String[] args) {

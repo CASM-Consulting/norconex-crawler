@@ -31,7 +31,7 @@ public class CompactCrawlDatabases {
             MVStore mv = new MVStore.Builder()
                     .fileName(path.toString())
                     .open();
-            
+
             // compact the db
             mv.compactMoveChunks();
 

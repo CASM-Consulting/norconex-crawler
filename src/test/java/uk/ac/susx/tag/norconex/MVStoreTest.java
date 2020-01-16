@@ -23,12 +23,12 @@ public class MVStoreTest {
     @Test
     public void MVStoreTest() {
 
-        String backup = "tests/crawldb/taglaboratory.org/crawlstore/mvstore/mvstore";
+        String backup = "/Users/jp242/Documents/Projects/ACLED/Index-reduction/thejakartapost.com/crawlstore/mvstore/mvstore";
         File before = new File(backup);
         System.out.println("Before: " + before.length());
 
 //        String mvstore = "/Users/jp242/Documents/Projects/ACLED/mvstoretest/libyaschannel.com/crawlstore/mvstore/libyaschannel.com_95_singleSeedCollector/mvstore";
-        String mvstore = "tests/crawldb/taglaboratory.org/crawlstore/mvstore/taglaboratory.org_95_singleSeedCollector/mvstore";
+        String mvstore = "/Users/jp242/Documents/Projects/ACLED/Index-reduction/thejakartapost.com/crawlstore/mvstore/thejakartapost.com_95_singleSeedCollector/mvstore";
         //        MVStore mv = new MVStore.Builder()
 //                .fileName(mvstore)
 //                .open();

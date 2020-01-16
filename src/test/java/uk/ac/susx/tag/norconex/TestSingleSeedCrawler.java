@@ -12,7 +12,7 @@ public class TestSingleSeedCrawler {
 
     @Test
     public void testSingleSeedCrawler() {
-        String seed = "http://www.taglaboratory.org/";
+        String seed = "https://crawler-test.com/";
         SingleSeedCollector ssc = new SingleSeedCollector("m5", new File("tests/crawldb"),"singleseed",3,null,2,false,false,300,seed);
         try {
             ssc.start();

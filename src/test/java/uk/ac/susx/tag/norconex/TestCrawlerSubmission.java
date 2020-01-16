@@ -34,7 +34,7 @@ public class TestCrawlerSubmission {
 
         JobRequest jobRequest = JobRequest.create("SpringCollector","jp242");
 
-        String seed = "http://www.taglaboratory.org/";
+        String seed = "https://crawler-test.com/";
         jobRequest.setKeyword1(seed);
 
         String domain = "test-host";
@@ -48,17 +48,21 @@ public class TestCrawlerSubmission {
 
         jobRequest.addParameter(SingleSeedCollector.SEED, SingleSeedCollector.SEED + " " + seed);
 
-        jobRequest.addParameter(SingleSeedCollector.CRAWLB, SingleSeedCollector.CRAWLB + " " + "/Users/jp242/Documents/Projects/JQM-Crawling/crawl-databases/tag-12");
+        jobRequest.addParameter(SingleSeedCollector.CRAWLB, SingleSeedCollector.CRAWLB + " " + "/Users/jp242/Documents/Projects/JQM-Crawling/crawl-databases/tag-1");
 
-        jobRequest.addParameter(SingleSeedCollector.DEPTH, SingleSeedCollector.DEPTH + " " + "2");
+        jobRequest.addParameter(SingleSeedCollector.DEPTH, SingleSeedCollector.DEPTH + " " + "10");
 
-        jobRequest.addParameter(SingleSeedCollector.POLITENESS, SingleSeedCollector.POLITENESS + " " + "500");
+        jobRequest.addParameter(SingleSeedCollector.POLITENESS, SingleSeedCollector.POLITENESS + " " + "300");
 
         jobRequest.addParameter(SingleSeedCollector.ID, SingleSeedCollector.ID + " " + domain);
 
         jobRequest.addParameter(SingleSeedCollector.THREADS, SingleSeedCollector.THREADS + " " + "2");
 
-        jobRequest.addParameter(SingleSeedCollector.USERAGENT, SingleSeedCollector.USERAGENT + " " + "m52");
+        jobRequest.addParameter(SingleSeedCollector.USERAGENT, SingleSeedCollector.USERAGENT + " " + "CASM");
+
+        jobRequest.addParameter(SingleSeedCollector.SITEMAP,SingleSeedCollector.SITEMAP + " true");
+
+        jobRequest.addParameter(SingleSeedCollector.ROBOTS,SingleSeedCollector.ROBOTS + " true");
 
         return jobRequest;
 
