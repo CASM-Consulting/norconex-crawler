@@ -92,8 +92,9 @@ public class SingleSeedCollector {
         try {
             url = new URL(seed);
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Failed due to malformed URL: " + seed);
         }
+        
         String domain =  (url.getHost().startsWith("www")) ? url.getHost().substring(4) : url.getHost();
         this.crawlStore = new File(crawlStore,domain);
         finished = false;
@@ -113,7 +114,7 @@ public class SingleSeedCollector {
         try {
             config = configFactory.createConfiguration();
         } catch (URISyntaxException e) {
-            throw new RuntimeException("");
+            throw new RuntimeException("Failed due to malformed URL: " + seed);
         }
 
     }
