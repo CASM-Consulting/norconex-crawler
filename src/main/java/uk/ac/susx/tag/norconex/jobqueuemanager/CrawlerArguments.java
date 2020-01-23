@@ -14,9 +14,14 @@ public class CrawlerArguments {
             required = true)
     public String crawldb;
 
-    public static final String SCRAPERS = "casm.jqm.scraping.scrapers";
-    @Parameter(names = {SCRAPERS, "--scrapers"}, description = "The location of the json scraper rulesets.")
+    public static final String SCRAPER = "casm.jqm.crawling.scraper";
+    @Parameter(names = {SCRAPER, "--scraper"}, description = "The location of a single scraper ruleset to be used by a crawler.")
+    public String scraper;
+
+    public static final String SCRAPERS = "casm.jqm.scraping.scrapers.dir";
+    @Parameter(names = {SCRAPERS, "--scrapers-dir"}, description = "The directory of the json scraper rulesets.")
     public String scrapers;
+
 
     public static final String SOURCENAME = "casm.jqm.source.name";
     @Parameter(names = {SOURCENAME, "--source-name"}, description = "The name of the source being crawled.")

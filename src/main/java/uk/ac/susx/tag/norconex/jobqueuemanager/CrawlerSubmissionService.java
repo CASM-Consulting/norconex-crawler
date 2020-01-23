@@ -6,11 +6,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.io.Files;
 
 // json imports
+import org.apache.commons.cli.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 // java imports
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -19,16 +23,21 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uk.ac.casm.jqm.manager.SubmissionService;
 
 public class CrawlerSubmissionService extends SubmissionService {
 
+    protected static final Logger logger = LoggerFactory.getLogger(CrawlerSubmissionService.class);
+
     public static final String SEED  = "seed";
     public static final String SEEDS = "seeds";
 
-    public static final String LINK       = "Link";
-    public static final String SOURCE     = "Source Name";
-    public static final String COUNTRIES  = "Countries";
+    public static final String LINK       = "link";
+    public static final String SOURCE     = "source-name";
+    public static final String COUNTRIES  = "countries";
+    public static final String SCRAPER    = "scraper-name";
 
     public static final String CRAWLERJOB = "SpringCollector";
     public static final String USER       = "crawler-submission-service";
@@ -54,10 +63,11 @@ public class CrawlerSubmissionService extends SubmissionService {
                 submitSeed((HashMap<String,String>) new ObjectMapper().readValue(seeds.getJSONObject(i).getJSONObject(SEED).toString(),HashMap.class));
                 TimeUnit.MILLISECONDS.sleep(100);
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error("ERROR: failed to submit seed: " + seeds.getJSONObject(i).getJSONObject(SEED).toString());
                 System.out.println(seeds.getJSONObject(i).getJSONObject(SEED).toString());
                 continue;
             } catch (Exception e) {
+                logger.error("ERROR: failed to submit seed: " + seeds.getJSONObject(i).getJSONObject(SEED).toString());
                 e.printStackTrace();
                 System.out.println(seeds.getJSONObject(i).getJSONObject(SEED).toString());
                 continue;
@@ -75,12 +85,83 @@ public class CrawlerSubmissionService extends SubmissionService {
         JobRequest jr = JobRequest.create(CRAWLERJOB, USER);
         jr.addParameter(SingleSeedCollector.SEED, SingleSeedCollector.SEED + " " + seed.get(LINK));
         jr.addParameter(SingleSeedCollector.ID, SingleSeedCollector.ID + " " + seed.get(LINK));
+        jr.addParameter(CrawlerArguments.SCRAPER, CrawlerArguments.SCRAPER + " " + seed.get(SCRAPER));
         jr.setKeyword1(seed.get(LINK));
         this.submitJobRequest(jr);
 
     }
 
+//    public
+
+    private HashMap<String, SimpleResponse> validateSeeds(JSONArray seeds) throws IOException {
+
+        HashMap<String,SimpleResponse> responses = new HashMap<>();
+        for(int i = 0; i < seeds.length();  i++) {
+            HashMap<String, String> seedMap = (HashMap<String, String>) new ObjectMapper().readValue(seeds.getJSONObject(i).getJSONObject(SEED).toString(), HashMap.class);
+            final String seed = seedMap.get(SingleSeedCollector.SEED);
+//            responses.put(seed,validateSeed(seed,validateSeed(seed));
+        }
+        return responses;
+    }
+
+    private SimpleResponse validateSeed(String seed) {
+
+        final SimpleResponse response = new SimpleResponse();
+
+        URL url;
+        try {
+            url = new URL(seed);
+        } catch (MalformedURLException e) {
+            response.valid = false;
+            return response;
+        }
+
+        try {
+            URLConnection connection = url.openConnection();
+            connection.connect();
+//            connection.getRe
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        return response;
+    }
+
+    public class SimpleResponse {
+
+        boolean valid;
+        boolean timeout;
+        boolean failed;
+        String responseCode;
+
+    }
+
+
+    public static Options getCLIOptions() {
+        final Options options = new Options();
+        options.addOption("-v", false, "Specify if you wish to simply validate your seed list.");
+        options.addOption("-vf", false, "Will write out to a csv detailing all urls failing validation and why.");
+        return options;
+    }
+
+    /**
+     * Simple convenience method to normalise json keys and increase robustness.
+     * @return
+     */
+    private String normaliseParam(String key){
+        return key.toLowerCase().trim().replaceAll("\\s+","-");
+    }
+
     public static void main(String[] args) {
+        CommandLineParser clp = new DefaultParser();
+
+        try {
+            CommandLine cli = clp.parse(getCLIOptions(),args);
+        } catch (ParseException e) {
+            new RuntimeException("Failed tp parse command line parameters: " + e.getLocalizedMessage());
+        }
+
         Path links = Paths.get(args[0]);
         Properties props = CrawlerSubmissionService.getProperties(args[1]);
         CrawlerSubmissionService css = new CrawlerSubmissionService(props);
