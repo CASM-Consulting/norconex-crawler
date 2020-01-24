@@ -79,12 +79,9 @@ public class CrawlerPollingManager extends IndependentPollingManager {
         Properties props = new Properties();
         try(BufferedReader reader = new BufferedReader(new FileReader(cli.properties))) {
             props.load(reader);
-        } catch (FileNotFoundException e) {
-            new RuntimeException("Failed when attempting to load props file at: " + cli.properties);
-        } catch (IOException e) {
-            new RuntimeException("Failed when attempting to load props file at: " + cli.properties);
+        }  catch (IOException e) {
+            throw new RuntimeException("Failed when attempting to load props file at: " + cli.properties);
         }
-
 
         CrawlerPollingManager cpm = new CrawlerPollingManager(props,false);
 

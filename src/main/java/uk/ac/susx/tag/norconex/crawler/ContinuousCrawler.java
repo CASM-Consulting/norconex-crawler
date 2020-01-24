@@ -1,4 +1,4 @@
-package uk.ac.susx.tag.norconex.collector;
+package uk.ac.susx.tag.norconex.crawler;
 
 import com.norconex.collector.http.crawler.HttpCrawler;
 import com.norconex.collector.http.crawler.HttpCrawlerConfig;

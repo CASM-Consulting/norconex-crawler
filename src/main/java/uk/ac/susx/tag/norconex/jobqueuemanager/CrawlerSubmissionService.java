@@ -39,7 +39,7 @@ public class CrawlerSubmissionService extends SubmissionService {
     public static final String COUNTRIES  = "countries";
     public static final String SCRAPER    = "scraper-name";
 
-    public static final String CRAWLERJOB = "SpringCollector";
+        public static final String CRAWLERJOB = "SpringCollector";
     public static final String USER       = "crawler-submission-service";
 
     public CrawlerSubmissionService(Properties props) {
@@ -154,13 +154,13 @@ public class CrawlerSubmissionService extends SubmissionService {
     }
 
     public static void main(String[] args) {
-        CommandLineParser clp = new DefaultParser();
-
-        try {
-            CommandLine cli = clp.parse(getCLIOptions(),args);
-        } catch (ParseException e) {
-            new RuntimeException("Failed tp parse command line parameters: " + e.getLocalizedMessage());
-        }
+//        CommandLineParser clp = new DefaultParser();
+//
+//        try {
+//            CommandLine cli = clp.parse(getCLIOptions(),args);
+//        } catch (ParseException e) {
+//            new RuntimeException("Failed tp parse command line parameters: " + e.getLocalizedMessage());
+//        }
 
         Path links = Paths.get(args[0]);
         Properties props = CrawlerSubmissionService.getProperties(args[1]);
