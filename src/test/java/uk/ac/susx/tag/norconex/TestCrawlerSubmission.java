@@ -3,7 +3,8 @@ package uk.ac.susx.tag.norconex;
 import com.enioka.jqm.api.JobRequest;
 import org.junit.Assert;
 import org.junit.Test;
-import uk.ac.casm.jqm.manager.SubmissionService;
+import uk.ac.susx.tag.norconex.crawlpolling.SubmissionService;
+import uk.ac.susx.tag.norconex.jobqueuemanager.CrawlerArguments;
 import uk.ac.susx.tag.norconex.jobqueuemanager.SingleSeedCollector;
 
 import java.net.MalformedURLException;
@@ -34,7 +35,7 @@ public class TestCrawlerSubmission {
 
         JobRequest jobRequest = JobRequest.create("SpringCollector","jp242");
 
-        String seed = "https://www.mehrnews.com/";
+        String seed = "http://www.arabtimesonline.com/news/";
         jobRequest.setKeyword1(seed);
 
         String domain = "test-host";
@@ -48,11 +49,11 @@ public class TestCrawlerSubmission {
 
         jobRequest.addParameter(SingleSeedCollector.SEED, SingleSeedCollector.SEED + " " + seed);
 
-        jobRequest.addParameter(SingleSeedCollector.CRAWLB, SingleSeedCollector.CRAWLB + " " + "/Users/jp242/Documents/Projects/JQM-Crawling/crawl-databases/mehrnews");
+//        jobRequest.addParameter(SingleSeedCollector.CRAWLB, SingleSeedCollector.CRAWLB + " " + "/Users/jp242/Documents/Projects/JQM-Crawling/crawl-databases");
 
-        jobRequest.addParameter(SingleSeedCollector.DEPTH, SingleSeedCollector.DEPTH + " " + "2");
+        jobRequest.addParameter(SingleSeedCollector.DEPTH, SingleSeedCollector.DEPTH + " " + "4");
 
-        jobRequest.addParameter(SingleSeedCollector.POLITENESS, SingleSeedCollector.POLITENESS + " " + "300");
+        jobRequest.addParameter(SingleSeedCollector.POLITENESS, SingleSeedCollector.POLITENESS + " " + "350");
 
         jobRequest.addParameter(SingleSeedCollector.ID, SingleSeedCollector.ID + " " + domain);
 
@@ -60,11 +61,15 @@ public class TestCrawlerSubmission {
 
         jobRequest.addParameter(SingleSeedCollector.USERAGENT, SingleSeedCollector.USERAGENT + " " + "CASM");
 
-        jobRequest.addParameter(SingleSeedCollector.SITEMAP,SingleSeedCollector.SITEMAP + " true");
+        jobRequest.addParameter(SingleSeedCollector.SITEMAP,SingleSeedCollector.SITEMAP + " false");
 
-        jobRequest.addParameter(SingleSeedCollector.ROBOTS,SingleSeedCollector.ROBOTS + " true");
+        jobRequest.addParameter(SingleSeedCollector.ROBOTS,SingleSeedCollector.ROBOTS + " false");
 
-        jobRequest.addParameter(SingleSeedCollector.INDEXONLY, SingleSeedCollector.INDEXONLY);
+//        jobRequest.addParameter(SingleSeedCollector.INDEXONLY, SingleSeedCollector.INDEXONLY);
+
+        jobRequest.addParameter(CrawlerArguments.SCRAPER, CrawlerArguments.SCRAPER + " " + "arabtimesonline.json");
+
+        jobRequest.addParameter(CrawlerArguments.SCRAPERS, CrawlerArguments.SCRAPERS + " " + "/Users/jp242/Documents/Projects/JQM-Crawling/example_scrapers");
 
         return jobRequest;
 

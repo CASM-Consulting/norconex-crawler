@@ -7,10 +7,12 @@ import com.enioka.jqm.api.JobRequest;
 // logging imports
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import uk.ac.susx.tag.norconex.crawlpolling.CLIArguments;
+import uk.ac.susx.tag.norconex.crawlpolling.IndependentPollingManager;
 
 // queue manager imports
-import uk.ac.casm.jqm.manager.CLIArguments;
-import uk.ac.casm.jqm.manager.IndependentPollingManager;
+//import uk.ac.casm.jqm.manager.CLIArguments;
+//import uk.ac.casm.jqm.manager.IndependentPollingManager;
 
 // java imports
 import java.io.BufferedReader;

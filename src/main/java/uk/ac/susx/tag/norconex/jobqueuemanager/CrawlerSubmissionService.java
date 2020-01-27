@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import uk.ac.casm.jqm.manager.SubmissionService;
+import uk.ac.susx.tag.norconex.crawlpolling.SubmissionService;
 
 public class CrawlerSubmissionService extends SubmissionService {
 
@@ -34,10 +34,10 @@ public class CrawlerSubmissionService extends SubmissionService {
     public static final String SEED  = "seed";
     public static final String SEEDS = "seeds";
 
-    public static final String LINK       = "link";
-    public static final String SOURCE     = "source-name";
-    public static final String COUNTRIES  = "countries";
-    public static final String SCRAPER    = "scraper-name";
+    public static final String LINK       = "LINK";
+    public static final String NAME       = "NAME";
+    public static final String COUNTRIES  = "COUNTRIES";
+    public static final String SCRAPER    = "SCRAPER";
 
         public static final String CRAWLERJOB = "SpringCollector";
     public static final String USER       = "crawler-submission-service";
@@ -85,10 +85,22 @@ public class CrawlerSubmissionService extends SubmissionService {
         JobRequest jr = JobRequest.create(CRAWLERJOB, USER);
         jr.addParameter(SingleSeedCollector.SEED, SingleSeedCollector.SEED + " " + seed.get(LINK));
         jr.addParameter(SingleSeedCollector.ID, SingleSeedCollector.ID + " " + seed.get(LINK));
-        jr.addParameter(CrawlerArguments.SCRAPER, CrawlerArguments.SCRAPER + " " + seed.get(SCRAPER));
+        jr.addParameter(CrawlerArguments.SCRAPER, CrawlerArguments.SCRAPER + " " + resolveScraperName(seed.get(SCRAPER)));
         jr.setKeyword1(seed.get(LINK));
         this.submitJobRequest(jr);
 
+    }
+
+    /**
+     * Makes sure that json suffix is applied to the scraper name.
+     * @param scraper
+     * @return
+     */
+    private String resolveScraperName(String scraper) {
+        if(!scraper.endsWith(".json")) {
+            return scraper + ".json";
+        }
+        return scraper;
     }
 
 //    public

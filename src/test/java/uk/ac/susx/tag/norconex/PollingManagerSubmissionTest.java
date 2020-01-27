@@ -6,8 +6,8 @@ import com.enioka.jqm.api.JobRequest;
 import com.enioka.jqm.api.JqmClientFactory;
 import org.junit.Assert;
 import org.junit.Test;
-import uk.ac.casm.jqm.manager.IndependentPollingManager;
-import uk.ac.casm.jqm.manager.SubmissionService;
+import uk.ac.susx.tag.norconex.crawlpolling.IndependentPollingManager;
+import uk.ac.susx.tag.norconex.crawlpolling.SubmissionService;
 import uk.ac.susx.tag.norconex.jobqueuemanager.CrawlerPollingManager;
 
 import java.io.BufferedReader;

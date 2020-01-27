@@ -4,7 +4,6 @@ import com.enioka.jqm.api.JobRequest;
 import com.enioka.jqm.api.JqmClientFactory;
 import org.junit.Assert;
 import org.junit.Test;
-import uk.ac.casm.jqm.manager.SubmissionService;
 
 import java.util.Properties;
 
