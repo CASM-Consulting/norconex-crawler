@@ -87,7 +87,7 @@ public class CrawlerSubmissionService extends SubmissionService {
         jr.addParameter(SingleSeedCollector.ID, SingleSeedCollector.ID + " " + seed.get(LINK));
         jr.addParameter(CrawlerArguments.SCRAPER, CrawlerArguments.SCRAPER + " " + resolveScraperName(seed.get(SCRAPER)));
         jr.addParameter(CrawlerArguments.SOURCEDOMAIN, CrawlerArguments.SOURCEDOMAIN + " " + seed.get(CrawlerArguments.SOURCEDOMAIN));
-        jr.setKeyword1(seed.get(LINK));
+        jr.setKeyword1(seed.get(CrawlerArguments.SOURCEDOMAIN));
         this.submitJobRequest(jr);
 
     }
