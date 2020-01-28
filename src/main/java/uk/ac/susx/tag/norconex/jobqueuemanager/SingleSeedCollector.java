@@ -200,16 +200,16 @@ public class SingleSeedCollector {
 
         @Override
         public void onCollectorFinish(ICollector collector) {
-            logger.error("Deleting logs and compacting databases.");
-            String logLocation = new File(crawlStore,LOGS).getAbsolutePath();
-            try {
-                deleteLogs(Paths.get(logLocation));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            CompactCrawlDatabases ccd = new CompactCrawlDatabases();
-            ccd.walkAndCompactDatabases(crawlStore.toPath());
-            logger.error("Log deletiong and crawldb compact complete.");
+//            logger.error("Deleting logs and compacting databases.");
+//            String logLocation = new File(crawlStore,LOGS).getAbsolutePath();
+//            try {
+//                deleteLogs(Paths.get(logLocation));
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            CompactCrawlDatabases ccd = new CompactCrawlDatabases();
+//            ccd.walkAndCompactDatabases(crawlStore.toPath());
+//            logger.error("Log deletiong and crawldb compact complete.");
         }
     }
 

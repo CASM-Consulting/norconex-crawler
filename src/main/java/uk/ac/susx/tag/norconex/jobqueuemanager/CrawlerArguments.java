@@ -61,7 +61,16 @@ public class CrawlerArguments {
             required = true)
     public List<String> seeds;
 
+    public static final String SOURCEDOMAIN = "casm.jqm.sourceDomain";
+    @Parameter(names = {SOURCEDOMAIN}, description = "Allows one to specify a source or domain that is different from the starting seed.")
+    public String sourcedomain;
+
     @Parameter(names = SingleSeedCollector.INDEXONLY, description = "Specifies whether to only index the site or process the send the output to disc.")
     public boolean index = false;
+
+    public static final String LOCALSPRINGPROPS = "--spring.config.name=application-local.properties";
+    @Parameter(names = {LOCALSPRINGPROPS}, description = "Specify whether to use the local spring boot properties or server side (i.e. pg-bouncer)")
+    public boolean local = false;
+
 
 }

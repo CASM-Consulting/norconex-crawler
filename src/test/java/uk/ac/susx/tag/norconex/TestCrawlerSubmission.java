@@ -22,11 +22,6 @@ public class TestCrawlerSubmission {
 
         SubmissionService ss = new SubmissionService(props);
 
-
-//        jobRequest.addParameter(SingleSeedCollector.ROBOTS, SingleSeedCollector.ROBOTS);
-//
-//        jobRequest.addParameter(SingleSeedCollector.SITEMAP, SingleSeedCollector.SITEMAP);
-
         Assert.assertTrue("Job submission test failed", Integer.valueOf(ss.submitJobRequest(createJobRequest())) instanceof Integer);
 
     }
@@ -35,8 +30,10 @@ public class TestCrawlerSubmission {
 
         JobRequest jobRequest = JobRequest.create("SpringCollector","jp242");
 
-        String seed = "http://www.arabtimesonline.com/news/";
-        jobRequest.setKeyword1(seed);
+        String seed = "http://www.arabtimesonline.com/news/assets-low-debt-sound-banks-prop-kuwait-resilience/";
+        String sourceDomain = "http://www.arabtimesonline.com/news/";
+        String sourceName = "Arab_Times";
+        jobRequest.setKeyword1(sourceDomain);
 
         String domain = "test-host";
         try {
@@ -51,13 +48,13 @@ public class TestCrawlerSubmission {
 
 //        jobRequest.addParameter(SingleSeedCollector.CRAWLB, SingleSeedCollector.CRAWLB + " " + "/Users/jp242/Documents/Projects/JQM-Crawling/crawl-databases");
 
-        jobRequest.addParameter(SingleSeedCollector.DEPTH, SingleSeedCollector.DEPTH + " " + "4");
+        jobRequest.addParameter(SingleSeedCollector.DEPTH, SingleSeedCollector.DEPTH + " " + "0");
 
-        jobRequest.addParameter(SingleSeedCollector.POLITENESS, SingleSeedCollector.POLITENESS + " " + "350");
+        jobRequest.addParameter(SingleSeedCollector.POLITENESS, SingleSeedCollector.POLITENESS + " " + "450");
 
         jobRequest.addParameter(SingleSeedCollector.ID, SingleSeedCollector.ID + " " + domain);
 
-        jobRequest.addParameter(SingleSeedCollector.THREADS, SingleSeedCollector.THREADS + " " + "2");
+        jobRequest.addParameter(SingleSeedCollector.THREADS, SingleSeedCollector.THREADS + " " + "1");
 
         jobRequest.addParameter(SingleSeedCollector.USERAGENT, SingleSeedCollector.USERAGENT + " " + "CASM");
 
@@ -70,6 +67,13 @@ public class TestCrawlerSubmission {
         jobRequest.addParameter(CrawlerArguments.SCRAPER, CrawlerArguments.SCRAPER + " " + "arabtimesonline.json");
 
         jobRequest.addParameter(CrawlerArguments.SCRAPERS, CrawlerArguments.SCRAPERS + " " + "/Users/jp242/Documents/Projects/JQM-Crawling/example_scrapers");
+
+        jobRequest.addParameter(CrawlerArguments.SOURCEDOMAIN, CrawlerArguments.SOURCEDOMAIN + " " + sourceDomain);
+
+        jobRequest.addParameter(CrawlerArguments.SOURCENAME, CrawlerArguments.SOURCENAME + " " + sourceName);
+
+        // configure spring to use the local properties file (i.e. not to use pg-bouncer)
+        jobRequest.addParameter(CrawlerArguments.LOCALSPRINGPROPS, CrawlerArguments.LOCALSPRINGPROPS);
 
         return jobRequest;
 
