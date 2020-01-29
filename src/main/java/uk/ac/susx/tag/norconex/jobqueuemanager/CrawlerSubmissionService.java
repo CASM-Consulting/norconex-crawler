@@ -38,6 +38,7 @@ public class CrawlerSubmissionService extends SubmissionService {
     public static final String NAME       = "NAME";
     public static final String COUNTRIES  = "COUNTRIES";
     public static final String SCRAPER    = "SCRAPER";
+    public static final String SOURCE     = "SOURCE";
 
         public static final String CRAWLERJOB = "SpringCollector";
     public static final String USER       = "crawler-submission-service";
@@ -84,10 +85,10 @@ public class CrawlerSubmissionService extends SubmissionService {
 
         JobRequest jr = JobRequest.create(CRAWLERJOB, USER);
         jr.addParameter(SingleSeedCollector.SEED, SingleSeedCollector.SEED + " " + seed.get(LINK));
-        jr.addParameter(SingleSeedCollector.ID, SingleSeedCollector.ID + " " + seed.get(LINK));
-        jr.addParameter(CrawlerArguments.SCRAPER, CrawlerArguments.SCRAPER + " " + resolveScraperName(seed.get(SCRAPER)));
-        jr.addParameter(CrawlerArguments.SOURCEDOMAIN, CrawlerArguments.SOURCEDOMAIN + " " + seed.get(CrawlerArguments.SOURCEDOMAIN));
-        jr.setKeyword1(seed.get(CrawlerArguments.SOURCEDOMAIN));
+        jr.addParameter(SingleSeedCollector.ID, SingleSeedCollector.ID + " " + seed.get(SOURCE));
+        jr.addParameter(CrawlerArguments.SCRAPER, CrawlerArguments.SCRAPER + " " + seed.get(SCRAPER));
+        jr.addParameter(CrawlerArguments.SOURCEDOMAIN, CrawlerArguments.SOURCEDOMAIN + " " + seed.get(SOURCE));
+        jr.setKeyword1(seed.get(SOURCE));
         this.submitJobRequest(jr);
 
     }
