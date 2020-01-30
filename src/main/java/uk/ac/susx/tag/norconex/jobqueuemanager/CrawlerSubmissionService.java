@@ -40,7 +40,7 @@ public class CrawlerSubmissionService extends SubmissionService {
     public static final String SCRAPER    = "SCRAPER";
     public static final String SOURCE     = "SOURCE";
 
-        public static final String CRAWLERJOB = "SpringCollector";
+    public static final String CRAWLERJOB = "SpringCollector";
     public static final String USER       = "crawler-submission-service";
 
     public CrawlerSubmissionService(Properties props) {

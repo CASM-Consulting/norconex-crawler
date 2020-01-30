@@ -4,7 +4,7 @@
 
   <groupId>uk.ac.susx.tag.norconex.crawler</groupId>
   <artifactId>m52-norconex-crawler</artifactId>
-  <version>1.4.0</version>
+  <version>1.5.0</version>
     <parent>
        <groupId>uk.ac.susx.tag</groupId>
        <artifactId>tag-dist</artifactId>

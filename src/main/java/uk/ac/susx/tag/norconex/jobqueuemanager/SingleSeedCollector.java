@@ -33,6 +33,7 @@ import uk.ac.susx.tag.norconex.collector.ContinuousCollector;
 import uk.ac.susx.tag.norconex.controller.ContinuousController;
 import uk.ac.susx.tag.norconex.crawler.ContinuousCrawlerConfig;
 import uk.ac.susx.tag.norconex.crawlstore.CompactCrawlDatabases;
+import uk.ac.susx.tag.norconex.utils.Utils;
 
 /**
  * The controlling class for the entire continuous crawl process
@@ -232,11 +233,7 @@ public class SingleSeedCollector {
             logger.error(arg + " ");
         }
 
-        List<String> splitArgs = new ArrayList<>();
-        for(String arg : args){
-            splitArgs.addAll(Arrays.asList(arg.split("\\s+")));
-        }
-        String[] corrArgs = splitArgs.toArray(new String[splitArgs.size()]);
+        String[] corrArgs = Utils.buildArguments(args);
         CrawlerArguments ca = new CrawlerArguments();
         new JCommander().newBuilder()
                 .addObject(ca)
