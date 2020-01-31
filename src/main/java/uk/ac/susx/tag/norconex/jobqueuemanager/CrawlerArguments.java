@@ -72,5 +72,8 @@ public class CrawlerArguments {
     @Parameter(names = {LOCALSPRINGPROPS}, description = "Specify whether to use the local spring boot properties or server side (i.e. pg-bouncer)")
     public boolean local = false;
 
+    public static final String CRAWLDBPROPS = "casm.jqm.crawling.DBprops";
+    @Parameter(names = {CRAWLDBPROPS}, description = "Specifies a properties file containing the crawler database commiter config.")
+    public String crawldbProps;
 
 }

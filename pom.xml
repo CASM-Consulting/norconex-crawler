@@ -4,7 +4,7 @@
 
   <groupId>uk.ac.susx.tag.norconex.crawler</groupId>
   <artifactId>m52-norconex-crawler</artifactId>
-  <version>1.5.0</version>
+  <version>1.5.1</version>
     <parent>
        <groupId>uk.ac.susx.tag</groupId>
        <artifactId>tag-dist</artifactId>
@@ -76,6 +76,19 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+
+      <dependency>
+          <groupId>com.norconex.collectors</groupId>
+          <artifactId>norconex-committer-sql</artifactId>
+          <version>2.0.0</version>
+      </dependency>
+
+      <!-- https://mvnrepository.com/artifact/postgresql/postgresql -->
+      <dependency>
+          <groupId>postgresql</groupId>
+          <artifactId>postgresql</artifactId>
+          <version>9.1-901-1.jdbc4</version>
+      </dependency>
 
       <dependency>
           <groupId>de.l3s.boilerpipe</groupId>
