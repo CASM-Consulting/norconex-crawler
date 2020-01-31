@@ -35,6 +35,14 @@ public abstract class BaseScraper {
         this.scrapers = scrapers;
     }
 
+
+    /**
+     * Add last-scrape validation
+     * @param html
+     * @param scraperName
+     * @return
+     * @throws ScraperNotFoundException
+     */
     public LinkedList<Post> scrapePage(String html, String scraperName) throws ScraperNotFoundException {
         GeneralSplitterFactory scraper = scrapers.get(scraperName);
         if(scraper == null) {

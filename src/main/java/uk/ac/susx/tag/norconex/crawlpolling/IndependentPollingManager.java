@@ -75,7 +75,8 @@ public abstract class IndependentPollingManager {
         try {
             saveJobQueue(cacheLocation);
         } catch (IOException e) {
-            throw new RuntimeException("Unable to save job cache");
+
+            throw new RuntimeException("Unable to save job cache: " + e.getMessage() + " " + cacheLocation.toString());
         }
 
     }
