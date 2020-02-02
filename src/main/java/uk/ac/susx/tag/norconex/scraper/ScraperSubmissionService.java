@@ -66,7 +66,7 @@ public class ScraperSubmissionService extends SubmissionService {
                 .build()
                 .parse(corrArgs);
 
-        Properties props = SubmissionService.getProperties(scraperArguments.propsPath);
+        Properties props = Utils.getProperties(scraperArguments.propsPath);
         ScraperSubmissionService scraperSubmitter = new ScraperSubmissionService(scraperArguments.numScrapers,
                 scraperArguments.scraperDir,props,scraperArguments.queueNAme);
 

@@ -26,6 +26,7 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.ac.susx.tag.norconex.crawlpolling.SubmissionService;
+import uk.ac.susx.tag.norconex.utils.Utils;
 
 public class CrawlerSubmissionService extends SubmissionService {
 
@@ -177,7 +178,7 @@ public class CrawlerSubmissionService extends SubmissionService {
 //        }
 
         Path links = Paths.get(args[0]);
-        Properties props = CrawlerSubmissionService.getProperties(args[1]);
+        Properties props = Utils.getProperties(args[1]);
         CrawlerSubmissionService css = new CrawlerSubmissionService(props);
         try {
             css.submitSeeds(CrawlerSubmissionService.loadSeeds(links));

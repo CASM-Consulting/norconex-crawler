@@ -2,6 +2,7 @@ package uk.ac.susx.tag.norconex;
 
 import org.junit.Test;
 import uk.ac.susx.tag.norconex.jobqueuemanager.CrawlerSubmissionService;
+import uk.ac.susx.tag.norconex.utils.Utils;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -16,7 +17,7 @@ public class TestSubmissionService {
         String links = "/Users/jp242/Documents/Projects/ACLED/ManualScrapers/demo-seed-list.json";
 
         Path linkPath = Paths.get(links);
-        Properties props = CrawlerSubmissionService.getProperties(properties);
+        Properties props = Utils.getProperties(properties);
 
         CrawlerSubmissionService css = new CrawlerSubmissionService(props);
 

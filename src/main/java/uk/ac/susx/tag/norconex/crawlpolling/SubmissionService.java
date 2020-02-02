@@ -5,6 +5,7 @@ package uk.ac.susx.tag.norconex.crawlpolling;
 import com.enioka.jqm.api.JobInstance;
 import com.enioka.jqm.api.JobRequest;
 import com.enioka.jqm.api.JqmClientFactory;
+import uk.ac.susx.tag.norconex.utils.Utils;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -33,11 +34,11 @@ public class SubmissionService {
     }
 
     public SubmissionService(String propertiesLocation) {
-        this(getProperties(propertiesLocation));
+        this(Utils.getProperties(propertiesLocation));
     }
 
     public SubmissionService(Path propertiesLocation) {
-        properties = getProperties(propertiesLocation);
+        properties = Utils.getProperties(propertiesLocation);
     }
 
     public void setManager(int jobId) {
@@ -56,24 +57,6 @@ public class SubmissionService {
         JqmClientFactory.setProperties(properties);
         return JqmClientFactory.getClient().enqueue(request);
 
-    }
-
-    public static Properties getProperties(String propertiesPath) {
-        return getProperties(Paths.get(propertiesPath));
-    }
-
-    public static Properties getProperties(Path propertiesLocation) {
-
-        Properties properties = new Properties();
-        try (BufferedReader br = new BufferedReader(new FileReader(propertiesLocation.toFile()))) {
-            properties.load(br);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return properties;
     }
 
 }
