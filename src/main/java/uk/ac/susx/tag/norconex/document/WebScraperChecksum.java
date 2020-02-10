@@ -14,9 +14,11 @@ import de.l3s.boilerpipe.extractors.CommonExtractors;
 import org.apache.commons.configuration.XMLConfiguration;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.HttpClient;
+import org.eclipse.jetty.util.ConcurrentHashSet;
 import org.jsoup.Jsoup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import uk.ac.susx.tag.norconex.database.ConcurrentContentHashStore;
 import uk.ac.susx.tag.norconex.jobqueuemanager.CrawlerArguments;
 import uk.ac.susx.tag.norconex.scraping.GeneralSplitterFactory;
 import uk.ac.susx.tag.norconex.scraping.IForumSplitter;
@@ -54,12 +56,16 @@ public class WebScraperChecksum extends AbstractDocumentChecksummer {
 
     public static Map<String, GeneralSplitterFactory> scrapers = new HashMap<>();
 
+    public static ConcurrentContentHashStore contentHashes;
+
     // Used if you wish the pre-processor to only be repsonsible for a single scraper.
     public static GeneralSplitterFactory scraper;
 
     private final Gson gson;
 
-    public WebScraperChecksum(Path scraperLocation) {
+    public WebScraperChecksum(Path scraperLocation, ConcurrentContentHashStore contentHashes) {
+
+        this.contentHashes = contentHashes;
 
         gson = new Gson();
         try {
@@ -91,14 +97,20 @@ public class WebScraperChecksum extends AbstractDocumentChecksummer {
         final String html = sw.toString();
 
         String checksum = null;
-        processDocument(null, (HttpDocument) document);
+        WebPage webPage = processDocument((HttpDocument) document);
+        if(webPage != null && webPage.getArticle() != null && webPage.getArticle().length() > 0) {
+            checksum = ChecksumUtil.checksumMD5(webPage.getArticle());
 
-        String article = document.getMetadata().get(SCRAPEDARTICLE).get(0);
-        if(article != null && article.length() > 0) {
-            checksum = ChecksumUtil.checksumMD5(document.getMetadata().get(SCRAPEDARTICLE).get(0));
+            // Check if that scraped content already exists - if not add it to the document for post-processing
+            if(!contentHashes.containsContentHash(checksum)) {
+                addScrapedContentToMetadata(webPage, (HttpDocument) document);
+                logger.info("URL will not be sent for further processing as content has already been processed - " + document.getReference());
+            }
+
         } else {
             try {
                 checksum = ChecksumUtil.checksumMD5(generalScraper(html));
+                contentHashes.addContentHash(checksum, document);
             } catch (BoilerpipeProcessingException e) {
                 logger.error("Boilerpipe failed to process html for " + document.getReference() + " " + e.getMessage());
             }
@@ -107,7 +119,7 @@ public class WebScraperChecksum extends AbstractDocumentChecksummer {
         return checksum;
     }
 
-    public void processDocument(HttpClient httpClient, HttpDocument doc) {
+    public WebPage processDocument(HttpDocument doc) {
 
         if(Utils.isText(doc)) {
 
@@ -136,20 +148,24 @@ public class WebScraperChecksum extends AbstractDocumentChecksummer {
             } catch (URISyntaxException e) {
                 logger.warn("Malformed url exception");
             }
-
-            if(webPage.getArticle() != null && webPage.getArticle().length() > 0) {
-                List<String> pages = new ArrayList<>();
-                doc.getMetadata().put(SCRAPEDARTICLE,Arrays.asList(webPage.getArticle()));
-                if(webPage.getTitle() != null && webPage.getTitle().length() > 0) {
-                    doc.getMetadata().put(SCRAPEDTITLE, Arrays.asList(webPage.getTitle()));
-                }
-                if(webPage.getDate() != null && webPage.getDate().length() > 0) {
-                    doc.getMetadata().put(SCRAPEDATE, Arrays.asList(webPage.getDate()));
-                }
-            }
-
+            return webPage;
         }
+        return null;
+    }
 
+    public void addScrapedContentToMetadata(WebPage webPage, HttpDocument doc) {
+        // Check content was scraped.
+        if(webPage.getArticle() != null && webPage.getArticle().length() > 0) {
+            // Check content does not already exist in the scraped db.
+            List<String> pages = new ArrayList<>();
+            doc.getMetadata().put(SCRAPEDARTICLE,Arrays.asList(webPage.getArticle()));
+            if(webPage.getTitle() != null && webPage.getTitle().length() > 0) {
+                doc.getMetadata().put(SCRAPEDTITLE, Arrays.asList(webPage.getTitle()));
+            }
+            if(webPage.getDate() != null && webPage.getDate().length() > 0) {
+                doc.getMetadata().put(SCRAPEDATE, Arrays.asList(webPage.getDate()));
+            }
+        }
     }
 
     public WebPage scrape_page(WebPage page) throws ScraperNotFoundException, MalformedURLException, URISyntaxException {

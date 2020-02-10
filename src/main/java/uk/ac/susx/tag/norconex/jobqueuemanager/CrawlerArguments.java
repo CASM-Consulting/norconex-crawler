@@ -76,4 +76,6 @@ public class CrawlerArguments {
     @Parameter(names = {CRAWLDBPROPS}, description = "Specifies a properties file containing the crawler database commiter config.")
     public String crawldbProps;
 
+    public static final String CONTENTHASH = "pageContentsHash";
+
 }

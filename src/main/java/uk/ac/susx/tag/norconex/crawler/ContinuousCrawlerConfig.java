@@ -77,9 +77,9 @@ public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 		ucs.setStayOnProtocol(true);
 		setUrlCrawlScopeStrategy(ucs);
 
-		GenericRecrawlableResolver grr = new GenericRecrawlableResolver();
-		grr.setMinFrequencies();
-		this.setRecrawlableResolver(grr);
+//		GenericRecrawlableResolver grr = new GenericRecrawlableResolver();
+//		grr.setMinFrequencies();
+//		this.setRecrawlableResolver(grr);
 
 //		GenericURLNormalizer urlNormaliser = new GenericURLNormalizer();
 //		urlNormaliser.setNormalizations(GenericURLNormalizer.Normalization);

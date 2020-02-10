@@ -41,6 +41,7 @@ public class MVStoreTest {
         }
 //        System.out.println(mv.openMap);
         MVStore mv = MVStore.open(mvstore);
+
         final MVMap<String, ICrawlData> mapCached = mv.openMap("processedValid");
         final MVMap<String, ICrawlData> mapInCached = mv.openMap("processedInvalid");
 
