@@ -66,15 +66,16 @@ public class ScraperJob {
         service.awaitTermination(10, TimeUnit.MINUTES);
     }
 
-    /**
-     * Base factory class for building scraper instances.
-     * @param <A>
-     */
-    public abstract class ScraperFactory<A extends BaseScraper>{
-
-        public abstract A create();
-
-    }
+//    /**
+//     * Base factory class for building scraper instances.
+//     */
+//    public  class ScraperFactory {
+//
+//        public BaseScraper create() {
+//            return new BaseScraper(scrapersJson);
+//        }
+//
+//    }
 
     /**
      * Initialise and build all scrapers in a single directory.

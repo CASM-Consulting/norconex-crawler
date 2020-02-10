@@ -48,6 +48,7 @@ public class SubmissionService {
     public int submitJobRequest(JobRequest request) {
 
         JqmClientFactory.setProperties(properties);         // reiterated each time to ensure it remains up-to-date
+
         return JqmClientFactory.getClient().enqueue(request);
 
     }

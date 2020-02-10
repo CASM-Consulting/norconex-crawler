@@ -24,17 +24,11 @@ import java.util.*;
  */
 public abstract class BaseScraper {
 
-    private GeneralSplitterFactory factory;
-    private String domain;
-    private int jobID;
-
     public static Map<String, GeneralSplitterFactory> scrapers;
-
 
     public BaseScraper(Map<String, GeneralSplitterFactory> scrapers) {
         this.scrapers = scrapers;
     }
-
 
     /**
      * Add last-scrape validation
@@ -50,9 +44,6 @@ public abstract class BaseScraper {
         }
         return scraper.create().split(Jsoup.parse(html));
     }
-
-
-
 
 
 }

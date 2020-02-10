@@ -1,16 +1,14 @@
 <httpcollector id="...">
 
-<crawlDataStoreFactory
-        class="com.norconex.collector.core.data.store.impl.mvstore.MVStoreCrawlDataStoreFactory">
-
-    <!-- For advanced MVStore configuration: -->
-    <!--<pageSplitSize>(number)</pageSplitSize>-->
-    <compress>2</compress>
-    <cacheConcurrency>5</cacheConcurrency>
-    <cacheSize>5</cacheSize>
-    <autoCompactFillRate>90</autoCompactFillRate>
-    <autoCommitBufferSize>10</autoCommitBufferSize>
-    <autoCommitDelay>10</autoCommitDelay>
-</crawlDataStoreFactory>
+    <crawlDataStoreFactory  class="com.norconex.collector.core.data.store.impl.mvstore.MVStoreCrawlDataStoreFactory">
+        <!-- For advanced MVStore configuration: -->
+        <!--<pageSplitSize>(number)</pageSplitSize>-->
+        <compress>2</compress>
+        <cacheConcurrency>5</cacheConcurrency>
+        <cacheSize>5</cacheSize>
+        <autoCompactFillRate>90</autoCompactFillRate>
+        <autoCommitBufferSize>10</autoCommitBufferSize>
+        <autoCommitDelay>10</autoCommitDelay>
+    </crawlDataStoreFactory>
 
 </httpcollector>

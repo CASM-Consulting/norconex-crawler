@@ -1,30 +1,34 @@
 package uk.ac.susx.tag.norconex.crawlstore;
 
+//norconex
 import com.norconex.collector.core.data.ICrawlData;
 import com.norconex.collector.http.data.HttpCrawlData;
+
+// h2 imports
 import org.h2.mvstore.MVMap;
 import org.h2.mvstore.MVStore;
+
+// logging imports
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.FileFilter;
+// java
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Simple program that allows users to specify a single crawldb of directory containing many and remove all
+ * stored urls discovered on a page.
+ */
 public class CompactCrawlDatabases {
 
     protected static final Logger logger = LoggerFactory.getLogger(CompactCrawlDatabases.class);
 
     public boolean compactChunks(Path path) {
-
-//        String mvstore = "tests/crawldb/taglaboratory.org/crawlstore/mvstore/taglaboratory.org_95_singleSeedCollector/mvstore";
 
         try {
 
@@ -38,8 +42,9 @@ public class CompactCrawlDatabases {
             // Remove superfluous referral information
             final MVMap<String, ICrawlData> mapCached = mv.openMap("processedValid");
             final MVMap<String, ICrawlData> mapInCached = mv.openMap("processedInvalid");
-            removeReferrals(mapCached);
-            removeReferrals(mapInCached);
+            removeReferencedURLSFromCrawlDBIndex(mapCached);
+            removeReferencedURLSFromCrawlDBIndex(mapInCached);
+
             mv.commit();
 
             mv.close();
@@ -48,12 +53,15 @@ public class CompactCrawlDatabases {
             return false;
         }
 
-
         return true;
 
     }
 
-    private void removeReferrals(MVMap<String, ICrawlData> crawlstore) {
+    /**
+     * Deletes all referenced URLs from a crawldb
+     * @param crawlstore
+     */
+    private void removeReferencedURLSFromCrawlDBIndex(MVMap<String, ICrawlData> crawlstore) {
         for(Map.Entry<String, ICrawlData> data : crawlstore.entrySet()) {
             HttpCrawlData urlData = (HttpCrawlData) data.getValue();
             urlData.setReferencedUrls(new String[0]);

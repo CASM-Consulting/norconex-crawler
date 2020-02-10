@@ -12,6 +12,7 @@ import com.norconex.collector.core.data.store.impl.mvstore.MVStoreCrawlDataStore
 import com.norconex.collector.core.doc.CollectorMetadata;
 import com.norconex.collector.http.fetch.impl.GenericMetadataFetcher;
 import com.norconex.collector.http.recrawl.impl.GenericRecrawlableResolver;
+import com.norconex.collector.http.url.impl.GenericURLNormalizer;
 import com.norconex.importer.parser.GenericDocumentParserFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,7 +55,6 @@ public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 		setDocumentChecksummer(new ArticleExtractorChecksum());
 		setIgnoreSitemap(ignoreSiteMap);
 
-
 		setCrawlDataStoreFactory(new MVStoreCrawlDataStoreFactory());
 
 		// Control the threadpool size for each crawler
@@ -80,6 +80,9 @@ public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 		GenericRecrawlableResolver grr = new GenericRecrawlableResolver();
 		grr.setMinFrequencies();
 		this.setRecrawlableResolver(grr);
+
+//		GenericURLNormalizer urlNormaliser = new GenericURLNormalizer();
+//		urlNormaliser.setNormalizations(GenericURLNormalizer.Normalization);
 				
 		// set to false so crawl cache is only those of interest
 		setKeepOutOfScopeLinks(false);
@@ -94,7 +97,7 @@ public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 		// set this to correctly manage file sizes etc... 
 		ImporterConfig importCon = new ImporterConfig();
 		importCon.setMaxFileCacheSize(10);
-		importCon.setMaxFilePoolCacheSize(10);
+		importCon.setMaxFilePoolCacheSize(200);
 		GenericDocumentParserFactory gdpf = new GenericDocumentParserFactory();
 		gdpf.setIgnoredContentTypesRegex(".*");
 		importCon.setParserFactory(gdpf);

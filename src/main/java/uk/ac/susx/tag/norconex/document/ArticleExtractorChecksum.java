@@ -31,9 +31,6 @@ public class ArticleExtractorChecksum extends AbstractDocumentChecksummer {
     @Override
     protected String doCreateDocumentChecksum(ImporterDocument document) {
 
-
-        document.getContent().rewind();
-
         StringWriter sw = new StringWriter();
         document.getContent().rewind();
 
