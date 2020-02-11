@@ -75,7 +75,7 @@ public class WebScraperChecksum extends AbstractDocumentChecksummer {
             }
             else {
                 logger.info("INFO: Provided a specific crawler to load and scrape pages with.");
-                Utils.initScraper(scraperLocation);
+                scraper = Utils.initScraper(scraperLocation);
             }
         } catch (IOException e) {
             throw new RuntimeException("Failed: when attempting to initialise web scraper(s): " + e.getMessage());
