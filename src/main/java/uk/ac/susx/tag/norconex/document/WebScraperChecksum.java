@@ -27,7 +27,6 @@ import uk.ac.susx.tag.norconex.utils.ScraperNotFoundException;
 import uk.ac.susx.tag.norconex.utils.Utils;
 import uk.ac.susx.tag.norconex.utils.WebPage;
 
-import javax.rmi.CORBA.Util;
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -38,6 +37,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
+@Deprecated
 public class WebScraperChecksum extends AbstractDocumentChecksummer {
 
     protected static final Logger logger = LoggerFactory.getLogger(WebScraperChecksum.class);
@@ -50,10 +50,6 @@ public class WebScraperChecksum extends AbstractDocumentChecksummer {
     public static final String title = "field.name/title";
     public static final String date = "field.name/date";
 
-    public static final String metaDATE = "date";
-    public static final String metaTITLE = "title";
-    public static final String metaARTICLE = "article";
-
     public static Map<String, GeneralSplitterFactory> scrapers = new HashMap<>();
 
     public static ConcurrentContentHashStore contentHashes;
@@ -61,13 +57,9 @@ public class WebScraperChecksum extends AbstractDocumentChecksummer {
     // Used if you wish the pre-processor to only be repsonsible for a single scraper.
     public static GeneralSplitterFactory scraper;
 
-    private final Gson gson;
-
     public WebScraperChecksum(Path scraperLocation, ConcurrentContentHashStore contentHashes) {
 
         this.contentHashes = contentHashes;
-
-        gson = new Gson();
         try {
             if(Files.isDirectory(scraperLocation) && !Files.exists(Paths.get(scraperLocation.toAbsolutePath().toString(),"job.json"))) {
                 logger.info("INFO: Provided a directory for scraper location - attempting to load all scrapers it contains.");
@@ -103,19 +95,22 @@ public class WebScraperChecksum extends AbstractDocumentChecksummer {
 
             // Check if that scraped content already exists - if not add it to the document for post-processing
             if(!contentHashes.containsContentHash(checksum)) {
+                contentHashes.addContentHash(checksum, document);
                 addScrapedContentToMetadata(webPage, (HttpDocument) document);
-                logger.info("URL will not be sent for further processing as content has already been processed - " + document.getReference());
+                logger.info("URL will be sent for further processing as content has not been seen before - " + document.getReference());
+            } else {
+                logger.info("Content has been seen before - will not be processed again:  " + document.getReference());
             }
 
         } else {
             try {
                 checksum = ChecksumUtil.checksumMD5(generalScraper(html));
                 contentHashes.addContentHash(checksum, document);
+                return checksum;
             } catch (BoilerpipeProcessingException e) {
                 logger.error("Boilerpipe failed to process html for " + document.getReference() + " " + e.getMessage());
             }
         }
-
         return checksum;
     }
 
@@ -157,7 +152,6 @@ public class WebScraperChecksum extends AbstractDocumentChecksummer {
         // Check content was scraped.
         if(webPage.getArticle() != null && webPage.getArticle().length() > 0) {
             // Check content does not already exist in the scraped db.
-            List<String> pages = new ArrayList<>();
             doc.getMetadata().put(SCRAPEDARTICLE,Arrays.asList(webPage.getArticle()));
             if(webPage.getTitle() != null && webPage.getTitle().length() > 0) {
                 doc.getMetadata().put(SCRAPEDTITLE, Arrays.asList(webPage.getTitle()));
