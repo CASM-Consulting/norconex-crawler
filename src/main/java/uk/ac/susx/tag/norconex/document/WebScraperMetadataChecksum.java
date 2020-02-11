@@ -14,12 +14,15 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.ac.susx.tag.norconex.database.ConcurrentContentHashStore;
+import uk.ac.susx.tag.norconex.jobqueuemanager.CrawlerArguments;
 import uk.ac.susx.tag.norconex.utils.Utils;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.stream.Collector;
 
 public class WebScraperMetadataChecksum extends AbstractDocumentChecksummer {
 
@@ -27,9 +30,8 @@ public class WebScraperMetadataChecksum extends AbstractDocumentChecksummer {
 
     public static ConcurrentContentHashStore contentHashes;
 
-    public WebScraperMetadataChecksum(ConcurrentContentHashStore contentHashes, String field) {
+    public WebScraperMetadataChecksum(ConcurrentContentHashStore contentHashes) {
         this.contentHashes = contentHashes;
-        this.setTargetField(field);
         this.setKeep(true);
     }
 
@@ -39,16 +41,18 @@ public class WebScraperMetadataChecksum extends AbstractDocumentChecksummer {
         String checksum = null;
 
         if(Utils.isText((HttpDocument) document)) {
-            final String content = document.getMetadata().get(getTargetField()).get(0);
+            final String content = document.getMetadata().get(CrawlerArguments.SCRAPEDARTICLE).get(0);
             if (content != null && content.length() > 0) {
                 checksum = ChecksumUtil.checksumMD5(content);
                 // Check if that scraped content already exists - if not add it to the document for post-processing
                 if (!contentHashes.containsContentHash(checksum)) {
                     contentHashes.addContentHash(checksum, document);
+                    document.getMetadata().put(CrawlerArguments.PREVIOUSLYSCRAPED,Arrays.asList("false"));
                     logger.info("URL will be sent for further processing as content has not been seen before - " + document.getReference());
                 } else {
-                    setChecksumMetadata(checksum,(HttpDocument) document);
+                    document.getMetadata().put(CrawlerArguments.PREVIOUSLYSCRAPED,Arrays.asList("true"));
                     logger.info("Content has been seen before - will not be processed again:  " + document.getReference());
+                    return checksum;
                 }
             } else {
                 try {
@@ -66,20 +70,13 @@ public class WebScraperMetadataChecksum extends AbstractDocumentChecksummer {
                     final String html = sw.toString();
                     checksum = ChecksumUtil.checksumMD5(generalScraper(html));
                     contentHashes.addContentHash(checksum, document);
+                    return checksum;
                 } catch (BoilerpipeProcessingException e) {
                     logger.error("Boilerpipe failed to process html for " + document.getReference() + " " + e.getMessage());
                 }
             }
         }
         return checksum;
-    }
-
-
-    /**
-     * This is only called when a document content checksum has been seen before from another URL.
-     */
-    private void setChecksumMetadata(String checksum, HttpDocument document) {
-        document.getMetadata().put(CollectorMetadata.COLLECTOR_CHECKSUM_DOC, Arrays.asList(checksum));
     }
 
     /**

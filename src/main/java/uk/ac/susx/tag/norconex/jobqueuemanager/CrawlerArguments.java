@@ -9,6 +9,7 @@ public class CrawlerArguments {
     public static final String SCRAPEDARTICLE = "scraped.article";
     public static final String SCRAPEDATE = "scraped.date";
     public static final String SCRAPEDTITLE = "scraped.title";
+    public static final String PREVIOUSLYSCRAPED = "scraped.previously";
 
     @Parameter(names = {SingleSeedCollector.USERAGENT}, description = "The user agent provided to sites.",
             required = true)
