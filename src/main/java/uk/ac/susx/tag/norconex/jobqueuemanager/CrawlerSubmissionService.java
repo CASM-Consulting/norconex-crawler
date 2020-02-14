@@ -28,18 +28,12 @@ import org.slf4j.LoggerFactory;
 import uk.ac.susx.tag.norconex.crawlpolling.SubmissionService;
 import uk.ac.susx.tag.norconex.utils.Utils;
 
-public class CrawlerSubmissionService extends SubmissionService {
+    public class CrawlerSubmissionService extends SubmissionService {
 
     protected static final Logger logger = LoggerFactory.getLogger(CrawlerSubmissionService.class);
 
-    public static final String SEED  = "seed";
-    public static final String SEEDS = "seeds";
-
-    public static final String LINK       = "LINK";
     public static final String NAME       = "NAME";
     public static final String COUNTRIES  = "COUNTRIES";
-    public static final String SCRAPER    = "SCRAPER";
-    public static final String SOURCE     = "SOURCE";
 
     public static final String CRAWLERJOB = "SpringCollector";
     public static final String USER       = "crawler-submission-service";
@@ -48,40 +42,12 @@ public class CrawlerSubmissionService extends SubmissionService {
         super(props);
     }
 
-    public static JSONArray loadSeeds(Path location) throws IOException {
-        String json = Files.toString(location.toFile(), Charset.defaultCharset());
-        return new JSONObject(json).getJSONArray(SEEDS);
-    }
-
-    /**
-     * @param seeds seeds as JSONArray of seeds, which de-serliase into a map
-     *              with seed and metadata. See @submitSeed
-     * @throws IOException
-     */
-    public void submitSeeds(JSONArray seeds) {
-        System.out.println(seeds.length());
-        for(int i = 0; i < seeds.length(); i++) {
-            try {
-                submitSeed((HashMap<String,String>) new ObjectMapper().readValue(seeds.getJSONObject(i).getJSONObject(SEED).toString(),HashMap.class));
-                TimeUnit.MILLISECONDS.sleep(100);
-            } catch (IOException e) {
-                logger.error("ERROR: failed to submit seed: " + seeds.getJSONObject(i).getJSONObject(SEED).toString());
-                System.out.println(seeds.getJSONObject(i).getJSONObject(SEED).toString());
-                continue;
-            } catch (Exception e) {
-                logger.error("ERROR: failed to submit seed: " + seeds.getJSONObject(i).getJSONObject(SEED).toString());
-                e.printStackTrace();
-                System.out.println(seeds.getJSONObject(i).getJSONObject(SEED).toString());
-                continue;
-            }
-            System.out.println(i);
-        }
-    }
 
     /**
      * @param seed Map containing the seed url to crawl,
      *            readable source name and countries the source covers
      */
+    @Override
     public void submitSeed(Map<String,String> seed) {
 
         JobRequest jr = JobRequest.create(CRAWLERJOB, USER);

@@ -73,4 +73,9 @@ public class ScraperSubmissionService extends SubmissionService {
         scraperSubmitter.submitScrapers();
 
     }
+
+    @Override
+    public void submitSeed(Map<String, String> params) {
+
+    }
 }

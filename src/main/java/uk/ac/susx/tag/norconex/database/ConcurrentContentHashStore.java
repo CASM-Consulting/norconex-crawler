@@ -33,7 +33,7 @@ public class ConcurrentContentHashStore {
         }
 
         store = MVStore.open(Paths.get(storeLocation.toAbsolutePath().toString(), STORENAME).toString());
-        contentHashMap = store.openMap("contentHashMap");
+        contentHashMap = store.openMap(MAPNAME);
 
     }
 

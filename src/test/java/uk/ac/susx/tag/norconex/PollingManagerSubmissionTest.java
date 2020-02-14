@@ -9,6 +9,7 @@ import org.junit.Test;
 import uk.ac.susx.tag.norconex.crawlpolling.IndependentPollingManager;
 import uk.ac.susx.tag.norconex.crawlpolling.SubmissionService;
 import uk.ac.susx.tag.norconex.jobqueuemanager.CrawlerPollingManager;
+import uk.ac.susx.tag.norconex.jobqueuemanager.CrawlerSubmissionService;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -33,7 +34,7 @@ public class PollingManagerSubmissionTest {
         } catch (IOException e) {
             Assert.fail();
         }
-        SubmissionService ss = new SubmissionService(props);
+        SubmissionService ss = new CrawlerSubmissionService(props);
         JobRequest jobRequest = JobRequest.create("CrawlerManager","jp242");
         JqmClientFactory.setProperties(props);
 

@@ -158,7 +158,6 @@ public class SingleSeedCollector {
             HttpCollectorConfig collectorConfig = new HttpCollectorConfig();
             collectorConfig.setId(collectorId);
 
-            config.setReferenceFilters();
             collectorConfig.setCrawlerConfigs(config);
             collectorConfig.setCollectorListeners(new CleanUpCollector());
 
