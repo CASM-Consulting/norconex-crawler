@@ -65,6 +65,7 @@ public class Straight2DBCollector {
 
         collector.setConfiguration(config);
         collector.start();
+        committer.close();
     }
 
     private KeepOnlyTagger buildKeepOnlyTagger() {

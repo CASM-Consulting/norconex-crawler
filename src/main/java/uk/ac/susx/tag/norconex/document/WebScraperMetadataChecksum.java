@@ -2,9 +2,7 @@ package uk.ac.susx.tag.norconex.document;
 
 import com.norconex.collector.core.checksum.AbstractDocumentChecksummer;
 import com.norconex.collector.core.checksum.ChecksumUtil;
-import com.norconex.collector.core.doc.CollectorMetadata;
 import com.norconex.collector.http.doc.HttpDocument;
-import com.norconex.collector.http.doc.HttpMetadata;
 import com.norconex.commons.lang.xml.EnhancedXMLStreamWriter;
 import com.norconex.importer.doc.ImporterDocument;
 import de.l3s.boilerpipe.BoilerpipeProcessingException;
@@ -20,9 +18,7 @@ import uk.ac.susx.tag.norconex.utils.Utils;
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.lang.reflect.Array;
 import java.util.Arrays;
-import java.util.stream.Collector;
 
 public class WebScraperMetadataChecksum extends AbstractDocumentChecksummer {
 
@@ -44,21 +40,11 @@ public class WebScraperMetadataChecksum extends AbstractDocumentChecksummer {
             final String content = document.getMetadata().get(CrawlerArguments.SCRAPEDARTICLE).get(0);
             if (content != null && content.length() > 0) {
                 checksum = ChecksumUtil.checksumMD5(content);
-                // Check if that scraped content already exists - if not add it to the document for post-processing
-                if (!contentHashes.containsContentHash(checksum)) {
-                    contentHashes.addContentHash(checksum, document);
-                    document.getMetadata().put(CrawlerArguments.PREVIOUSLYSCRAPED,Arrays.asList("false"));
-                    logger.info("URL will be sent for further processing as content has not been seen before - " + document.getReference());
-                } else {
-                    document.getMetadata().put(CrawlerArguments.PREVIOUSLYSCRAPED,Arrays.asList("true"));
-                    logger.info("Content has been seen before - will not be processed again:  " + document.getReference());
-                    return checksum;
-                }
+                addHashAndMeta(checksum,document);
+                return checksum;
             } else {
                 try {
-
                     final String url = document.getReference();
-
                     StringWriter sw = new StringWriter();
                     document.getContent().rewind();
                     try {
@@ -66,10 +52,9 @@ public class WebScraperMetadataChecksum extends AbstractDocumentChecksummer {
                     } catch (IOException e) {
                         throw new RuntimeException("ERROR: Failed to retrieve web content for url: " + url);
                     }
-
                     final String html = sw.toString();
                     checksum = ChecksumUtil.checksumMD5(generalScraper(html));
-                    contentHashes.addContentHash(checksum, document);
+                    addHashAndMeta(checksum,document);
                     return checksum;
                 } catch (BoilerpipeProcessingException e) {
                     logger.error("Boilerpipe failed to process html for " + document.getReference() + " " + e.getMessage());
@@ -77,6 +62,20 @@ public class WebScraperMetadataChecksum extends AbstractDocumentChecksummer {
             }
         }
         return checksum;
+    }
+
+    public synchronized void addHashAndMeta(String checksum, ImporterDocument document) {
+
+        // Check if that scraped content already exists - if not add it to the document for post-processing
+        if (!contentHashes.containsContentHash(checksum)) {
+            contentHashes.addContentHash(checksum, document);
+            document.getMetadata().put(CrawlerArguments.PREVIOUSLYSCRAPED,Arrays.asList("false"));
+            logger.info("URL will be sent for further processing as content has not been seen before - " + document.getReference());
+        } else {
+            document.getMetadata().put(CrawlerArguments.PREVIOUSLYSCRAPED,Arrays.asList("true"));
+            logger.info("Content has been seen before - will not be processed again:  " + document.getReference());
+        }
+
     }
 
     /**
