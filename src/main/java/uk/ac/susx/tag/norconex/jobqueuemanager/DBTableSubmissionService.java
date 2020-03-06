@@ -29,7 +29,7 @@ public class DBTableSubmissionService extends SubmissionService {
     }
 
     @Override
-    public void submitSeed(Map<String, String> seed) {
+    public void submitSeed(Map<String, String> seed, String jobdef) {
 
         JobRequest jobReq = new JobRequest(CRAWLERJOB,CRAWLERUSER);
         jobReq.setQueueName(QUEUE);
@@ -51,7 +51,7 @@ public class DBTableSubmissionService extends SubmissionService {
         Properties props = Utils.getProperties(args[1]);
         DBTableSubmissionService css = new DBTableSubmissionService(props);
         try {
-            css.submitSeeds(DBTableSubmissionService.loadSeeds(links));
+            css.submitSeeds(DBTableSubmissionService.loadSeeds(links), CRAWLERJOB);
         } catch (IOException e) {
             e.printStackTrace();
         }
