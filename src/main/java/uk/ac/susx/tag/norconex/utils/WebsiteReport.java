@@ -1,6 +1,7 @@
 package uk.ac.susx.tag.norconex.utils;
 
 import crawlercommons.robots.BaseRobotRules;
+import org.apache.commons.validator.routines.UrlValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,23 +26,33 @@ public class WebsiteReport {
     public String httpMessage;
 
     public WebsiteReport(String url) {
-        try {
-            this.url = new URL(url);
-        } catch (MalformedURLException e) {
-            validURL = false;
-            successfulPing = false;
-            httpCode = -1;
-            canCrawl = false;
-            LOG.error("The provided URL - " + url +  " - is poorly formed.");
+        if(UrlValidator.getInstance().isValid(url)) {
+            try {
+                this.url = new URL(url);
+                try {
+                    buildReport();
+                } catch (IOException e) {
+                    LOG.error("Failed when attempting to build statics on provided URL - " + url +  " - " + e.getMessage());
+                }
+            } catch (MalformedURLException e) {
+                inValidURLReport();
+            }
+        } else {
+            inValidURLReport();
         }
-        try {
-            buildReport();
-        } catch (IOException e) {
-            LOG.error("Failed when attempting to build statics on provided URL - " + url +  " - " + e.getMessage());
-        }
+
+    }
+
+    public void inValidURLReport() {
+        validURL = false;
+        successfulPing = false;
+        httpCode = -1;
+        canCrawl = false;
+        LOG.error("The provided URL - " + url + " - is poorly formed.");
     }
 
     private void buildReport() throws IOException {
+
 
         HttpURLConnection connection = establishConnection(url);
 

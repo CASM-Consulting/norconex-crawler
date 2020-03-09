@@ -23,12 +23,12 @@ public class MVStoreTest {
     @Test
     public void MVStoreTest() {
 
-        String backup = "/Users/jp242/Documents/Projects/ACLED/Index-reduction/thejakartapost.com/crawlstore/mvstore/mvstore";
+        String backup = "/Users/jp242/Documents/Projects/ACLED2020/dbcompresstest/mvstore";
         File before = new File(backup);
         System.out.println("Before: " + before.length());
 
 //        String mvstore = "/Users/jp242/Documents/Projects/ACLED/mvstoretest/libyaschannel.com/crawlstore/mvstore/libyaschannel.com_95_singleSeedCollector/mvstore";
-        String mvstore = "/Users/jp242/Documents/Projects/ACLED/Index-reduction/thejakartapost.com/crawlstore/mvstore/thejakartapost.com_95_singleSeedCollector/mvstore";
+        String mvstore = "/Users/jp242/Documents/Projects/ACLED2020/dbcompresstest/crawldatabases/africanews.com/crawlstore/mvstore/africanews.com_95_singleSeedCollector/mvstore";
         //        MVStore mv = new MVStore.Builder()
 //                .fileName(mvstore)
 //                .open();
@@ -51,7 +51,7 @@ public class MVStoreTest {
 
 
 
-        System.out.println("cache size: "+mv.compact(90,100));
+        System.out.println("cache size: "+ mv.compact(90,100));
 
 
 //        HttpCrawlData data = (HttpCrawlData) mapCached.get("https://libyaschannel.com/tag/%D8%A7%D9%81%D8%B7%D8%A7%D8%B1/");
