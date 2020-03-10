@@ -37,7 +37,7 @@ public class WebsiteReport {
         LOG.error("The provided URL - " + url + " - is poorly formed.");
     }
 
-    private void buildReport(String url) throws IOException {
+    public void buildReport(String url) throws IOException {
 
         final String protocolURL = WebsiteAnalysis.addHttpProtocol(url,true);
         if(!validate(protocolURL)) {
