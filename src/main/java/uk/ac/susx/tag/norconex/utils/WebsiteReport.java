@@ -34,6 +34,8 @@ public class WebsiteReport {
         successfulPing = false;
         httpCode = -1;
         canCrawl = false;
+        hasRobots = false;
+        hasSitemap = false;
         LOG.error("The provided URL - " + url + " - is poorly formed.");
     }
 
