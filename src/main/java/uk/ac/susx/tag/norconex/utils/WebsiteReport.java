@@ -46,7 +46,15 @@ public class WebsiteReport {
         }
         try {
             URL parsedURL = new URL(protocolURL);
-            HttpURLConnection connection = establishConnection(parsedURL);
+            HttpURLConnection connection = null;
+            try {
+                connection = establishConnection(parsedURL);
+            } catch (IOException e) {
+                // If https fails then fallback to http and try again
+                String httpURL = WebsiteAnalysis.addHttpProtocol(url,false);
+                parsedURL = new URL(httpURL);
+                connection = establishConnection(parsedURL);
+            }
 
             // Basic return status
             httpCode = connection.getResponseCode();
