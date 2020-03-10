@@ -49,8 +49,7 @@ public class WebsiteAnalysis {
     }
 
     public static HttpURLConnection establishConnection(URL url) throws IOException {
-        // Build the connection
-        HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
         connection.connect();
         return connection;
