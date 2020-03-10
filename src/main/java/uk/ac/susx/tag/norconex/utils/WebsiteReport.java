@@ -1,6 +1,7 @@
 package uk.ac.susx.tag.norconex.utils;
 
 import crawlercommons.robots.BaseRobotRules;
+import org.apache.commons.validator.routines.UrlValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +16,6 @@ public class WebsiteReport {
 
     private static final Logger LOG = LoggerFactory.getLogger(WebsiteReport.class);
 
-    private URL url;
     public boolean validURL = true;
     public boolean successfulPing = true;
     public boolean hasRobots = true;
@@ -24,61 +24,67 @@ public class WebsiteReport {
     public int httpCode;
     public String httpMessage;
 
-    public WebsiteReport(String url) {
-        try {
-            this.url = new URL(url);
-        } catch (MalformedURLException e) {
-            validURL = false;
-            successfulPing = false;
-            httpCode = -1;
-            canCrawl = false;
-            LOG.error("The provided URL - " + url +  " - is poorly formed.");
-        }
-        try {
-            buildReport();
-        } catch (IOException e) {
-            LOG.error("Failed when attempting to build statics on provided URL - " + url +  " - " + e.getMessage());
-        }
+    public boolean validate(String url) {
+        final String protocolURL = WebsiteAnalysis.addHttpProtocol(url,true);
+        return UrlValidator.getInstance().isValid(protocolURL);
     }
 
-    private void buildReport() throws IOException {
+    public void inValidURLReport(String url) {
+        validURL = false;
+        successfulPing = false;
+        httpCode = -1;
+        canCrawl = false;
+        LOG.error("The provided URL - " + url + " - is poorly formed.");
+    }
 
-        HttpURLConnection connection = establishConnection(url);
+    public void buildReport(String url) throws IOException {
 
-        // Basic return status
-        httpCode = connection.getResponseCode();
-        httpMessage = connection.getResponseMessage();
+        final String protocolURL = WebsiteAnalysis.addHttpProtocol(url,true);
+        if(!validate(protocolURL)) {
+            inValidURLReport(protocolURL);
+            return;
+        }
+        try {
+            URL parsedURL = new URL(protocolURL);
+            HttpURLConnection connection = establishConnection(parsedURL);
 
-        // Successful connection?
-        if (httpCode != 200) {
+            // Basic return status
+            httpCode = connection.getResponseCode();
+            httpMessage = connection.getResponseMessage();
 
-            successfulPing = false;
-            canCrawl = false;
-            connection.disconnect();
+            // Successful connection?
+            if (httpCode != 200) {
+                successfulPing = false;
+                canCrawl = false;
+                connection.disconnect();
 
-        } else {
+            } else {
 
-            // Resolve site configuration
-            connection.disconnect();
+                // Resolve site configuration
+                connection.disconnect();
 
-            String hostId = getHostID(url);
-            HttpURLConnection robConnection = establishConnection(new URL(hostId + "/robots.txt"));
+                String hostId = getHostID(parsedURL);
+                HttpURLConnection robConnection = establishConnection(new URL(hostId + "/robots.txt"));
 
-            if(robConnection.getResponseCode() != 404) {
-                BaseRobotRules rules = getRobotRules(hostId,robConnection);
-                canCrawl = rules.isAllowed(this.url.toString());
+                if(robConnection.getResponseCode() != 404) {
+                    BaseRobotRules rules = getRobotRules(hostId,robConnection);
+                    canCrawl = rules.isAllowed(parsedURL.toString());
+                }
+                else {
+                    hasRobots = false;
+                }
+                robConnection.disconnect();
+
+                // resolve sitemap
+                HttpURLConnection sitemap = establishConnection(new URL(hostId + "/sitemap.xml"));
+                if(sitemap.getResponseCode() != 200) {
+                    hasSitemap = false;
+                }
+                sitemap.disconnect();
             }
-            else {
-                hasRobots = false;
-            }
-            robConnection.disconnect();
 
-            // resolve sitemap
-            HttpURLConnection sitemap = establishConnection(new URL(hostId + "/sitemap.xml"));
-            if(sitemap.getResponseCode() != 200) {
-                hasSitemap = false;
-            }
-            sitemap.disconnect();
+        } catch (MalformedURLException e) {
+            inValidURLReport(protocolURL);
         }
 
     }
