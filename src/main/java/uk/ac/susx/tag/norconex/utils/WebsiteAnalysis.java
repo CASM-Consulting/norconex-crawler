@@ -41,7 +41,6 @@ public class WebsiteAnalysis {
             // get rid of any previous or malformed protocol
             url = matcher.replaceFirst("");
         }
-        
         url =  (https) ? "https://" + url : "http://" + url;
 
         return url;
