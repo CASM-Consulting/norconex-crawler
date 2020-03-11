@@ -59,7 +59,7 @@ public class ConcurrentContentHashStore implements AutoCloseable {
     }
 
     public synchronized ConcurrentContentHashStore open() {
-        if(store.isClosed()) {
+        if(store == null || store.isClosed()) {
             store = MVStore.open(Paths.get(storeLocation.toAbsolutePath().toString(), STORENAME).toString());
             contentHashMap = store.openMap(MAPNAME);
         }
