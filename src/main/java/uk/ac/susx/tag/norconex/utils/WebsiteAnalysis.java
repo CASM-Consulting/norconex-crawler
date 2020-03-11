@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Contains some static methods for scrutinising a site and provides a @Report class which builds some shallow statistics
@@ -20,7 +22,9 @@ public class WebsiteAnalysis {
 
     private static final Logger LOG = LoggerFactory.getLogger(WebsiteAnalysis.class);
 
-    public static final String USER_AGENT = "casm.consulting.co.uk";
+    public static final String USER_AGENT = "casmconsulting.co.uk";
+
+    private static final Pattern PROTOCOL = Pattern.compile(".*:[/]{2}", Pattern.CASE_INSENSITIVE);
 
     public static BaseRobotRules getRobotRules(String hostId, HttpURLConnection robotsConnection) throws IOException {
         SimpleRobotRulesParser robotParser = new SimpleRobotRulesParser();
@@ -30,15 +34,15 @@ public class WebsiteAnalysis {
     }
 
     public static String addHttpProtocol(String url, boolean https) {
-        url = removeProtocol(url);
-        return (https) ? "https://" + url : "http://" + url;
-    }
 
-    private static String removeProtocol(String url) {
-        if(url.toLowerCase().matches(".*:[/]*.*")) {
+        Matcher matcher = PROTOCOL.matcher(url.toLowerCase());
+
+        if(matcher.find()) {
             // get rid of any previous or malformed protocol
-            return url.replaceFirst(".*:[/]*","");
+            url = matcher.replaceFirst("");
         }
+        url =  (https) ? "https://" + url : "http://" + url;
+
         return url;
     }
 
@@ -49,8 +53,7 @@ public class WebsiteAnalysis {
     }
 
     public static HttpURLConnection establishConnection(URL url) throws IOException {
-        // Build the connection
-        HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
         connection.connect();
         return connection;
