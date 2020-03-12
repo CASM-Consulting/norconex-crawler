@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
 import uk.ac.susx.tag.norconex.crawlpolling.SubmissionService;
 import uk.ac.susx.tag.norconex.utils.Utils;
 
-    public class CrawlerSubmissionService extends SubmissionService {
+public class CrawlerSubmissionService extends SubmissionService {
 
     protected static final Logger logger = LoggerFactory.getLogger(CrawlerSubmissionService.class);
 
@@ -48,14 +48,16 @@ import uk.ac.susx.tag.norconex.utils.Utils;
      *            readable source name and countries the source covers
      */
     @Override
-    public void submitSeed(Map<String,String> seed) {
+    public void submitSeed(Map<String,String> seed, String jobDef) {
 
-        JobRequest jr = JobRequest.create(CRAWLERJOB, USER);
+        JobRequest jr = JobRequest.create(jobDef, USER);
         jr.addParameter(SingleSeedCollector.SEED, SingleSeedCollector.SEED + " " + seed.get(LINK));
         jr.addParameter(SingleSeedCollector.ID, SingleSeedCollector.ID + " " + seed.get(SOURCE));
         jr.addParameter(CrawlerArguments.SCRAPER, CrawlerArguments.SCRAPER + " " + seed.get(SCRAPER));
         jr.addParameter(CrawlerArguments.SOURCEDOMAIN, CrawlerArguments.SOURCEDOMAIN + " " + seed.get(SOURCE));
         jr.setKeyword1(seed.get(SOURCE));
+
+        System.out.println(jr.getParameters());
         this.submitJobRequest(jr);
 
     }
@@ -145,9 +147,13 @@ import uk.ac.susx.tag.norconex.utils.Utils;
 
         Path links = Paths.get(args[0]);
         Properties props = Utils.getProperties(args[1]);
+        String jobDef = CRAWLERJOB;
+        if(args[2] != null) {
+            jobDef = args[2];
+        }
         CrawlerSubmissionService css = new CrawlerSubmissionService(props);
         try {
-            css.submitSeeds(CrawlerSubmissionService.loadSeeds(links));
+            css.submitSeeds(CrawlerSubmissionService.loadSeeds(links), jobDef);
         } catch (IOException e) {
             e.printStackTrace();
         }

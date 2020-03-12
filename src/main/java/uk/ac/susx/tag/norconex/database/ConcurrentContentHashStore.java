@@ -15,11 +15,13 @@ import java.nio.file.Paths;
 
 import com.norconex.collector.core.data.store.CrawlDataStoreException;
 
-public class ConcurrentContentHashStore {
+public class ConcurrentContentHashStore implements AutoCloseable {
 
     private MVStore store;
 
-    private final MVMap<String, String> contentHashMap;
+    private final Path storeLocation;
+
+    private MVMap<String, String> contentHashMap;
     private static final String STORENAME = "contentHashStore";
     private static final String MAPNAME = "contentHashMap";
 
@@ -32,13 +34,15 @@ public class ConcurrentContentHashStore {
                     "Cannot create crawl data store directory: " + storeLocation, e);
         }
 
-        store = MVStore.open(Paths.get(storeLocation.toAbsolutePath().toString(), STORENAME).toString());
-        contentHashMap = store.openMap(MAPNAME);
-
+        this.storeLocation = storeLocation;
     }
 
     public synchronized boolean containsContentHash(String hash) {
-        return contentHashMap.containsKey(hash);
+        try (
+            ConcurrentContentHashStore cchs = this.open()
+        ) {
+            return contentHashMap.containsKey(hash);
+        }
     }
 
     /**
@@ -46,12 +50,25 @@ public class ConcurrentContentHashStore {
      * @param data the document - to disambiguate the two strings and provide access to more that just URL/reference
      */
     public synchronized void addContentHash(String hash, ImporterDocument data) {
-        contentHashMap.put(hash,data.getReference());
-        store.commit();
+        try (
+            ConcurrentContentHashStore cchs = this.open()
+        ) {
+            contentHashMap.put(hash,data.getReference());
+            store.commit();
+        }
     }
 
+    public synchronized ConcurrentContentHashStore open() {
+        if(store == null || store.isClosed()) {
+            store = MVStore.open(Paths.get(storeLocation.toAbsolutePath().toString(), STORENAME).toString());
+            contentHashMap = store.openMap(MAPNAME);
+        }
+        return this;
+    }
+
+    @Override
     public void close() {
-        if(!store.isClosed()) {
+        if(store != null && !store.isClosed()) {
             store.commit();
             store.close();
         }

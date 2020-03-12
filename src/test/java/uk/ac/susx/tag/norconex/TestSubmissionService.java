@@ -22,7 +22,7 @@ public class TestSubmissionService {
         CrawlerSubmissionService css = new CrawlerSubmissionService(props);
 
         try {
-            css.submitSeeds(CrawlerSubmissionService.loadSeeds(linkPath));
+            css.submitSeeds(CrawlerSubmissionService.loadSeeds(linkPath), "");
         } catch (IOException e) {
             e.printStackTrace();
         }

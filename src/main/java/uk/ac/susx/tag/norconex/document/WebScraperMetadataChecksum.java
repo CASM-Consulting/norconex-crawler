@@ -24,7 +24,7 @@ public class WebScraperMetadataChecksum extends AbstractDocumentChecksummer {
 
     protected static final Logger logger = LoggerFactory.getLogger(WebScraperMetadataChecksum.class);
 
-    public static ConcurrentContentHashStore contentHashes;
+    private final ConcurrentContentHashStore contentHashes;
 
     public WebScraperMetadataChecksum(ConcurrentContentHashStore contentHashes) {
         this.contentHashes = contentHashes;

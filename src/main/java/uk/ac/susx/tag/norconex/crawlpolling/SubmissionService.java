@@ -90,11 +90,13 @@ public abstract class SubmissionService {
      *              with seed and metadata. See @submitSeed
      * @throws IOException
      */
-    public void submitSeeds(JSONArray seeds) {
+    public void submitSeeds(JSONArray seeds, String jobDef) {
         System.out.println(seeds.length());
         for(int i = 0; i < seeds.length(); i++) {
             try {
-                submitSeed((HashMap<String,String>) new ObjectMapper().readValue(seeds.getJSONObject(i).getJSONObject(SEED).toString(),HashMap.class));
+                Map<String,String> seed = (HashMap<String,String>) new ObjectMapper().readValue(seeds.getJSONObject(i).getJSONObject(SEED).toString(),HashMap.class);
+                System.out.println(seed);
+                submitSeed(seed, jobDef);
                 TimeUnit.MILLISECONDS.sleep(100);
             } catch (IOException e) {
                 logger.error("ERROR: failed to submit seed: " + seeds.getJSONObject(i).getJSONObject(SEED).toString());
@@ -110,6 +112,6 @@ public abstract class SubmissionService {
         }
     }
 
-    public abstract void submitSeed(Map<String,String> params);
+    public abstract void submitSeed(Map<String,String> params, String jobDef);
 
 }
