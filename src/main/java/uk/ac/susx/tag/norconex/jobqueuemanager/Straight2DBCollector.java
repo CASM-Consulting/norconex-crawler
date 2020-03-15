@@ -15,7 +15,7 @@ import com.norconex.importer.ImporterConfig;
 import com.norconex.importer.handler.tagger.impl.KeepOnlyTagger;
 import com.norconex.importer.parser.GenericDocumentParserFactory;
 import org.apache.http.client.HttpClient;
-import org.apache.regexp.RE;
+//import org.apache.regexp.RE;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
