@@ -68,7 +68,7 @@ public class ConcurrentContentHashStore implements AutoCloseable {
 
     @Override
     public void close() {
-        if(!store.isClosed()) {
+        if(store != null && !store.isClosed()) {
             store.commit();
             store.close();
         }

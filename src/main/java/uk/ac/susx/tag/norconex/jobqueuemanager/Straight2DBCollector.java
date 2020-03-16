@@ -5,9 +5,6 @@ import com.beust.jcommander.JCommander;
 
 // norconex imports
 import com.norconex.collector.http.crawler.HttpCrawlerConfig;
-import com.norconex.collector.http.doc.HttpDocument;
-import com.norconex.collector.http.doc.HttpMetadata;
-import com.norconex.collector.http.processor.IHttpDocumentProcessor;
 import com.norconex.committer.sql.SQLCommitter;
 
 // java logs
@@ -15,7 +12,6 @@ import com.norconex.importer.ImporterConfig;
 import com.norconex.importer.handler.tagger.impl.KeepOnlyTagger;
 import com.norconex.importer.parser.GenericDocumentParserFactory;
 import org.apache.http.client.HttpClient;
-//import org.apache.regexp.RE;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
