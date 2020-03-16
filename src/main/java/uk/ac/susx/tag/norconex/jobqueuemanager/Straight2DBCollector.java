@@ -4,6 +4,7 @@ package uk.ac.susx.tag.norconex.jobqueuemanager;
 import com.beust.jcommander.JCommander;
 
 // norconex imports
+import com.norconex.collector.core.filter.impl.ExtensionReferenceFilter;
 import com.norconex.collector.http.crawler.HttpCrawlerConfig;
 import com.norconex.committer.sql.SQLCommitter;
 
@@ -50,6 +51,7 @@ public class Straight2DBCollector {
                 args.seeds.get(0));
 
         HttpCrawlerConfig config = collector.getConfiguration();
+        config.setDocumentFilters(new ExtensionReferenceFilter("html htm php asp"));
 
         SQLCommitter committer = buildCommiter(props);
         committer.setQueueDir(Paths.get(args.crawldb,Utils.getDomain(args.seeds.get(0)), "commitqueue").toAbsolutePath().toString());
