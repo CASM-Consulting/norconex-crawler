@@ -24,9 +24,9 @@ public class WebsiteReport {
     public int httpCode;
     public String httpMessage;
 
-    public boolean validate(String url) {
-        final String protocolURL = WebsiteAnalysis.addHttpProtocol(url,true);
-        return UrlValidator.getInstance().isValid(protocolURL);
+    public static boolean validate(String url) {
+//        final String protocolURL = WebsiteAnalysis.addHttpProtocol(url,true);
+        return UrlValidator.getInstance().isValid(url);
     }
 
     public void inValidURLReport(String url) {
@@ -39,24 +39,33 @@ public class WebsiteReport {
         LOG.error("The provided URL - " + url + " - is poorly formed.");
     }
 
-    public void buildReport(String url) throws IOException {
+    public static HttpURLConnection ensureConnection(String original) throws IOException {
 
-        final String protocolURL = WebsiteAnalysis.addHttpProtocol(url,true);
-        if(!validate(protocolURL)) {
-            inValidURLReport(protocolURL);
-            return;
+        String httpsURL = WebsiteAnalysis.addHttpProtocol(original, true);
+        if (!UrlValidator.getInstance().isValid(httpsURL)) {
+            throw new MalformedURLException(httpsURL);
         }
+        URL url = new URL(httpsURL);
+        HttpURLConnection connection = null;
         try {
-            URL parsedURL = new URL(protocolURL);
-            HttpURLConnection connection = null;
-            try {
-                connection = establishConnection(parsedURL);
-            } catch (IOException e) {
-                // If https fails then fallback to http and try again
-                String httpURL = WebsiteAnalysis.addHttpProtocol(url,false);
-                parsedURL = new URL(httpURL);
-                connection = establishConnection(parsedURL);
-            }
+            connection = establishConnection(url);
+        } catch (IOException e) {
+            // If https fails then fallback to http and try again
+            String httpURL = WebsiteAnalysis.addHttpProtocol(httpsURL, false);
+            url = new URL(httpURL);
+            connection = establishConnection(url);
+        }
+        return connection;
+    }
+
+    public void buildReport(String url) throws IOException {
+        HttpURLConnection connection = null;
+        HttpURLConnection robConnection = null;
+        HttpURLConnection sitemap = null;
+        try {
+            connection = ensureConnection(url);
+
+            URL parsedURL = connection.getURL();
 
             // Basic return status
             httpCode = connection.getResponseCode();
@@ -74,7 +83,7 @@ public class WebsiteReport {
                 connection.disconnect();
 
                 String hostId = getHostID(parsedURL);
-                HttpURLConnection robConnection = establishConnection(new URL(hostId + "/robots.txt"));
+                robConnection = establishConnection(new URL(hostId + "/robots.txt"));
 
                 if(robConnection.getResponseCode() != 404) {
                     BaseRobotRules rules = getRobotRules(hostId,robConnection);
@@ -86,15 +95,25 @@ public class WebsiteReport {
                 robConnection.disconnect();
 
                 // resolve sitemap
-                HttpURLConnection sitemap = establishConnection(new URL(hostId + "/sitemap.xml"));
+                sitemap = establishConnection(new URL(hostId + "/sitemap.xml"));
                 if(sitemap.getResponseCode() != 200) {
                     hasSitemap = false;
                 }
                 sitemap.disconnect();
             }
 
-        } catch (MalformedURLException e) {
-            inValidURLReport(protocolURL);
+        } catch (IOException e) {
+            inValidURLReport(url);
+        } finally {
+            if(connection != null) {
+                connection.disconnect();
+            }
+            if(robConnection != null) {
+                robConnection.disconnect();
+            }
+            if(sitemap != null) {
+                sitemap.disconnect();
+            }
         }
 
     }

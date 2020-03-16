@@ -74,7 +74,7 @@ public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 		URLCrawlScopeStrategy ucs = new URLCrawlScopeStrategy();
 		ucs.setStayOnDomain(true);
 		ucs.setStayOnPort(false);
-		ucs.setStayOnProtocol(true);
+		ucs.setStayOnProtocol(false);
 		setUrlCrawlScopeStrategy(ucs);
 
 //		GenericRecrawlableResolver grr = new GenericRecrawlableResolver();
