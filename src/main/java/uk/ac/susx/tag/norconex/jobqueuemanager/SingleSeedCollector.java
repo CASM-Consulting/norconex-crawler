@@ -230,9 +230,9 @@ public class SingleSeedCollector {
 
 	public static void main(String[] args) {
 
-        for(String arg : args) {
-            logger.error(arg + " ");
-        }
+//        for(String arg : args) {
+//            logger.error(arg + " ");
+//        }
 
         String[] corrArgs = Utils.buildArguments(args);
         CrawlerArguments ca = new CrawlerArguments();
@@ -241,10 +241,18 @@ public class SingleSeedCollector {
                 .build()
                 .parse(corrArgs);
 
-        SingleSeedCollector cc = new SingleSeedCollector(ca.userAgent,new File(ca.crawldb), ca.id,
-                ca.depth, ca.urlFilter,ca.threadsPerSeed,ca.ignoreRobots,
-                ca.ignoreSitemap, ca.polite,
-                ca.seeds.get(0));
+        SingleSeedCollector cc = new SingleSeedCollector(
+                ca.userAgent,
+                new File(ca.crawldb),
+                ca.id,
+                ca.depth,
+                ca.urlFilter,
+                ca.threadsPerSeed,
+                ca.ignoreRobots,
+                ca.ignoreSitemap,
+                ca.polite,
+                ca.seeds.get(0)
+        );
 
         cc.start();
     }

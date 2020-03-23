@@ -51,7 +51,7 @@ public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 		setMaxDepth(depth); // -1 for inf
 		setIgnoreRobotsMeta(ignoreRobots);
 		setIgnoreRobotsTxt(ignoreRobots);
-		setIgnoreCanonicalLinks(true);
+		setIgnoreCanonicalLinks(false);
 		setDocumentChecksummer(new ArticleExtractorChecksum());
 		setIgnoreSitemap(ignoreSiteMap);
 
@@ -73,6 +73,7 @@ public class ContinuousCrawlerConfig extends HttpCrawlerConfig {
 		// Keeps the crawler within the same domain
 		URLCrawlScopeStrategy ucs = new URLCrawlScopeStrategy();
 		ucs.setStayOnDomain(true);
+		ucs.setIncludeSubdomains(true);
 		ucs.setStayOnPort(false);
 		ucs.setStayOnProtocol(false);
 		setUrlCrawlScopeStrategy(ucs);

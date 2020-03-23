@@ -61,7 +61,7 @@ public class CrawlerSubmissionService extends SubmissionService {
         jr.addParameter(CrawlerArguments.SOURCEDOMAIN, CrawlerArguments.SOURCEDOMAIN + " " + seed.get(SOURCE));
         jr.setKeyword1(seed.get(SOURCE));
 
-        System.out.println(jr.getParameters());
+//        System.out.println(jr.getParameters());
         this.submitJobRequest(jr);
 
     }
