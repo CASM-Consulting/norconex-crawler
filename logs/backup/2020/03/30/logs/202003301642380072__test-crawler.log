@@ -1,0 +1,149 @@
+[non-job]: 2020-03-30 16:42:33 INFO - Starting execution.
+[non-job]: 2020-03-30 16:42:33 INFO - Version: "Collector" version is undefined.
+[non-job]: 2020-03-30 16:42:33 INFO - Version: Norconex Collector Core 1.10.0 (Norconex Inc.)
+[non-job]: 2020-03-30 16:42:33 INFO - Version: Norconex Importer 2.10.0 (Norconex Inc.)
+[non-job]: 2020-03-30 16:42:33 INFO - Version: Norconex JEF 4.1.2 (Norconex Inc.)
+[non-job]: 2020-03-30 16:42:33 INFO - Version: Norconex Committer Core 2.1.2 (Norconex Inc.)
+test-crawler: 2020-03-30 16:42:33 INFO - Running test-crawler: BEGIN (Mon Mar 30 16:42:33 BST 2020)
+test-crawler: 2020-03-30 16:42:33 INFO - test-crawler: RobotsTxt support: true
+test-crawler: 2020-03-30 16:42:33 INFO - test-crawler: RobotsMeta support: true
+test-crawler: 2020-03-30 16:42:33 INFO - test-crawler: Sitemap support: false
+test-crawler: 2020-03-30 16:42:33 INFO - test-crawler: Canonical links support: false
+test-crawler: 2020-03-30 16:42:33 INFO - test-crawler: User-Agent: support@casmconsulting.co.uk
+test-crawler: 2020-03-30 16:42:34 INFO - test-crawler: Initializing sitemap store...
+test-crawler: 2020-03-30 16:42:34 INFO - test-crawler: Done initializing sitemap store.
+test-crawler: 2020-03-30 16:42:34 INFO - 1 start URLs identified.
+test-crawler: 2020-03-30 16:42:34 INFO -           CRAWLER_STARTED
+test-crawler: 2020-03-30 16:42:34 INFO - test-crawler: Crawling references...
+test-crawler: 2020-03-30 16:42:37 INFO -          DOCUMENT_FETCHED: http://shekulli.com.al
+test-crawler: 2020-03-30 16:42:37 INFO -       CREATED_ROBOTS_META: http://shekulli.com.al
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/sport/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/admin/wp-content/uploads/2020/03/ganiu-350x300.jpg
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/admin/wp-content/uploads/2019/12/horoskopi-350x300.jpg
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/vendi/ekonomi/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/lereni-te-shuhet-ne-heshtje-vrasesin-e-padukshem/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/biznesi-i-vogel-pa-nderhyrjen-e-qeverise-e-ardhmja-e-sipermarrjeve-familjare-eshte-falimenti-360-mije-veta-te-papune/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/admin/wp-content/uploads/2020/03/cfcf-350x300.jpg
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/u-arrestua-per-pengmarrjen-dhe-vrajsen-e-jan-prenges-le-burgun-bajram-hajri/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/fitoi-kampionatin-europian-ndahet-nga-jeta-ish-trajneri-i-njohur/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/admin/wp-content/uploads/2020/03/stone.jpeg
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/italia-nis-testimet-e-5-vaksinave-ja-kur-dalin-rezultatet/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/bote/ballkan/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/admin/wp-content/uploads/2020/01/koco-kokedhima-2-350x300.jpg
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/turizem/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/u-perjashtua-nga-skuadra-bashke-me-lenjanin-dhe-7-futbolliste-te-tjere-ish-lojtari-i-barcelones-padit-klubin-ne-fifa/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/presidenti-meta-mesazh-italisht-ne-rainews24-do-ia-dalim-kjo-eshte-nje-beteje-e-perbashket/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/arsim/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/wp-content/plugins/wp-polls/images/loading.gif
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/rajon/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/fotogaleri/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/admin/wp-content/uploads/2020/03/hidalgo-350x300.png
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/covid-19-varhelyi-mbeshtetje-partnereve-tane-per-sistemin-shendetesor/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/real-estate/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/admin/wp-content/uploads/2018/05/atletiko1-470x282-350x282.jpg
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/emigrantet/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/kriza-politike-ne-kosove-dw-debate-per-rrugezgjidhje-ne-kohe-pandemie/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/hapet-spitali-covid-2-operohet-pacientja-e-pare-e-prekur-nga-virusi/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/kemi-tejkaluar-10-mije-viktima-conte-jemi-afer-pikut/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/cudira-shqiptare-kafeja-sherbehet-me-dron-video/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/admin/wp-content/uploads/2020/03/Capture-432x245.gif
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al#
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/horoskopi/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/bote/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/admin/wp-content/uploads/2020/03/fototooooo884114-350x300.jpg
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/shendeti/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/shifrat-sa-te-pushtetshme-jane-grate-dhe-vajzat-shqiptare/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/ushqimi-mireqenia//
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/horoskopi-ditor-e-diel-29-mars-2020/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/virusi-ekspertet-e-parashikuan-qe-ne-vitin-2006-ate-qe-po-ndodh-askush-nuk-i-degjoi/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/admin/wp-content/uploads/2020/02/Shpi.al-banner-new.gif
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/vendi/kronike/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/extra/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/politikat-e-privatesise/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/euro-eshte-forcuar-ndjeshem-e-nis-javen-duke-u-kembyer-pothuajse-131-leke/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/femrat/mode-fashion/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/nga-universiteti-u-katapultuam-ne-vijen-e-zjarrit-ne-spitale-historia-e-tre-mjekeve-qe-luftojne-covid-19/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/nenat-i-lame-me-lot-ne-sy-shkuan-per-te-ndihmuar-italine-flasin-mjeket/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/admin/wp-content/uploads/2020/03/2660-350x300.jpg
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/tronditese-nderron-jete-ne-nje-moshe-shume-te-re-futbollisti-i-te-rinjeve-te-atletiko-madridit/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/reklama/abissnet-web-skin.jpg
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/udhetim/http://shekulli.com.al/category/udhetim/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/nje-jave-pas-infektimit-me-covid-19-placido-domingo-shtrohet-me-urgjence-ne-spital/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/personazhe/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/nga-virusi-tek-rimekembja-si-do-ndryshoje-bota-gjate-18-muajve-te-ardhshem/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/art-dhe-kulture/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/efundit/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/kronike/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/koronavirusi-i-merr-jeten-nje-tjeter-shqiptari/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/ekonomi/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/sharon-stone-preket-nga-gjesti-i-30-mjekeve-shqiptare-faleminderit-me-gjithe-zemer/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/admin/wp-content/uploads/2020/03/GettyImages-1206462942-1160x788-350x300.jpg
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/vendi/politike/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/admin/wp-content/uploads/2020/03/grate-434x245.jpg
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/opinion/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/admin/wp-content/uploads/2020/02/BannerMaker_12022020_145743.png
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/admin/wp-content/uploads/2020/03/korona-12-652x365.jpg
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/jeten-tuaj-askush-nuk-e-kthen-mjeku-infeksionist-u-ben-apel-te-forte-shqiptareve/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/admin/wp-content/uploads/2020/03/shef-434x245.jpg
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/admin/wp-content/uploads/2020/03/fotooooo-4-637x365.jpg
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/aktualitet/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/admin/wp-content/uploads/2020/03/koronavirusi-infektivi-urgjenca1-1-490x365.jpg
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/komenteanaliza/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/koronavirusi-si-po-lufton-facebook-me-lajmet-e-rreme-grupet-private-te-facebook-jane-ne-ankth/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/gani-cekrezi-artisti-qe-skalit-shqiperine-ne-guret-e-lumenjve/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/admin/wp-content/uploads/2020/03/tiranabank.gif
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/admin/wp-content/uploads/2020/03/maxresdefault-3-350x300.jpg
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/wp-content/themes/tok_shekulli/images/nav-logo.png
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/shkolla/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/femrat/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/lifestyle/kurizitete/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/vendi/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/qeveria-zbut-masat-lejon-edhe-tre-biznese-te-tjera-qe-te-punojne/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/covid-19-rritet-numri-i-viktimave-ne-greqi-72-persona-ne-gjendje-te-rende/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/admin/wp-content/uploads/2020/03/histori-666x365.jpg
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/edhe-sa-te-vdekur-nga-corona-mund-te-perballojme/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/letra/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/be-ja-kerkon-nje-fillim-te-ri-per-shqiperine/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/admin/wp-content/uploads/2020/03/91218958_209603656959035_6508653239188062208_n-666x365.jpg
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/admin/wp-content/uploads/2020/03/alex-song-350x300.jpg
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/admin/wp-content/uploads/2020/03/vi-350x300.jpg
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/shkenca/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/mobilim-dhe-shtepi/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/teknologji/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/sociale/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/admin/wp-content/uploads/2020/02/njoftime_karriera_banner400x300.jpg
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/kuzhina/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/cdn-cgi/l/email-protection#2f464149406f5c474a445a434346014c4042014e43
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/admin/wp-content/uploads/2020/03/s1-1-350x300.jpg
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/nje-hap-drejt-vaksines-kompjuteri-me-i-shpejte-ne-bote-identifikon-ilacet-qe-mund-te-luftojne-covid-19/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/me-shume-se-33-mije-te-vdekur-vazhdon-ashper-beteja-me-koronavirusin-ne-mbare-boten/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/cdn-cgi/l/email-protection
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/admin/wp-content/uploads/2020/03/Capture-350x300.gif
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/lifestyle/showbiz/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/admin/wp-content/uploads/2020/03/e-madheeeeee-662x365.png
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/admin/wp-content/uploads/2020/03/euro-2-350x300.jpg
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/admin/wp-content/uploads/2020/03/placido-562x365.jpg
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/11-viktima-nga-koronavirusi-shkon-ne-223-numri-i-te-prekurve/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/wp-content/themes/tok_shekulli/images/logo.svg
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al#ViewPollResults
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/showbiz/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/admin/wp-content/uploads/2020/01/Jan-prenga-490x245.png
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/biznes/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/admin/wp-content/uploads/2020/03/91218958_209603656959035_6508653239188062208_n-350x300.jpg
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/mjedis/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/admin/wp-content/uploads/2020/03/kafe-me-dron-350x300.png
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/category/bujqesi/
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/admin/wp-content/uploads/2020/03/52954714_303-350x300.jpg
+test-crawler: 2020-03-30 16:42:38 INFO -         REJECTED_TOO_DEEP: http://shekulli.com.al/admin/wp-content/uploads/2020/03/ko-9-350x300.jpg
+test-crawler: 2020-03-30 16:42:38 INFO -            URLS_EXTRACTED: http://shekulli.com.al
+test-crawler: 2020-03-30 16:42:38 INFO -         DOCUMENT_IMPORTED: http://shekulli.com.al
+test-crawler: 2020-03-30 16:42:38 INFO -     DOCUMENT_POSTIMPORTED: http://shekulli.com.al
+test-crawler: 2020-03-30 16:42:38 INFO -    DOCUMENT_COMMITTED_ADD: http://shekulli.com.al
+test-crawler: 2020-03-30 16:42:38 INFO - test-crawler: 1 reference(s) processed.
+test-crawler: 2020-03-30 16:42:38 INFO -          CRAWLER_FINISHED
+test-crawler: 2020-03-30 16:42:38 INFO - test-crawler: Crawler completed.
+test-crawler: 2020-03-30 16:42:38 INFO - test-crawler: Crawler executed in 4 seconds.
+test-crawler: 2020-03-30 16:42:38 INFO - test-crawler: Closing sitemap store...
+test-crawler: 2020-03-30 16:42:38 INFO - Running test-crawler: END (Mon Mar 30 16:42:33 BST 2020)

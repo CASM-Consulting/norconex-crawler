@@ -48,7 +48,6 @@ public class ContinuousRecrawlableResolver implements IRecrawlableResolver {
 			return true;
 		}
 
-		
 		// If enough stats have not yet been collected to estimate the delay then recrawl
 		if(crawlStats.getCheckedCount() < ContinuousController.BURNIN_CRAWLS) {
 			crawlStats.incrementCheckedCount();
