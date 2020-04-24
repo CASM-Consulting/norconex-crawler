@@ -1,6 +1,8 @@
 /target/
 /tests/
 /work/
+/logs
+/progress
 .idea
 .settings
 .classpath
