@@ -1,7 +1,7 @@
 package uk.ac.susx.tag.norconex.scraping;
 
 // java imports
-import java.io.File;
+import 	java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 
 // nutch imports
 import org.apache.commons.io.FileUtils;
-
 
 // jsoup imports
 import org.codehaus.jackson.map.ObjectMapper;
