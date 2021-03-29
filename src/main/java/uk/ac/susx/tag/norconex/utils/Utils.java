@@ -3,6 +3,7 @@ package uk.ac.susx.tag.norconex.utils;
 import com.google.common.io.Files;
 import com.norconex.collector.http.doc.HttpDocument;
 import com.norconex.commons.lang.file.ContentType;
+import org.apache.commons.io.FileUtils;
 import org.json.JSONObject;
 import uk.ac.susx.tag.norconex.scraping.GeneralSplitterFactory;
 import uk.ac.susx.tag.norconex.scraping.POJOHTMLMatcherDefinition;
@@ -221,6 +222,5 @@ public class Utils {
 				ContentType.CSV.getContentFamily().getId().equals(contenFam) || ContentType.XML.getContentFamily().getId().equals(contenFam)) ?
 				true : false;
 	}
-
 
 }
