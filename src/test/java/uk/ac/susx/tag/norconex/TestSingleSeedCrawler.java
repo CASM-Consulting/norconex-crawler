@@ -12,13 +12,9 @@ public class TestSingleSeedCrawler {
 
     @Test
     public void testSingleSeedCrawler() {
-        String seed = "http://www.taglaboratory.org/";
-        SingleSeedCollector ssc = new SingleSeedCollector("m5", new File("tests/crawldb"),"singleseed",0,null,2,false,false,300,seed);
-        try {
-            ssc.start();
-        } catch (URISyntaxException e) {
-            Assert.fail();
-        }
+        String seed = "http://en.annahar.com/section/184-lebanon";
+        SingleSeedCollector ssc = new SingleSeedCollector("casmconsulting.co.uk", new File("/home/sw206/git/springcrawler/testcrawldb"),"singleseed",5,null,2,false,false,300,seed);
+        ssc.start();
     }
 
 }

@@ -133,7 +133,7 @@ public class SingleSeedCollector {
      * Creates and starts the crawler
      * This crawler can be restarted if it fails.
      */
-    public void start() throws RuntimeException, URISyntaxException {
+    public void start() {
         logger.info("Running crawl for seed: " + seed);
         HttpCollector collector = factory.createCollector();
         collector.start(true);
@@ -153,7 +153,7 @@ public class SingleSeedCollector {
      */
     public class SingleSeedCollectorFactory {
 
-        public ContinuousCollector createCollector() throws URISyntaxException {
+        public ContinuousCollector createCollector() {
 
             HttpCollectorConfig collectorConfig = new HttpCollectorConfig();
             collectorConfig.setId(collectorId);
@@ -230,9 +230,9 @@ public class SingleSeedCollector {
 
 	public static void main(String[] args) {
 
-        for(String arg : args) {
-            logger.error(arg + " ");
-        }
+//        for(String arg : args) {
+//            logger.error(arg + " ");
+//        }
 
         String[] corrArgs = Utils.buildArguments(args);
         CrawlerArguments ca = new CrawlerArguments();
@@ -241,18 +241,20 @@ public class SingleSeedCollector {
                 .build()
                 .parse(corrArgs);
 
-        SingleSeedCollector cc = new SingleSeedCollector(ca.userAgent,new File(ca.crawldb), ca.id,
-                ca.depth, ca.urlFilter,ca.threadsPerSeed,ca.ignoreRobots,
-                ca.ignoreSitemap, ca.polite,
-                ca.seeds.get(0));
+        SingleSeedCollector cc = new SingleSeedCollector(
+                ca.userAgent,
+                new File(ca.crawldb),
+                ca.id,
+                ca.depth,
+                ca.urlFilter,
+                ca.threadsPerSeed,
+                ca.ignoreRobots,
+                ca.ignoreSitemap,
+                ca.polite,
+                ca.seeds.get(0)
+        );
 
-        try {
-            cc.start();
-        } catch (URISyntaxException e) {
-            logger.error("Error attempting to start crawler");
-            throw new RuntimeException("The provided URL was invalid");
-        }
-
+        cc.start();
     }
 
 }

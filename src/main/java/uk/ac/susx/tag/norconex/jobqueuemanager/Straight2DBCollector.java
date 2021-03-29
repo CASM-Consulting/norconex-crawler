@@ -11,6 +11,8 @@ import com.norconex.committer.sql.SQLCommitter;
 // java logs
 import com.norconex.importer.ImporterConfig;
 import com.norconex.importer.handler.tagger.impl.KeepOnlyTagger;
+import com.norconex.importer.parser.GenericDocumentParserFactory;
+import org.apache.http.client.HttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

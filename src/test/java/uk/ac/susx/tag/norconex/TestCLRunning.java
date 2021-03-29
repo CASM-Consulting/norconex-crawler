@@ -28,10 +28,6 @@ public class TestCLRunning {
                 ca.depth,ca.urlFilter,ca.threadsPerSeed,
                 ca.ignoreRobots,ca.ignoreSitemap,ca.polite,ca.seeds.get(0));
 
-        try {
-            ssc.start();
-        } catch (URISyntaxException e) {
-            Assert.fail();
-        }
+        ssc.start();
     }
 }

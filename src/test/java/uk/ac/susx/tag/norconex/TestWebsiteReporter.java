@@ -14,6 +14,7 @@ public class TestWebsiteReporter {
         WebsiteReport report = new WebsiteReport();
         try {
             report.buildReport(url);
+            System.out.println(report);
         } catch (IOException e) {
             Assert.fail();
         }
