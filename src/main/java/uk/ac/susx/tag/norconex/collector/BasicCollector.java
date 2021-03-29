@@ -67,7 +67,7 @@ public class BasicCollector extends HttpCollector {
 		config.setId(id);
 
 		// Page found but record of its parent lost - process the content and links anyway
-		config.setOrphansStrategy(OrphansStrategy.PROCESS);
+		config.setOrphansStrategy(OrphansStrategy.IGNORE);
 
 		// Keeps the crawler within the same domain
 		URLCrawlScopeStrategy ucs = new URLCrawlScopeStrategy();
